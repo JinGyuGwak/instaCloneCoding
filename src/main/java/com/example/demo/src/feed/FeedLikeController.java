@@ -4,6 +4,7 @@ import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.feed.model.feedLike.FeedLikeRes;
 import com.example.demo.src.feed.model.feedLike.GetFeedLike;
 import com.example.demo.src.feed.model.feedLike.PostFeedLikeDto;
+import com.example.demo.src.feed.service.FeedLikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

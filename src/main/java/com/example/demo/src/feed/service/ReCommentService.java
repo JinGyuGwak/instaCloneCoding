@@ -1,4 +1,4 @@
-package com.example.demo.src.feed;
+package com.example.demo.src.feed.service;
 
 import com.example.demo.common.exceptions.BaseException;
 import com.example.demo.src.admin.LogEntityRepository;

@@ -6,6 +6,7 @@ import com.example.demo.src.feed.model.reComment.GetReCommentRes;
 import com.example.demo.src.feed.model.reComment.ReCommentDto;
 import com.example.demo.src.feed.model.reComment.ReCommentRes;
 import com.example.demo.src.feed.model.reComment.UpdateReCommentRes;
+import com.example.demo.src.feed.service.ReCommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

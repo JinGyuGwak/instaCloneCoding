@@ -5,8 +5,8 @@ import com.example.demo.common.entity.BaseEntity;
 import com.example.demo.common.exceptions.BaseException;
 import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.admin.model.AdminFeedRequestRes;
-import com.example.demo.src.admin.model.AdminUserRequestRes;
 import com.example.demo.src.admin.model.FeedDetailRes;
+import com.example.demo.src.admin.service.AdminFeedService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor

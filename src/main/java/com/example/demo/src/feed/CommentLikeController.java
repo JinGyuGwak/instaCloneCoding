@@ -5,6 +5,7 @@ import com.example.demo.src.feed.model.commentLike.CommentLikeRes;
 import com.example.demo.src.feed.model.commentLike.GetCommentLike;
 import com.example.demo.src.feed.model.commentLike.PostCommentLikeDto;
 import com.example.demo.src.feed.model.feedLike.PostFeedLikeDto;
+import com.example.demo.src.feed.service.CommentLikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

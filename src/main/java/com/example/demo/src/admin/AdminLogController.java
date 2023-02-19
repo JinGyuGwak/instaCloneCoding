@@ -3,7 +3,7 @@ package com.example.demo.src.admin;
 import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.admin.entity.LogEntity;
 import com.example.demo.src.admin.model.AdminLogRequestRes;
-import com.example.demo.src.admin.model.AdminReportRequestRes;
+import com.example.demo.src.admin.service.AdminLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

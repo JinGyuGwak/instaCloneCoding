@@ -5,7 +5,7 @@ import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.feed.model.feed.*;
 import com.example.demo.src.feed.model.feedReport.FeedReportDto;
 import com.example.demo.src.feed.model.feedReport.FeedReportRes;
-import com.example.demo.src.user.UserRepository;
+import com.example.demo.src.feed.service.FeedService;
 import com.example.demo.src.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

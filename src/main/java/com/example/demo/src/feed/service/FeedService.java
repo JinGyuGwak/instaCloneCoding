@@ -1,8 +1,9 @@
-package com.example.demo.src.feed;
+package com.example.demo.src.feed.service;
 
 import com.example.demo.common.exceptions.BaseException;
 import com.example.demo.src.admin.LogEntityRepository;
 import com.example.demo.src.admin.entity.LogEntity;
+import com.example.demo.src.feed.S3Uploader;
 import com.example.demo.src.feed.entity.*;
 import com.example.demo.src.feed.model.feed.*;
 import com.example.demo.src.feed.model.feedReport.FeedReportDto;

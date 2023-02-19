@@ -1,4 +1,4 @@
-package com.example.demo.src.feed;
+package com.example.demo.src.feed.service;
 
 import com.example.demo.common.exceptions.BaseException;
 import com.example.demo.src.feed.entity.Feed;
@@ -7,6 +7,8 @@ import com.example.demo.src.feed.model.feedLike.FeedLikeRes;
 import com.example.demo.src.feed.model.feedLike.GetFeedLike;
 import com.example.demo.src.feed.repository.FeedLikeRepository;
 import com.example.demo.src.feed.repository.FeedRepository;
+import com.example.demo.src.func.FuncFeed;
+import com.example.demo.src.func.FuncUser;
 import com.example.demo.src.user.UserRepository;
 import com.example.demo.src.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -24,16 +26,13 @@ import static com.example.demo.common.response.BaseResponseStatus.NOT_FIND_USER;
 @RequiredArgsConstructor
 @Service
 public class FeedLikeService {
-    private final FeedRepository feedRepository;
-    private final UserRepository userRepository;
     private final FeedLikeRepository feedLikeRepository;
+    private final FuncUser funcUser;
+    private final FuncFeed funcFeed;
     //피드 좋아요 (post)
     public FeedLikeRes userLikeFeed(Long feedId, Long userId){
-        Feed feed = feedRepository.findByIdAndState(feedId,ACTIVE)
-                .orElseThrow(() -> new BaseException(NOT_FIND_FEED));
-
-        User user=userRepository.findByIdAndState(userId,ACTIVE)
-                .orElseThrow(()->new BaseException(NOT_FIND_USER));
+        Feed feed = funcFeed.selectFeedByIdAndState(feedId);
+        User user = funcUser.selectUserByIdAndState(userId);
         FeedLike feedLike = new FeedLike(feed,user);
 
         if(!feedLikeRepository.findByFeedIdAndUserId(feedId, userId).isPresent()){

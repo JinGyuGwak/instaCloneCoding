@@ -2,8 +2,8 @@ package com.example.demo.src.admin;
 
 
 import com.example.demo.common.response.BaseResponse;
-import com.example.demo.src.admin.model.AdminFeedRequestRes;
 import com.example.demo.src.admin.model.AdminReportRequestRes;
+import com.example.demo.src.admin.service.AdminReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

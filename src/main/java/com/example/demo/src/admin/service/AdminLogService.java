@@ -1,5 +1,6 @@
-package com.example.demo.src.admin;
+package com.example.demo.src.admin.service;
 
+import com.example.demo.src.admin.LogEntityRepository;
 import com.example.demo.src.admin.entity.LogEntity;
 import com.example.demo.src.admin.model.AdminLogRequestRes;
 import com.example.demo.src.admin.model.AdminUserRequestRes;

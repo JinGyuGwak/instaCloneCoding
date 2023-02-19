@@ -1,4 +1,4 @@
-package com.example.demo.src.admin;
+package com.example.demo.src.admin.service;
 
 
 import com.example.demo.common.entity.BaseEntity;

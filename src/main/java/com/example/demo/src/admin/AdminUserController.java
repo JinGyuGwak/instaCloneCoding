@@ -5,6 +5,7 @@ import com.example.demo.common.exceptions.BaseException;
 import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.admin.model.AdminUserRequestRes;
 import com.example.demo.src.admin.model.UserDetailRes;
+import com.example.demo.src.admin.service.AdminUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

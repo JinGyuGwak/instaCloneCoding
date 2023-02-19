@@ -31,7 +31,6 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
-
     private final LogEntityRepository logEntityRepository;
 
 
