@@ -12,11 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostFeedRes {
-    private Long id; //postId
+    private Long feedId; //postId
     private Long userId; //userId
 
     public PostFeedRes(Feed feed) {
-        this.id = feed.getId();
+        this.feedId = feed.getId();
         this.userId=feed.getUser().getId();
     }
 }

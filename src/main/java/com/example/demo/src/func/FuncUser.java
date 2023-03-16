@@ -14,7 +14,7 @@ import static com.example.demo.common.response.BaseResponseStatus.NOT_FIND_USER;
 public class FuncUser {
     private final UserRepository userRepository;
 
-    public User selectUserByIdAndState(Long userId){
+    public User findUserByIdAndState(Long userId){
         return userRepository.findByIdAndState(userId,ACTIVE)
                 .orElseThrow(()->new BaseException(NOT_FIND_USER));
     }

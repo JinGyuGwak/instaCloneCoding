@@ -40,6 +40,7 @@ public class FollowController {
         List<GetFollower> getFollowerList = followService.followerSearch(userId);
         return new BaseResponse<>(getFollowerList);
     }
+
     /**
      * 팔로우 하기
      * [POST] /follow
@@ -66,5 +67,4 @@ public class FollowController {
         String result = "삭제 완료!!";
         return new BaseResponse<>(result);
     }
-
 }

@@ -13,9 +13,11 @@ import static com.example.demo.common.response.BaseResponseStatus.NOT_FIND_FEED;
 public class FuncFeed {
     private final FeedRepository feedRepository;
 
-    public Feed selectFeedByIdAndState(Long feedId){
+    public Feed findFeedByIdAndState(Long feedId){
         return feedRepository.findByIdAndState(feedId,ACTIVE)
                 .orElseThrow(() -> new BaseException(NOT_FIND_FEED));
     }
+
+
 
 }

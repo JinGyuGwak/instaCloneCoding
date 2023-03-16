@@ -38,10 +38,7 @@ public class FeedController {
             @RequestParam(value = "userId") Long userId,
             @RequestParam("files") List<MultipartFile> files,
             @RequestParam(value = "postText", required = false) String postText) throws Exception {
-        FeedCreateRequestDto saveDto = FeedCreateRequestDto.builder()
-                .user(userService.searchUserById(userId))
-                .postText(postText)
-                .build();
+        FeedCreateRequestDto saveDto = new FeedCreateRequestDto(userService.searchUserById(userId),postText);
         PostFeedRes postFeedRes = feedService.upload(saveDto,files);
 
         return new BaseResponse<>(postFeedRes);
@@ -52,8 +49,8 @@ public class FeedController {
      */
     @ResponseBody
     @DeleteMapping("{feedId}")
-    public BaseResponse<String> deleteFeed(@PathVariable("feedId") Long id){
-        feedService.deleteFeed(id);
+    public BaseResponse<String> deleteFeed(@PathVariable Long feedId){
+        feedService.deleteFeed(feedId);
 
         String result = "삭제 완료!!";
         return new BaseResponse<>(result);
@@ -63,11 +60,11 @@ public class FeedController {
      * [PATCH] /feed/{id}
      */
     @ResponseBody
-    @PatchMapping("{id}") //피드 아이디
-    public BaseResponse<UpdateFeedRes> updateFeed(@PathVariable Long id,
+    @PatchMapping("{feedId}") //피드 아이디
+    public BaseResponse<UpdateFeedRes> updateFeed(@PathVariable Long feedId,
                                                   @RequestBody FeedUpdateRequestDto requestDto) {
 
-        UpdateFeedRes updateFeedRes = feedService.updateFeed(id,requestDto);
+        UpdateFeedRes updateFeedRes = feedService.updateFeed(feedId,requestDto);
         return new BaseResponse<>(updateFeedRes);
     }
     /**
@@ -79,7 +76,7 @@ public class FeedController {
     @ResponseBody
     @GetMapping("")
     public BaseResponse<List<GetFeedRes>> searchAllFeed(
-            @PageableDefault(page = 0, size=5, sort = "createdAt", direction = Sort.Direction.DESC)
+            @PageableDefault(page = 0, size=20, sort = "createdAt", direction = Sort.Direction.DESC)
             Pageable pageable){
         List<GetFeedRes> getFeedRes = feedService.searchAllFeed(pageable);
         return new BaseResponse<>(getFeedRes);
@@ -89,10 +86,10 @@ public class FeedController {
      * [GET] /feed/{userId}
      */
     @ResponseBody
-    @GetMapping("{id}")
-    public BaseResponse<List<GetFeedRes>> searchUserFeed(@PathVariable Long id){
+    @GetMapping("{userId}")
+    public BaseResponse<List<GetFeedRes>> searchUserFeed(@PathVariable Long userId){
 
-        List<GetFeedRes> getFeedRes = feedService.searchUserFeed(id);
+        List<GetFeedRes> getFeedRes = feedService.searchUserFeed(userId);
         return new BaseResponse<>(getFeedRes);
     }
 

@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.demo.common.entity.BaseEntity.State.ACTIVE;
 import static com.example.demo.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
@@ -51,15 +52,9 @@ public class ReCommentService {
     }
     //리댓글 조회
     public List<GetReCommentRes> searchReComment(Long commentId){
-        List<ReComment> reCommentList =
-                reCommentRepository.findAllByFeedCommentIdAndState(commentId,ACTIVE);
-
-        List<GetReCommentRes> getReCommentResList = new ArrayList<>();
-        for(ReComment reComment : reCommentList){
-            GetReCommentRes a=new GetReCommentRes(reComment);
-            getReCommentResList.add(a);
-        }
-        return getReCommentResList;
+        return reCommentRepository.findAllByFeedCommentIdAndState(commentId, ACTIVE).stream()
+                .map(GetReCommentRes::new)
+                .collect(Collectors.toList());
     }
 
     //리댓글 수정

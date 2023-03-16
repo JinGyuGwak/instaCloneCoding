@@ -12,6 +12,5 @@ import lombok.Setter;
 public class PostLoginRes {
 
     private Long id; //유저의 기본키
-    private String sns;
     private String jwt;
 }

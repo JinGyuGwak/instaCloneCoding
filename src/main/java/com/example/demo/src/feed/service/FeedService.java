@@ -9,6 +9,8 @@ import com.example.demo.src.feed.model.feed.*;
 import com.example.demo.src.feed.model.feedReport.FeedReportDto;
 import com.example.demo.src.feed.model.feedReport.FeedReportRes;
 import com.example.demo.src.feed.repository.*;
+import com.example.demo.src.func.FuncFeed;
+import com.example.demo.src.func.FuncUser;
 import com.example.demo.src.user.UserRepository;
 import com.example.demo.src.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.demo.common.entity.BaseEntity.State.ACTIVE;
 import static com.example.demo.common.response.BaseResponseStatus.*;
@@ -29,13 +32,11 @@ import static com.example.demo.src.admin.entity.LogEntity.Domain.*;
 @Service
 public class FeedService {
     private final S3Uploader s3Uploader;
-
-
+    private final FuncUser funcUser;
+    private final FuncFeed funcFeed;
     private final FeedRepository feedRepository;
-    private final UserRepository userRepository;
     private final FeedContentRepository feedContentRepository;
     private final FeedReportRepository feedReportRepository;
-
     private final LogEntityRepository logEntityRepository;
 
     public PostFeedRes upload(FeedCreateRequestDto requestDto , List<MultipartFile> files) throws Exception{
@@ -76,6 +77,7 @@ public class FeedService {
     }
 
     //피드 텍스트 변경(업데이트)
+    @Transactional
     public UpdateFeedRes updateFeed(Long id, FeedUpdateRequestDto requestDto){
 
         if(requestDto.getPostText().length()>2200){ //글자수가 너무 크면 예외발생
@@ -84,8 +86,7 @@ public class FeedService {
         else if(requestDto.getPostText().length()<1){
             throw new BaseException(LEAST_COMMENT);
         }
-        Feed feed=feedRepository.findById(id)
-                .orElseThrow(() ->new BaseException(INVALID_UPDATE_FEED));
+        Feed feed=funcFeed.findFeedByIdAndState(id);
         feed.update(requestDto.getPostText());
 
         LogEntity logEntity= new LogEntity(feed.getUser().getEmail(),FEED,"피드수정");
@@ -95,10 +96,9 @@ public class FeedService {
 
     //유저의 피드 조회
     @Transactional(readOnly = true)
-    public List<GetFeedRes> searchUserFeed(Long id) throws BaseException{
+    public List<GetFeedRes> searchUserFeed(Long userId) throws BaseException{
         try{
-            List<Feed> feedList = feedRepository.findAllByUserIdAndState(id,ACTIVE);
-
+            List<Feed> feedList = feedRepository.findAllByUserIdAndState(userId,ACTIVE);
             List<GetFeedRes> getFeedRes = new ArrayList<>();
             for(Feed a : feedList){
                 GetFeedRes b = new GetFeedRes(a);
@@ -115,13 +115,10 @@ public class FeedService {
     @Transactional(readOnly = true)
     public List<GetFeedRes> searchAllFeed(Pageable pageable) throws BaseException{
         try{
-            List<Feed> feedList = feedRepository.findAllByState(ACTIVE, pageable);
-            List<GetFeedRes> getFeedRes = new ArrayList<>();
-            for(Feed a : feedList){
-                GetFeedRes b = new GetFeedRes(a);
-                getFeedRes.add(b);
-            }
-            return getFeedRes;
+            return feedRepository.findAllByState(ACTIVE, pageable)
+                    .stream()
+                    .map(GetFeedRes::new)
+                    .collect(Collectors.toList());
         }
         catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
@@ -130,19 +127,17 @@ public class FeedService {
 
     //삭제 구현하기
     public void deleteFeed(Long feedId){
-        Feed feed = feedRepository.findByIdAndState(feedId, ACTIVE)
-                .orElseThrow(() -> new BaseException(NOT_FIND_USER));
+        Feed feed = funcFeed.findFeedByIdAndState(feedId);
         feed.deleteFeed();
 
         LogEntity logEntity= new LogEntity(feed.getUser().getEmail(), FEED,"피드삭제");
         logEntityRepository.save(logEntity);
     }
+
     //피드 신고
     public FeedReportRes feedReport(FeedReportDto feedReportDto){
-        Feed feed=feedRepository.findByIdAndState(feedReportDto.getFeedId(), ACTIVE)
-                .orElseThrow(()-> new BaseException(NOT_FIND_FEED));
-        User user=userRepository.findByIdAndState(feedReportDto.getUserId(), ACTIVE)
-                .orElseThrow(()-> new BaseException(NOT_FIND_USER));
+        Feed feed=funcFeed.findFeedByIdAndState(feedReportDto.getFeedId());
+        User user=funcUser.findUserByIdAndState(feedReportDto.getUserId());
 
         FeedReport feedReport = new FeedReport(feed,user,feedReportDto.getReason());
         feedReportRepository.save(feedReport);

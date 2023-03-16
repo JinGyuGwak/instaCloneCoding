@@ -7,10 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostFeedLikeDto {
+public class FeedLikeDto {
 
+    private Long feedId;
     private Long userId;
-    public PostFeedLikeDto(Long userId){
-        this.userId=userId;
-    }
+
 }

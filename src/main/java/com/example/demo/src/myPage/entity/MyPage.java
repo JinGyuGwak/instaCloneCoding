@@ -29,7 +29,7 @@ public class MyPage extends BaseEntity {
 
     private String introduction; //소개글
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", unique=true)
     private User user;
 
@@ -39,6 +39,7 @@ public class MyPage extends BaseEntity {
         this.nickname= myPageUpdateDto.getNickname();
         this.introduction= myPageUpdateDto.getIntroduction();
     }
+
     public void update(MyPageUpdateDto myPageUpdateDto){
         this.name= myPageUpdateDto.getName();
         this.nickname= myPageUpdateDto.getNickname();

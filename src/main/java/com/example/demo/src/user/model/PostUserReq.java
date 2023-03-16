@@ -17,13 +17,11 @@ public class PostUserReq {
 
     private boolean isOAuth;
 
+    public PostUserReq (User user){
+
+    }
+
     public User toEntity() {
-        return User.builder()
-                .email(this.email)
-                .password(this.password)
-                .name(this.name)
-                .isOAuth(false)
-                .whatSns("app")
-                .build();
+        return new User(this.email,this.password,this.name);
     }
 }

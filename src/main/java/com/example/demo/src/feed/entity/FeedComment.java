@@ -21,21 +21,21 @@ public class FeedComment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feedId")
     private Feed feed;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
     @Column(nullable = false, length = 2000)
     private String commentText;
 
-    @OneToMany(mappedBy = "feedComment", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "feedComment", cascade = CascadeType.REMOVE)
     List<CommentLike> commentLikeList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "feedComment", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "feedComment", cascade = CascadeType.REMOVE)
     List<ReComment> reCommentList = new ArrayList<>();
 
     @Builder

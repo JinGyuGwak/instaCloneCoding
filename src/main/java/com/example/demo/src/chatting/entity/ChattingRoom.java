@@ -24,11 +24,11 @@ public class ChattingRoom extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sendUserId")
     private User sendUser; //보낸 유저
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receiveUserId")
     private User receiveUser;//받는 유저
 

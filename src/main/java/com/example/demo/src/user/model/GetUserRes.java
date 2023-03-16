@@ -15,12 +15,10 @@ public class GetUserRes {
     private Long id;
     private String email;
     private String name;
-    private String whatSns;
 
     public GetUserRes(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.name = user.getName();
-        this.whatSns=user.getWhatSns();
     }
 }

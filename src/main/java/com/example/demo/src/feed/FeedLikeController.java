@@ -3,7 +3,7 @@ package com.example.demo.src.feed;
 import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.feed.model.feedLike.FeedLikeRes;
 import com.example.demo.src.feed.model.feedLike.GetFeedLike;
-import com.example.demo.src.feed.model.feedLike.PostFeedLikeDto;
+import com.example.demo.src.feed.model.feedLike.FeedLikeDto;
 import com.example.demo.src.feed.service.FeedLikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,28 +20,26 @@ public class FeedLikeController {
 
     /**
      * 피드 좋아요
-     * [POST] /feed/{feedId}/liked
-     * 리퀘스트바디에 userId넣기
+     * [POST] /feed/liked
+     * 리퀘스트바디에 userId,feedId넣기
      */
     @ResponseBody
-    @PostMapping("{feedId}/liked")
-    public BaseResponse<FeedLikeRes> userLikeFeed(@PathVariable Long feedId,
-                                                  @RequestBody Long userId) {
-        FeedLikeRes feedLikeRes = feedLikeService.userLikeFeed(feedId, userId);
+    @PostMapping("/liked")
+    public BaseResponse<FeedLikeRes> userLikeFeed(@RequestBody FeedLikeDto feedLikeDto) {
+        FeedLikeRes feedLikeRes = feedLikeService.userLikeFeed(feedLikeDto);
         return new BaseResponse<>(feedLikeRes);
     }
 
     /**
      * 좋아요 삭제
-     * [DELETE] /feed/{feedId}/liked
+     * [DELETE] /feed/liked
      * 좋아요는 STATE가 아닌 DB에서 바로 삭제
-     * 유저 아이디도 받야야해
+     * 리퀘스트바디에 userId,feedId 넣기
      */
     @ResponseBody
-    @DeleteMapping("{feedId}/liked")
-    public BaseResponse<String> feedLikeDelete(@PathVariable Long feedId,
-                                               @RequestBody PostFeedLikeDto postFeedLikeDto) {
-        feedLikeService.feedLikeDelete(feedId, postFeedLikeDto.getUserId());
+    @DeleteMapping("/liked")
+    public BaseResponse<String> feedLikeDelete(@RequestBody FeedLikeDto feedLikeDto) {
+        feedLikeService.feedLikeDelete(feedLikeDto.getFeedId(), feedLikeDto.getUserId());
         String result = "삭제 완료!!";
         return new BaseResponse<>(result);
     }
@@ -50,7 +48,7 @@ public class FeedLikeController {
      * [GET] /feed/{feedId}/liked
      */
     @ResponseBody
-    @GetMapping("{feedId}/liked")
+    @GetMapping("/{feedId}/liked")
     public BaseResponse<List<GetFeedLike>> feedLikeSearch(@PathVariable Long feedId) {
 
         List<GetFeedLike> getFeedLikeList = feedLikeService.feedLikeSearch(feedId);

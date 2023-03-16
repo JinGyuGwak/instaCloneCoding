@@ -4,7 +4,7 @@ import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.feed.model.commentLike.CommentLikeRes;
 import com.example.demo.src.feed.model.commentLike.GetCommentLike;
 import com.example.demo.src.feed.model.commentLike.PostCommentLikeDto;
-import com.example.demo.src.feed.model.feedLike.PostFeedLikeDto;
+import com.example.demo.src.feed.model.feedLike.FeedLikeDto;
 import com.example.demo.src.feed.service.CommentLikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,8 +48,8 @@ public class CommentLikeController {
     @ResponseBody
     @DeleteMapping("feed/comment/{commentId}")
     public BaseResponse<String> feedLikeDelete1(@PathVariable Long commentId,
-                                                @RequestBody PostFeedLikeDto postFeedLikeDto) {
-        commentLikeService.commentLikeDelete(commentId, postFeedLikeDto.getUserId());
+                                                @RequestBody FeedLikeDto feedLikeDto) {
+        commentLikeService.commentLikeDelete(commentId, feedLikeDto.getUserId());
         String result = "삭제 완료!!";
         return new BaseResponse<>(result);
     }

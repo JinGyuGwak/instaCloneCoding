@@ -19,9 +19,12 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
 
     Optional<Feed> findByIdAndState(Long id, State state);
 
-    @EntityGraph(attributePaths = "feedContentList")
+    @EntityGraph(attributePaths = {"feedContentList","user"})
     @Query("select f from Feed f")
     List<Feed> findAllByState(State state, Pageable pageable);
+
+    @EntityGraph(attributePaths = {"feedContentList","user"})
+    @Query("select f from Feed f")
     List<Feed> findAllByUserIdAndState(Long userId, State state);
 
     Page<Feed> findByState(State state, Pageable pageable);

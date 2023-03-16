@@ -6,14 +6,14 @@ import com.example.demo.src.followMapping.model.GetFollow;
 import com.example.demo.src.followMapping.model.GetFollower;
 import com.example.demo.src.followMapping.model.PostFollowDto;
 import com.example.demo.src.followMapping.model.PostFollowRes;
-import com.example.demo.src.user.UserRepository;
+import com.example.demo.src.func.FuncUser;
 import com.example.demo.src.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.demo.common.entity.BaseEntity.State.*;
 import static com.example.demo.common.response.BaseResponseStatus.*;
@@ -23,42 +23,39 @@ import static com.example.demo.common.response.BaseResponseStatus.*;
 @RequiredArgsConstructor
 @Service
 public class FollowService {
-    private final UserRepository userRepository;
+    private final FuncUser funcUser;
     private final FollowMappingRepository followMappingRepository;
 
     //{id}가 팔로우 하는 사람 조회
+    @Transactional
     public List<GetFollow> followSearch(Long userId){
-        List<FollowMapping> followMappingList = followMappingRepository.findByFollowerUserIdAndState(userId,ACTIVE);
-        List<GetFollow> getFollowList = new ArrayList<>();
-        for(FollowMapping followMapping : followMappingList){
-            GetFollow a = new GetFollow(followMapping);
-            getFollowList.add(a);
-        }
-        return getFollowList;
+        return followMappingRepository.findByFollowerUserIdAndState(userId, ACTIVE)
+                .stream()
+                .map(GetFollow::new)
+                .collect(Collectors.toList());
     }
     //{id}의 팔로워 조회 (팔로우에 내가 있으면 됨)
+    @Transactional
     public List<GetFollower> followerSearch(Long userId){
-        List<FollowMapping> followerMappingList = followMappingRepository.findByFollowUserIdAndState(userId,ACTIVE);
-        List<GetFollower> getFollowerList = new ArrayList<>();
-        for(FollowMapping followMapping : followerMappingList){
-            GetFollower a = new GetFollower(followMapping);
-            getFollowerList.add(a);
-        }
-        return getFollowerList;
+        return followMappingRepository.findByFollowUserIdAndState(userId, ACTIVE)
+                .stream()
+                .map(GetFollower::new)
+                .collect(Collectors.toList());
     }
 
     //팔로우 요청
+    @Transactional
     public PostFollowRes followUser(PostFollowDto postFollowDto){
-        User followUser = userRepository.findByIdAndState(postFollowDto.getFollowUserId(), ACTIVE)
-                .orElseThrow(()->new BaseException(NOT_FIND_USER));
-        User followerUser = userRepository.findByIdAndState(postFollowDto.getFollowerUserId(), ACTIVE)
-                .orElseThrow(()-> new BaseException(NOT_FIND_USER));
+        User followUser = funcUser.findUserByIdAndState(postFollowDto.getFollowUserId());
+        User followerUser = funcUser.findUserByIdAndState(postFollowDto.getFollowerUserId());
 
         FollowMapping followMapping = new FollowMapping(followUser,followerUser);
         followMappingRepository.save(followMapping);
         return new PostFollowRes(followMapping);
     }
-    //팔로우 취소
+
+    //팔로우 삭제(취소)
+    @Transactional
     public void followDelete(PostFollowDto postFollowDto){
         FollowMapping followMapping = followMappingRepository.
                 findByFollowUserIdAndFollowerUserId(postFollowDto.getFollowUserId(),postFollowDto.getFollowerUserId())

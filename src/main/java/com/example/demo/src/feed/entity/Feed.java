@@ -21,7 +21,7 @@ public class Feed extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
@@ -32,20 +32,19 @@ public class Feed extends BaseEntity {
 
     @OneToMany(mappedBy = "feed",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
+            orphanRemoval = true)
     List<FeedContent> feedContentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     List<FeedBookMark> feedBookMarkList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     List<FeedComment> feedCommentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     List<FeedLike> feedLikeList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     List<FeedReport> feedReportList = new ArrayList<>();
 
     @Builder
