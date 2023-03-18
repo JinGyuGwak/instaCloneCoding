@@ -2,10 +2,8 @@ package com.example.demo.src.controller;
 
 
 import com.example.demo.common.response.BaseResponse;
-import com.example.demo.src.domain.myPage.model.MyPageUpdateDto;
-import com.example.demo.src.domain.myPage.model.MyPageRequestRes;
+import com.example.demo.src.request.MyPageDto;
 import com.example.demo.src.service.MyPageService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +21,9 @@ public class MyPageController {
      */
     @ResponseBody
     @PostMapping("")
-    public BaseResponse<MyPageRequestRes> createMyPage(@RequestBody MyPageUpdateDto myPageUpdateDto) {
+    public BaseResponse<MyPageDto> createMyPage(@RequestBody MyPageDto myPageDto) {
 
-        MyPageRequestRes myPageRequestRes = myPageService.createMyPage(myPageUpdateDto);
+        MyPageDto myPageRequestRes = myPageService.createMyPage(myPageDto);
         return new BaseResponse<>(myPageRequestRes);
     }
     /**
@@ -35,9 +33,9 @@ public class MyPageController {
      */
     @ResponseBody
     @PatchMapping("")
-    public BaseResponse<MyPageRequestRes> updateMyPage(@RequestBody MyPageUpdateDto myPageUpdateDto) {
-        MyPageRequestRes myPageRequestRes =
-                myPageService.updateMyPage(myPageUpdateDto);
+    public BaseResponse<MyPageDto> updateMyPage(@RequestBody MyPageDto myPageDto) {
+        MyPageDto myPageRequestRes =
+                myPageService.updateMyPage(myPageDto);
         return new BaseResponse<>(myPageRequestRes);
     }
     /**
@@ -46,8 +44,8 @@ public class MyPageController {
      */
     @ResponseBody
     @GetMapping("{userId}")
-    public BaseResponse<MyPageRequestRes> GetMyPage(@PathVariable Long userId) {
-        MyPageRequestRes myPageRequestRes =
+    public BaseResponse<MyPageDto> GetMyPage(@PathVariable Long userId) {
+        MyPageDto myPageRequestRes =
                 myPageService.GetMyPage(userId);
         return new BaseResponse<>(myPageRequestRes);
     }

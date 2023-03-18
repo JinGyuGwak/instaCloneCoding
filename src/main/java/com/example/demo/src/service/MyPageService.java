@@ -4,8 +4,7 @@ import com.example.demo.common.exceptions.BaseException;
 import com.example.demo.src.func.FuncUser;
 import com.example.demo.src.repository.MyPageRepository;
 import com.example.demo.src.entity.MyPage;
-import com.example.demo.src.domain.myPage.model.MyPageUpdateDto;
-import com.example.demo.src.domain.myPage.model.MyPageRequestRes;
+import com.example.demo.src.request.MyPageDto;
 import com.example.demo.src.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,30 +22,30 @@ public class MyPageService {
 
     //마이페이지 생성
     @Transactional
-    public MyPageRequestRes createMyPage(MyPageUpdateDto myPageUpdateDto){
-        User user = funcUser.findUserByIdAndState(myPageUpdateDto.getUserId());
-        if(myPageRepository.findByUserIdAndState(myPageUpdateDto.getUserId(),ACTIVE).isPresent()){
+    public MyPageDto createMyPage(MyPageDto myPageDto){
+        User user = funcUser.findUserByIdAndState(myPageDto.getUserId());
+        if(myPageRepository.findByUserIdAndState(myPageDto.getUserId(),ACTIVE).isPresent()){
             throw new BaseException(INVALID_MYPAGE);
         }
-        MyPage myPage=new MyPage(user, myPageUpdateDto);
+        MyPage myPage=new MyPage(user, myPageDto);
         myPageRepository.save(myPage);
 
-        return new MyPageRequestRes(myPage);
+        return new MyPageDto(myPage);
     }
     //마이페이지 수정
     @Transactional
-    public MyPageRequestRes updateMyPage(MyPageUpdateDto myPageUpdateDto){
-        MyPage myPage=myPageRepository.findByUserIdAndState(myPageUpdateDto.getUserId(),ACTIVE)
+    public MyPageDto updateMyPage(MyPageDto myPageDto){
+        MyPage myPage=myPageRepository.findByUserIdAndState(myPageDto.getUserId(),ACTIVE)
                         .orElseThrow(()-> new BaseException(NOT_FIND_USER));
-        myPage.update(myPageUpdateDto);
-        return new MyPageRequestRes(myPage);
+        myPage.update(myPageDto);
+        return new MyPageDto(myPage);
     }
 
     //마이페이지 조회
     @Transactional
-    public MyPageRequestRes GetMyPage(Long userId){
+    public MyPageDto GetMyPage(Long userId){
         MyPage myPage=myPageRepository.findByUserIdAndState(userId,ACTIVE)
                 .orElseThrow(()-> new BaseException(NOT_FIND_USER));
-        return new MyPageRequestRes(myPage);
+        return new MyPageDto(myPage);
     }
 }

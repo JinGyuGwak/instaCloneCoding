@@ -2,7 +2,7 @@ package com.example.demo.src.controller;
 
 
 import com.example.demo.common.response.BaseResponse;
-import com.example.demo.src.domain.admin.model.AdminReportRequestRes;
+import com.example.demo.src.response.AdminReportRequestRes;
 import com.example.demo.src.service.AdminReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

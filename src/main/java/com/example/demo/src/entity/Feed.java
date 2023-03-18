@@ -2,7 +2,7 @@ package com.example.demo.src.entity;
 
 
 import com.example.demo.common.entity.BaseEntity;
-import com.example.demo.src.domain.feed.model.feed.FeedCreateRequestDto;
+import com.example.demo.src.request.FeedCreateRequestDto;
 import lombok.*;
 
 import javax.persistence.*;

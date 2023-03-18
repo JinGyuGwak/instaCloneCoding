@@ -1,8 +1,8 @@
 package com.example.demo.src.service;
 
 
-import com.example.demo.src.domain.admin.model.AdminUserRequestRes;
-import com.example.demo.src.domain.admin.model.UserDetailRes;
+import com.example.demo.src.response.AdminUserRequestRes;
+import com.example.demo.src.response.UserDetailRes;
 import com.example.demo.src.func.FuncUser;
 import com.example.demo.src.repository.UserRepository;
 import com.example.demo.src.entity.User;

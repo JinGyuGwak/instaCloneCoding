@@ -3,12 +3,13 @@ package com.example.demo.src.service;
 
 
 import com.example.demo.common.exceptions.BaseException;
-import com.example.demo.src.domain.user.model.*;
 import com.example.demo.src.repository.LogEntityRepository;
 import com.example.demo.src.entity.LogEntity;
 import com.example.demo.src.func.FuncUser;
 import com.example.demo.src.repository.UserRepository;
 import com.example.demo.src.entity.User;
+import com.example.demo.src.response.GetUserRes;
+import com.example.demo.src.response.PostUserRes;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
 import lombok.RequiredArgsConstructor;
@@ -105,7 +106,7 @@ public class UserService {
 
 
     @Transactional
-    public PostLoginRes logIn(String email, String password) {
+    public PostUserRes logIn(String email, String password) {
         //이메일에 맞는 User 찾기
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new BaseException(NOT_FIND_USER));
@@ -125,7 +126,7 @@ public class UserService {
 
                     LogEntity logEntity= new LogEntity(user.getEmail(), USER,"유저로그인");
                     logEntityRepository.save(logEntity);
-                    return new PostLoginRes(userId, jwt);
+                    return new PostUserRes(userId, jwt);
                 } else {
                     throw new BaseException(FAILED_TO_LOGIN);
                 }

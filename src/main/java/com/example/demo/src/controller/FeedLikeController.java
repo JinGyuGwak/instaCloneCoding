@@ -1,9 +1,8 @@
 package com.example.demo.src.controller;
 
 import com.example.demo.common.response.BaseResponse;
-import com.example.demo.src.domain.feed.model.feedLike.FeedLikeDto;
-import com.example.demo.src.domain.feed.model.feedLike.FeedLikeRes;
-import com.example.demo.src.domain.feed.model.feedLike.GetFeedLike;
+import com.example.demo.src.request.FeedLikeDto;
+import com.example.demo.src.response.GetFeedLikeRes;
 import com.example.demo.src.service.FeedLikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +24,8 @@ public class FeedLikeController {
      */
     @ResponseBody
     @PostMapping("/liked")
-    public BaseResponse<FeedLikeRes> userLikeFeed(@RequestBody FeedLikeDto feedLikeDto) {
-        FeedLikeRes feedLikeRes = feedLikeService.userLikeFeed(feedLikeDto);
+    public BaseResponse<FeedLikeDto> userLikeFeed(@RequestBody FeedLikeDto feedLikeDto) {
+        FeedLikeDto feedLikeRes = feedLikeService.userLikeFeed(feedLikeDto);
         return new BaseResponse<>(feedLikeRes);
     }
 
@@ -49,9 +48,9 @@ public class FeedLikeController {
      */
     @ResponseBody
     @GetMapping("/{feedId}/liked")
-    public BaseResponse<List<GetFeedLike>> feedLikeSearch(@PathVariable Long feedId) {
+    public BaseResponse<List<GetFeedLikeRes>> feedLikeSearch(@PathVariable Long feedId) {
 
-        List<GetFeedLike> getFeedLikeList = feedLikeService.feedLikeSearch(feedId);
-        return new BaseResponse<>(getFeedLikeList);
+        List<GetFeedLikeRes> getFeedLikeResList = feedLikeService.feedLikeSearch(feedId);
+        return new BaseResponse<>(getFeedLikeResList);
     }
 }

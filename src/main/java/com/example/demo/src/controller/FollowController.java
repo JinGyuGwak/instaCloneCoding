@@ -3,9 +3,9 @@ package com.example.demo.src.controller;
 
 import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.service.FollowService;
-import com.example.demo.src.domain.followMapping.model.GetFollow;
-import com.example.demo.src.domain.followMapping.model.GetFollower;
-import com.example.demo.src.domain.followMapping.model.PostFollowRes;
+import com.example.demo.src.request.GetFollow;
+import com.example.demo.src.request.GetFollower;
+import com.example.demo.src.response.PostFollowRes;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

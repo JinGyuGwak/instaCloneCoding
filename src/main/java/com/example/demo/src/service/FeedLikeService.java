@@ -3,9 +3,8 @@ package com.example.demo.src.service;
 import com.example.demo.common.exceptions.BaseException;
 import com.example.demo.src.entity.Feed;
 import com.example.demo.src.entity.FeedLike;
-import com.example.demo.src.domain.feed.model.feedLike.FeedLikeDto;
-import com.example.demo.src.domain.feed.model.feedLike.FeedLikeRes;
-import com.example.demo.src.domain.feed.model.feedLike.GetFeedLike;
+import com.example.demo.src.request.FeedLikeDto;
+import com.example.demo.src.response.GetFeedLikeRes;
 import com.example.demo.src.repository.FeedLikeRepository;
 import com.example.demo.src.func.FuncFeed;
 import com.example.demo.src.func.FuncUser;
@@ -30,7 +29,7 @@ public class FeedLikeService {
 
     //피드 좋아요 (post)
     @Transactional
-    public FeedLikeRes userLikeFeed(FeedLikeDto feedLikeDto){
+    public FeedLikeDto userLikeFeed(FeedLikeDto feedLikeDto){
         Feed feed = funcFeed.findFeedByIdAndState(feedLikeDto.getFeedId());
         User user = funcUser.findUserByIdAndState(feedLikeDto.getUserId());
         FeedLike feedLike = new FeedLike(feed,user);
@@ -40,7 +39,7 @@ public class FeedLikeService {
                 feedLikeDto.getFeedId(),feedLikeDto.getUserId()).isPresent()){
             feedLikeRepository.save(feedLike);
         }
-        return new FeedLikeRes(feedLike);
+        return new FeedLikeDto(feedLike);
     }
 
     //좋아요 삭제
@@ -53,10 +52,10 @@ public class FeedLikeService {
 
     //좋아요 조회
     @Transactional
-    public List<GetFeedLike> feedLikeSearch(Long feedId){
+    public List<GetFeedLikeRes> feedLikeSearch(Long feedId){
         return feedLikeRepository.findByFeedId(feedId)
                 .stream()
-                .map(GetFeedLike::new)
+                .map(GetFeedLikeRes::new)
                 .collect(Collectors.toList());
     }
 }

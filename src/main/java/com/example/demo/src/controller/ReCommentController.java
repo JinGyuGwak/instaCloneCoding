@@ -1,10 +1,10 @@
 package com.example.demo.src.controller;
 
 import com.example.demo.common.response.BaseResponse;
-import com.example.demo.src.domain.feed.model.feedComment.FeedCommentUpdateRequestDto;
-import com.example.demo.src.domain.feed.model.reComment.GetReCommentRes;
-import com.example.demo.src.domain.feed.model.reComment.ReCommentRes;
-import com.example.demo.src.domain.feed.model.reComment.UpdateReCommentRes;
+import com.example.demo.src.request.FeedCommentUpdateRequestDto;
+import com.example.demo.src.response.GetReCommentRes;
+import com.example.demo.src.response.ReCommentRes;
+import com.example.demo.src.response.UpdateReCommentRes;
 import com.example.demo.src.service.ReCommentService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

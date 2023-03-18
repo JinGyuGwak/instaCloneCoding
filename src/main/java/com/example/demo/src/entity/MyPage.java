@@ -1,7 +1,7 @@
 package com.example.demo.src.entity;
 
 import com.example.demo.common.entity.BaseEntity;
-import com.example.demo.src.domain.myPage.model.MyPageUpdateDto;
+import com.example.demo.src.request.MyPageDto;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,17 +32,17 @@ public class MyPage extends BaseEntity {
     @JoinColumn(name = "userId", unique=true)
     private User user;
 
-    public MyPage(User user, MyPageUpdateDto myPageUpdateDto){
+    public MyPage(User user, MyPageDto myPageDto){
         this.user=user;
-        this.name= myPageUpdateDto.getName();
-        this.nickname= myPageUpdateDto.getNickname();
-        this.introduction= myPageUpdateDto.getIntroduction();
+        this.name= myPageDto.getName();
+        this.nickname= myPageDto.getNickname();
+        this.introduction= myPageDto.getIntroduction();
     }
 
-    public void update(MyPageUpdateDto myPageUpdateDto){
-        this.name= myPageUpdateDto.getName();
-        this.nickname= myPageUpdateDto.getNickname();
-        this.introduction= myPageUpdateDto.getIntroduction();
+    public void update(MyPageDto myPageDto){
+        this.name= myPageDto.getName();
+        this.nickname= myPageDto.getNickname();
+        this.introduction= myPageDto.getIntroduction();
     }
 
 

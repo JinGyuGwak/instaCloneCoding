@@ -4,8 +4,8 @@ package com.example.demo.src.controller;
 import com.example.demo.common.entity.BaseEntity;
 import com.example.demo.common.exceptions.BaseException;
 import com.example.demo.common.response.BaseResponse;
-import com.example.demo.src.domain.admin.model.AdminUserRequestRes;
-import com.example.demo.src.domain.admin.model.UserDetailRes;
+import com.example.demo.src.response.AdminUserRequestRes;
+import com.example.demo.src.response.UserDetailRes;
 import com.example.demo.src.service.AdminUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-
-import static com.example.demo.common.entity.BaseEntity.*;
 
 @Slf4j
 @RequiredArgsConstructor

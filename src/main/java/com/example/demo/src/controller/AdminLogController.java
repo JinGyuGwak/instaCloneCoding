@@ -2,7 +2,7 @@ package com.example.demo.src.controller;
 
 import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.entity.LogEntity;
-import com.example.demo.src.domain.admin.model.AdminLogRequestRes;
+import com.example.demo.src.response.AdminLogRequestRes;
 import com.example.demo.src.service.AdminLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

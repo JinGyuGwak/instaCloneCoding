@@ -3,8 +3,8 @@ package com.example.demo.src.controller;
 
 import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.service.ChattingService;
-import com.example.demo.src.domain.chatting.model.ChattingRoomRequestRes;
-import com.example.demo.src.domain.chatting.model.MessageRequestRes;
+import com.example.demo.src.response.ChattingRoomRequestRes;
+import com.example.demo.src.response.MessageRequestRes;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

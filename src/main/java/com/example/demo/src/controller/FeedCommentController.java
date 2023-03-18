@@ -1,7 +1,10 @@
 package com.example.demo.src.controller;
 
 import com.example.demo.common.response.BaseResponse;
-import com.example.demo.src.domain.feed.model.feedComment.*;
+import com.example.demo.src.request.FeedCommentUpdateRequestDto;
+import com.example.demo.src.response.FeedCommentRes;
+import com.example.demo.src.response.GetFeedCommentRes;
+import com.example.demo.src.response.UpdateFeedCommentRes;
 import com.example.demo.src.service.FeedCommentService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

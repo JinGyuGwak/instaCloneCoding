@@ -2,8 +2,11 @@ package com.example.demo.src.controller;
 
 
 import com.example.demo.common.response.BaseResponse;
-import com.example.demo.src.domain.feed.model.feed.*;
-import com.example.demo.src.domain.feed.model.feedReport.FeedReportRes;
+import com.example.demo.src.request.FeedCreateRequestDto;
+import com.example.demo.src.response.FeedReportRes;
+import com.example.demo.src.response.GetFeedRes;
+import com.example.demo.src.response.PostFeedRes;
+import com.example.demo.src.response.UpdateFeedRes;
 import com.example.demo.src.service.FeedService;
 import com.example.demo.src.service.UserService;
 import lombok.Getter;

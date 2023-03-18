@@ -1,7 +1,8 @@
 package com.example.demo.src.controller;
 
 
-import com.example.demo.src.domain.user.model.*;
+import com.example.demo.src.response.GetUserRes;
+import com.example.demo.src.response.PostUserRes;
 import com.example.demo.src.service.UserService;
 import com.example.demo.utils.JwtService;
 import lombok.Getter;
@@ -10,7 +11,6 @@ import com.example.demo.common.response.BaseResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 import static com.example.demo.common.response.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
@@ -110,7 +110,7 @@ public class UserController {
      */
     @ResponseBody
     @PostMapping("/logIn")
-    public BaseResponse<PostLoginRes> logIn(@RequestBody UserReqDto loginReq){
+    public BaseResponse<PostUserRes> logIn(@RequestBody UserReqDto loginReq){
         if(loginReq.getEmail() == null){
             return new BaseResponse<>(USERS_EMPTY_EMAIL);
         }
@@ -118,8 +118,8 @@ public class UserController {
         if(!isRegexEmail(loginReq.getEmail())){
             return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
         }
-        PostLoginRes postLoginRes = userService.logIn(loginReq.getEmail(),loginReq.getPassword());
-        return new BaseResponse<>(postLoginRes);
+        PostUserRes postUserRes = userService.logIn(loginReq.getEmail(),loginReq.getPassword());
+        return new BaseResponse<>(postUserRes);
     }
 
     @Getter
@@ -128,7 +128,4 @@ public class UserController {
         private String password;
         private String name;
     }
-
-
-
 }

@@ -1,20 +1,23 @@
 package com.example.demo.src.service;
 
 import com.example.demo.common.exceptions.BaseException;
-import com.example.demo.src.domain.feed.model.feed.*;
 import com.example.demo.src.repository.LogEntityRepository;
 import com.example.demo.src.entity.LogEntity;
 import com.example.demo.src.entity.Feed;
 import com.example.demo.src.entity.FeedContent;
 import com.example.demo.src.entity.FeedReport;
 import com.example.demo.common.config.S3Uploader;
-import com.example.demo.src.domain.feed.model.feedReport.FeedReportRes;
+import com.example.demo.src.request.FeedCreateRequestDto;
+import com.example.demo.src.response.FeedReportRes;
 import com.example.demo.src.func.FuncFeed;
 import com.example.demo.src.func.FuncUser;
 import com.example.demo.src.entity.User;
 import com.example.demo.src.repository.FeedContentRepository;
 import com.example.demo.src.repository.FeedReportRepository;
 import com.example.demo.src.repository.FeedRepository;
+import com.example.demo.src.response.GetFeedRes;
+import com.example.demo.src.response.PostFeedRes;
+import com.example.demo.src.response.UpdateFeedRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

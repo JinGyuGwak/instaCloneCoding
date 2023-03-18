@@ -2,7 +2,7 @@ package com.example.demo.src.service;
 
 import com.example.demo.common.exceptions.BaseException;
 import com.example.demo.common.response.BaseResponseStatus;
-import com.example.demo.src.domain.admin.model.AdminReportRequestRes;
+import com.example.demo.src.response.AdminReportRequestRes;
 import com.example.demo.src.entity.FeedReport;
 import com.example.demo.src.repository.FeedReportRepository;
 import com.example.demo.src.repository.FeedRepository;

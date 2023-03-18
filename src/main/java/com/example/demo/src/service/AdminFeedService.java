@@ -2,13 +2,12 @@ package com.example.demo.src.service;
 
 
 import com.example.demo.common.exceptions.BaseException;
-import com.example.demo.src.domain.admin.model.AdminFeedRequestRes;
-import com.example.demo.src.domain.admin.model.FeedDetailRes;
+import com.example.demo.src.response.AdminFeedRequestRes;
+import com.example.demo.src.response.FeedDetailRes;
 import com.example.demo.src.entity.Feed;
 import com.example.demo.src.repository.FeedRepository;
 import com.example.demo.src.func.FuncUser;
 import com.example.demo.src.repository.UserRepository;
-import com.example.demo.src.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.demo.common.entity.BaseEntity.*;
-import static com.example.demo.common.entity.BaseEntity.State.ACTIVE;
 import static com.example.demo.common.response.BaseResponseStatus.*;
 
 @Transactional

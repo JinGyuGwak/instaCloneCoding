@@ -2,7 +2,7 @@ package com.example.demo.src.service;
 
 import com.example.demo.src.repository.LogEntityRepository;
 import com.example.demo.src.entity.LogEntity;
-import com.example.demo.src.domain.admin.model.AdminLogRequestRes;
+import com.example.demo.src.response.AdminLogRequestRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
