@@ -1,4 +1,4 @@
-package com.example.demo.src.request;
+package com.example.demo.src.response;
 
 import com.example.demo.src.entity.FollowMapping;
 import lombok.Getter;

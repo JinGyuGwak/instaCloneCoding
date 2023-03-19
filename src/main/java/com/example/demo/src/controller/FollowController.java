@@ -3,8 +3,8 @@ package com.example.demo.src.controller;
 
 import com.example.demo.common.response.BaseResponse;
 import com.example.demo.src.service.FollowService;
-import com.example.demo.src.request.GetFollow;
-import com.example.demo.src.request.GetFollower;
+import com.example.demo.src.response.GetFollow;
+import com.example.demo.src.response.GetFollower;
 import com.example.demo.src.response.PostFollowRes;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
