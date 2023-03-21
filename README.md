@@ -49,7 +49,7 @@ https://github.com/JinGyuGwak/instaCloneCoding/wiki/%EC%97%94%EB%93%9C%ED%8F%AC%
 
 ## 1.EC2 CPU 사용률 100%로 인한 서버 다운
 
-프리티어 환경에서 서버가 주기적으로 죽는 문제가 있어 이를 발견하고 해결하는 과정을 블로그에 정리하였습니다.
+프리티어 환경에서 서버가 주기적으로 죽는 문제가 있어 이에 대한 트러블 슈팅 과정을 블로그에 정리하였습니다.
 
 https://singsinggyu.tistory.com/2#comment13423223
 
@@ -61,7 +61,7 @@ https://singsinggyu.tistory.com/2#comment13423223
 
 하지만 그 과정에서 엔드포인트가 늘어날수록 DTO가 많아져 관리하기 힘들어지고 네이밍 문제도 생기게 되었습니다.
 
-이를 해결하기 위해 하나의 엔드포인트에서만 사용하는 RequestDTO는 Inner Class로 처리하게 되었고 Request와 Response 패키지를 분리함으로써 관리를 수월하게 했습니다.
+이를 해결하기 위해 하나의 엔드포인트에서만 사용하거나 POST,UPDATE 처럼 필드가 겹치는 RequestDTO는 Inner Class로 처리하게 되었고 Request와 Response 패키지를 분리함으로써 관리를 수월하게 했습니다.
 
 <br>
 
@@ -86,11 +86,11 @@ https://singsinggyu.tistory.com/2#comment13423223
 
 그 후 기존에 사용하던 코드를 아래와 같이 줄일 수 있었습니다.
 
-    User user=funcUser.findUserByIdAndState(userId);
+    User user = funcUser.findUserByIdAndState(userId);
 
 <br>
 
 ## 4.프로젝트 아키텍처 수정
 
-기존 아키텍처는 구조는 DDD의 흉내를 낸 이도저도 아닌 구조였습니다. 코드를 리팩토링 하는 과정에서 이 구조는 상당히 지저분하다고 느끼게 되었고 이 프로젝트를 처음 보는 사람은 구조 파악이 힘들것이라 생각하게 되어 레이어드 아키텍처 기반으로 바꾸게 되었습니다.
-<img width="100%" src="https://user-images.githubusercontent.com/104514223/226186253-0f38cf3c-adf4-409d-ac88-f17e15f55786.png">
+기존 아키텍처는 구조는 레이어드 아키텍쳐 기반에 DDD의 흉내를 낸 이도저도 아닌 구조였습니다. 코드를 리팩토링 하는 과정에서 이 구조는 상당히 지저분하다고 느끼게 되었고 프로젝트를 처음 보는 사람은 구조 파악이 힘들것이라 생각하게 되어 어설프게 적용된 DDD를 버렸습니다.
+<img width="100%" src="https://user-images.githubusercontent.com/104514223/226563923-6d2fed22-7793-4f9c-ac09-d614f8326575.png">
