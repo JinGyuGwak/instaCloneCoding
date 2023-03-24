@@ -176,7 +176,5 @@ $RECYCLE.BIN/
 *.properties
 *.yml
 aws.yml
-
-logback-spring.xml
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,windows
 
