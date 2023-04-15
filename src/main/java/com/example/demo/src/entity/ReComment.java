@@ -12,7 +12,6 @@ import static com.example.demo.common.entity.BaseEntity.State.*;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EqualsAndHashCode(callSuper = false)
 @Getter
 @Entity // 필수, Class 를 Database Table화 해주는 것이다
 @Table(name = "RECOMMENT") // Table 이름을 명시해주지 않으면 class 이름을 Table 이름으로 대체한다.
