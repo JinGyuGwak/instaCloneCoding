@@ -120,22 +120,22 @@ public class FeedService {
     @Transactional(readOnly = true)
     public List<GetFeedRes> searchAllFeed(Pageable pageable) throws BaseException{
         try{
-            List<GetFeedRes> result = new ArrayList<>();
-            List<Feed> feeds = feedRepository.findAllByState(ACTIVE,pageable);
+//            List<GetFeedRes> result = new ArrayList<>();
+//            List<Feed> feeds = feedRepository.findAllByState(ACTIVE,pageable);
+//
+//            for (Feed feed : feeds) {
+//                System.out.println("지연로딩 쿼리 테스트 feed.getFeedReportList().size() =" + feed.getFeedReportList().size());
+//                if(feed.getFeedReportList().size()<6){
+//                    result.add(new GetFeedRes(feed));
+//                }
+//            }
+//            return result;
 
-            for (Feed feed : feeds) {
-                System.out.println("지연로딩 쿼리 테스트 feed.getFeedReportList().size() =" + feed.getFeedReportList().size());
-                if(feed.getFeedReportList().size()<6){
-                    result.add(new GetFeedRes(feed));
-                }
-            }
-            return result;
-
-//            return feedRepository.findAllByState(ACTIVE, pageable)
-//                    .stream()
-//                    .filter(feed -> feed.getReportCount() < 6)
-//                    .map(GetFeedRes::new)
-//                    .collect(Collectors.toList());
+            return feedRepository.findAllByState(ACTIVE, pageable)
+                    .stream()
+                    .filter(feed -> feed.getReportCount() < 6)
+                    .map(GetFeedRes::new)
+                    .collect(Collectors.toList());
 
 
         }

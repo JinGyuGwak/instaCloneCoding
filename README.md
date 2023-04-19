@@ -101,7 +101,7 @@ https://singsinggyu.tistory.com/2#comment13423223
 
 FEED의 신고 횟수가 5회가 넘어가면 유저들이 볼 수 없게 블라인드 처리를 하는 기능을 구현하였습니다. 이를 구현하기 위해 FEEDREPORT 테이블을 만들어 신고한 유저의 id와 신고된 FEED의 id 를 저장하였고 FEED를 조회할 때 FEEDREPORT의 외래키인 FEED의 id를 카운트하여 만약 5가 넘어갈 경우에는 반환하지 않도록 했습니다.
 
-하지만 이렇게 되면 FEED를 전체 조회를 할 때 FEED마다 연관된 FEEDREPORT 테이블을 where 절을 이용하여 조회하게 됩니다. 데이터가 적은 경우에는 성능에 큰 문제는 없겠지만 FEED와 FEEDREPORT의 수가 많아지면 문제가 생길 것으로 예상하여 FEED 엔티티에 누적신고횟수 필드를 추가하여 FEEDREPORT를 조회할 필요 없이 블라인드 처리를 할 수 있게 수정하였습니다.
+하지만 이렇게 되면 FEED를 전체 조회 할 때 FEED마다 연관된 FEEDREPORT 테이블을 where 절을 이용하여 조회하게 됩니다. 데이터가 적은 경우에는 성능에 큰 문제는 없겠지만 FEED와 FEEDREPORT의 수가 많아지면 문제가 생길 것으로 예상하여 FEED 엔티티에 누적신고횟수(reporCount) 필드를 추가하여 FEEDREPORT를 조회할 필요 없이 블라인드 처리를 할 수 있게 수정하였습니다.
 
 <br>
 
