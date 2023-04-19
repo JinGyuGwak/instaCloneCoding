@@ -19,11 +19,13 @@ import com.example.demo.src.response.GetFeedRes;
 import com.example.demo.src.response.PostFeedRes;
 import com.example.demo.src.response.UpdateFeedRes;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -105,6 +107,7 @@ public class FeedService {
         try{
             return feedRepository.findAllByUserIdAndState(userId, ACTIVE)
                     .stream()
+                    .filter(feed -> feed.getReportCount() < 6)
                     .map(GetFeedRes::new)
                     .collect(Collectors.toList());
         }
@@ -117,10 +120,24 @@ public class FeedService {
     @Transactional(readOnly = true)
     public List<GetFeedRes> searchAllFeed(Pageable pageable) throws BaseException{
         try{
-            return feedRepository.findAllByState(ACTIVE, pageable)
-                    .stream()
-                    .map(GetFeedRes::new)
-                    .collect(Collectors.toList());
+            List<GetFeedRes> result = new ArrayList<>();
+            List<Feed> feeds = feedRepository.findAllByState(ACTIVE,pageable);
+
+            for (Feed feed : feeds) {
+                System.out.println("지연로딩 쿼리 테스트 feed.getFeedReportList().size() =" + feed.getFeedReportList().size());
+                if(feed.getFeedReportList().size()<6){
+                    result.add(new GetFeedRes(feed));
+                }
+            }
+            return result;
+
+//            return feedRepository.findAllByState(ACTIVE, pageable)
+//                    .stream()
+//                    .filter(feed -> feed.getReportCount() < 6)
+//                    .map(GetFeedRes::new)
+//                    .collect(Collectors.toList());
+
+
         }
         catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
@@ -143,6 +160,7 @@ public class FeedService {
 
         FeedReport feedReport = new FeedReport(feed,user,reason);
         feedReportRepository.save(feedReport);
+        feed.reported();
 
         LogEntity logEntity= new LogEntity(feedReport.getUser().getEmail(), REPORT,"피드신고");
         logEntityRepository.save(logEntity);

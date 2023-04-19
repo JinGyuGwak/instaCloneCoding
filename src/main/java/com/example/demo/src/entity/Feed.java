@@ -26,6 +26,7 @@ public class Feed extends BaseEntity {
     @Column(nullable = false, length = 2200)
     private String postText;
 
+    private int reportCount;
 
 
     @OneToMany(mappedBy = "feed",
@@ -49,6 +50,7 @@ public class Feed extends BaseEntity {
         this.id=id;
         this.user=user;
         this.postText=postText;
+        this.reportCount=0;
     }
 
     public Feed(User user, String postText){
@@ -56,7 +58,7 @@ public class Feed extends BaseEntity {
         this.postText=postText;
     }
 
-    //컨텐트 url은 따로
+    //컨텐츠 url은 따로
     public void createFeed(FeedCreateRequestDto requestDto, User user){
         this.postText=requestDto.getPostText();
         this.user=user;
@@ -68,6 +70,7 @@ public class Feed extends BaseEntity {
         //피드에 파일이 저장되어있지 않은 경우 -> 파일 저장
         if(feedContent.getFeed() != this) feedContent.setFeed(this);
     }
+    public void reported(){this.reportCount+=1;}
 
     //게시글 내용 변경
     public void update(String postText){ this.postText=postText; }
