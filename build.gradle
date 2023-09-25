@@ -36,9 +36,10 @@ dependencies {
 
     // DB
     runtimeOnly ('mysql:mysql-connector-java') //mysql8
-    //runtimeOnly 'mysql:mysql-connector-java:5.1.47' //mysql5
     implementation ('org.springframework.boot:spring-boot-starter-jdbc')
     implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
     // 마이바티스
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'

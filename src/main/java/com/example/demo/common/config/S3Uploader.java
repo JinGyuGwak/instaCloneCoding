@@ -3,7 +3,7 @@ package com.example.demo.common.config;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.example.demo.src.entity.FeedContent;
+import com.example.demo.src.feed.entitiy.FeedContent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

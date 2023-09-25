@@ -1,8 +1,8 @@
 package com.example.demo.src.func;
 
 import com.example.demo.common.exceptions.BaseException;
-import com.example.demo.src.repository.UserRepository;
-import com.example.demo.src.entity.User;
+import com.example.demo.src.user.repository.UserRepository;
+import com.example.demo.src.user.entitiy.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
