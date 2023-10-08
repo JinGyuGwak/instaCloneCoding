@@ -1,7 +1,7 @@
 package com.example.demo.src.followMapping.controller;
 
 
-import com.example.demo.common.response.BaseResponse;
+import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.followMapping.service.FollowService;
 import com.example.demo.src.followMapping.dto.response.GetFollow;
 import com.example.demo.src.followMapping.dto.response.GetFollower;
@@ -26,9 +26,9 @@ public class FollowController {
      */
     @ResponseBody
     @GetMapping("{userId}")
-    public BaseResponse<List<GetFollow>> followMappingSearch(@PathVariable Long userId) {
+    public ResponseEntityCustom<List<GetFollow>> followMappingSearch(@PathVariable Long userId) {
         List<GetFollow> getFollowList = followService.followSearch(userId);
-        return new BaseResponse<>(getFollowList);
+        return new ResponseEntityCustom<>(getFollowList);
     }
 
     /**
@@ -37,9 +37,9 @@ public class FollowController {
      */
     @ResponseBody
     @GetMapping("/follower/{userId}")
-    public BaseResponse<List<GetFollower>> followerSearch(@PathVariable Long userId) {
+    public ResponseEntityCustom<List<GetFollower>> followerSearch(@PathVariable Long userId) {
         List<GetFollower> getFollowerList = followService.followerSearch(userId);
-        return new BaseResponse<>(getFollowerList);
+        return new ResponseEntityCustom<>(getFollowerList);
     }
 
     /**
@@ -49,11 +49,11 @@ public class FollowController {
      */
     @ResponseBody
     @PostMapping("")
-    public BaseResponse<PostFollowRes> followUser(@RequestBody PostFollowDto postFollowDto) {
+    public ResponseEntityCustom<PostFollowRes> followUser(@RequestBody PostFollowDto postFollowDto) {
         PostFollowRes postFollowRes = followService.followUser(
                 postFollowDto.getFollowUserId(),
                 postFollowDto.getFollowerUserId());
-        return new BaseResponse<>(postFollowRes);
+        return new ResponseEntityCustom<>(postFollowRes);
     }
 
     /**
@@ -64,13 +64,13 @@ public class FollowController {
      */
     @ResponseBody
     @DeleteMapping("")
-    public BaseResponse<String> followDelete(@RequestBody PostFollowDto postFollowDto) {
+    public ResponseEntityCustom<String> followDelete(@RequestBody PostFollowDto postFollowDto) {
         followService.followDelete(
                 postFollowDto.getFollowUserId(),
                 postFollowDto.getFollowerUserId());
 
         String result = "삭제 완료!!";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
     }
 
     @Getter

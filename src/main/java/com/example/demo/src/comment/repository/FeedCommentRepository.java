@@ -1,12 +1,11 @@
 package com.example.demo.src.comment.repository;
 
 import com.example.demo.src.comment.entity.FeedComment;
+import com.example.demo.src.common.entity.BaseEntity.State;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
-
-import static com.example.demo.common.entity.BaseEntity.*;
 
 public interface FeedCommentRepository extends JpaRepository<FeedComment, Long> {
 

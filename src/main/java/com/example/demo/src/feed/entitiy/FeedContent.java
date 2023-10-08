@@ -1,6 +1,6 @@
 package com.example.demo.src.feed.entitiy;
 
-import com.example.demo.common.entity.BaseEntity;
+import com.example.demo.src.common.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;

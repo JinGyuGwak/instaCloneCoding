@@ -1,6 +1,6 @@
 package com.example.demo.src.comment.service;
 
-import com.example.demo.common.exceptions.BaseException;
+import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.comment.entity.CommentLike;
 import com.example.demo.src.comment.entity.FeedComment;
 import com.example.demo.src.comment.dto.response.CommentLikeRes;
@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.demo.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
+import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
+import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
 
 @Transactional
 @RequiredArgsConstructor

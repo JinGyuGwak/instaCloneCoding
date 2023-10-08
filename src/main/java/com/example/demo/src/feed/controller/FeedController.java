@@ -1,12 +1,12 @@
 package com.example.demo.src.feed.controller;
 
 
-import com.example.demo.common.response.BaseResponse;
+import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.feed.dto.request.FeedCreateRequestDto;
 import com.example.demo.src.feed.dto.response.FeedReportRes;
 import com.example.demo.src.feed.dto.response.GetFeedRes;
 import com.example.demo.src.feed.dto.response.PostFeedRes;
-import com.example.demo.src.user.dto.response.UpdateFeedRes;
+import com.example.demo.src.admin.dto.response.UpdateFeedRes;
 import com.example.demo.src.feed.service.FeedService;
 import com.example.demo.src.user.service.UserService;
 import lombok.Getter;
@@ -29,6 +29,7 @@ public class FeedController {
     private final FeedService feedService;
     private final UserService userService;
 
+
     /**
      * 피드생성(S3에 이미지 저장)
      * @param userId
@@ -37,14 +38,14 @@ public class FeedController {
      * @return
      */
     @PostMapping("")
-    public BaseResponse<PostFeedRes> updateUserImage(
+    public ResponseEntityCustom<PostFeedRes> updateUserImage(
             @RequestParam(value = "userId") Long userId,
             @RequestParam("files") List<MultipartFile> files,
             @RequestParam(value = "postText", required = false) String postText) throws Exception {
         FeedCreateRequestDto saveDto = new FeedCreateRequestDto(userService.searchUserById(userId),postText);
         PostFeedRes postFeedRes = feedService.upload(saveDto,files);
 
-        return new BaseResponse<>(postFeedRes);
+        return new ResponseEntityCustom<>(postFeedRes);
     }
     /**
      * 피드 삭제구현 API
@@ -52,11 +53,11 @@ public class FeedController {
      */
     @ResponseBody
     @DeleteMapping("{feedId}")
-    public BaseResponse<String> deleteFeed(@PathVariable Long feedId){
+    public ResponseEntityCustom<String> deleteFeed(@PathVariable Long feedId){
         feedService.deleteFeed(feedId);
 
         String result = "삭제 완료!!";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
     }
     /**
      * 피드 업데이트(텍스트 변경)
@@ -64,11 +65,11 @@ public class FeedController {
      */
     @ResponseBody
     @PatchMapping("{feedId}") //피드 아이디
-    public BaseResponse<UpdateFeedRes> updateFeed(@PathVariable Long feedId,
-                                                  @RequestBody FeedUpdateRequestDto requestDto) {
+    public ResponseEntityCustom<UpdateFeedRes> updateFeed(@PathVariable Long feedId,
+                                                          @RequestBody FeedUpdateRequestDto requestDto) {
 
         UpdateFeedRes updateFeedRes = feedService.updateFeed(feedId,requestDto.getPostText());
-        return new BaseResponse<>(updateFeedRes);
+        return new ResponseEntityCustom<>(updateFeedRes);
     }
     /**
      * 피드조회 API
@@ -78,11 +79,11 @@ public class FeedController {
      */
     @ResponseBody
     @GetMapping("")
-    public BaseResponse<List<GetFeedRes>> searchAllFeed(
+    public ResponseEntityCustom<List<GetFeedRes>> searchAllFeed(
             @PageableDefault(page = 0, size=20, sort = "createdAt", direction = Sort.Direction.DESC)
             Pageable pageable){
         List<GetFeedRes> getFeedRes = feedService.searchAllFeed(pageable);
-        return new BaseResponse<>(getFeedRes);
+        return new ResponseEntityCustom<>(getFeedRes);
     }
     /**
      * 유저id로 피드조회 API
@@ -90,10 +91,10 @@ public class FeedController {
      */
     @ResponseBody
     @GetMapping("{userId}")
-    public BaseResponse<List<GetFeedRes>> searchUserFeed(@PathVariable Long userId){
+    public ResponseEntityCustom<List<GetFeedRes>> searchUserFeed(@PathVariable Long userId){
 
         List<GetFeedRes> getFeedRes = feedService.searchUserFeed(userId);
-        return new BaseResponse<>(getFeedRes);
+        return new ResponseEntityCustom<>(getFeedRes);
     }
 
     /**
@@ -103,13 +104,13 @@ public class FeedController {
      */
     @ResponseBody
     @PostMapping("/feedreport")
-    public BaseResponse<FeedReportRes> feedReport(@RequestBody FeedReportDto feedReportDto) {
+    public ResponseEntityCustom<FeedReportRes> feedReport(@RequestBody FeedReportDto feedReportDto) {
         FeedReportRes feedReportRes = feedService.feedReport(
                 feedReportDto.getUserId(),
                 feedReportDto.feedId,
                 feedReportDto.getReason());
 
-        return new BaseResponse<>(feedReportRes);
+        return new ResponseEntityCustom<>(feedReportRes);
     }
 
     @Getter
@@ -123,6 +124,4 @@ public class FeedController {
         private String reason;
 
     }
-
-
 }

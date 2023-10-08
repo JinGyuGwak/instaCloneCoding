@@ -1,11 +1,11 @@
 package com.example.demo.src.admin.controller;
 
 
-import com.example.demo.common.entity.BaseEntity;
-import com.example.demo.common.exceptions.BaseException;
-import com.example.demo.common.response.BaseResponse;
+import com.example.demo.src.common.entity.BaseEntity;
+import com.example.demo.src.common.exceptions.BaseException;
+import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.admin.dto.response.AdminUserRequestRes;
-import com.example.demo.src.user.dto.response.UserDetailRes;
+import com.example.demo.src.user.dto.UserDto;
 import com.example.demo.src.admin.service.AdminUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class AdminUserController {
      */
     @ResponseBody
     @GetMapping("/filter")
-    public BaseResponse<List<AdminUserRequestRes>> getUsersFilter(
+    public ResponseEntityCustom<List<AdminUserRequestRes>> getUsersFilter(
             @PageableDefault(page=0, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             @RequestParam(value = "email", required = false) String email, //email
             @RequestParam(value = "name", required = false) String name, //name
@@ -44,10 +44,10 @@ public class AdminUserController {
             LocalDateTime fromDateTime = fromDate != null ? fromDate.atStartOfDay() : null;
             LocalDateTime toDateTime = toDate != null ? toDate.atStartOfDay() : null;
             List<AdminUserRequestRes> adminUserRequestRes = adminUserService.getUsers(email,name,fromDateTime,toDateTime,state,pageable);
-            return new BaseResponse<>(adminUserRequestRes);
+            return new ResponseEntityCustom<>(adminUserRequestRes);
 
         }catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
+            return new ResponseEntityCustom<>((exception.getStatus()));
         }
     }
 
@@ -59,16 +59,16 @@ public class AdminUserController {
      */
     @ResponseBody
     @GetMapping("/userdetail/{userId}")
-    public BaseResponse<UserDetailRes> userDetail(@PathVariable Long userId){
-        UserDetailRes userDetailRes = adminUserService.getUserDetail(userId);
-        return new BaseResponse<>(userDetailRes);
+    public ResponseEntityCustom<UserDto.UserDetailRes> userDetail(@PathVariable Long userId){
+        UserDto.UserDetailRes userDetailRes = adminUserService.getUserDetail(userId);
+        return new ResponseEntityCustom<>(userDetailRes);
     }
     @ResponseBody
     @DeleteMapping("/userdetail/{userId}")
-    public BaseResponse<String> userAdminDelete(@PathVariable Long userId){
+    public ResponseEntityCustom<String> userAdminDelete(@PathVariable Long userId){
         adminUserService.userAdminDelete(userId);
         String result = "삭제완료";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
     }
 
 

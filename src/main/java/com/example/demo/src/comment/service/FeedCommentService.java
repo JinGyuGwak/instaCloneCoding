@@ -1,8 +1,6 @@
 package com.example.demo.src.comment.service;
 
-import com.example.demo.common.exceptions.BaseException;
-import com.example.demo.src.admin.repository.LogEntityRepository;
-import com.example.demo.src.admin.entitiy.LogEntity;
+import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.feed.entitiy.Feed;
 import com.example.demo.src.comment.entity.FeedComment;
 import com.example.demo.src.comment.dto.response.FeedCommentRes;
@@ -19,9 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.demo.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
-import static com.example.demo.src.admin.entitiy.LogEntity.Domain.COMMENT;
+import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
+import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
 
 @Transactional
 @RequiredArgsConstructor
@@ -32,7 +29,6 @@ public class FeedCommentService {
 
     private final FeedCommentRepository feedCommentRepository;
 
-    private final LogEntityRepository logEntityRepository;
     //피드 댓글 생성
     @Transactional
     public FeedCommentRes createFeedComment(Long feedId, Long userId, String comment){
@@ -41,8 +37,6 @@ public class FeedCommentService {
         FeedComment feedComment = new FeedComment(feed,user, comment);
         feedCommentRepository.save(feedComment);
 
-        LogEntity logEntity= new LogEntity(feed.getUser().getEmail(), COMMENT,"댓글생성");
-        logEntityRepository.save(logEntity);
         return new FeedCommentRes(feedComment);
     }
 
@@ -61,8 +55,6 @@ public class FeedCommentService {
                 orElseThrow(()-> new BaseException(NOT_FIND_COMMENT));
         feedComment.updateFeedComment(updateComment);
 
-        LogEntity logEntity= new LogEntity(feedComment.getUser().getEmail(), COMMENT,"댓글수정");
-        logEntityRepository.save(logEntity);
         return new UpdateFeedCommentRes(commentId,updateComment);
     }
 
@@ -72,7 +64,5 @@ public class FeedCommentService {
         FeedComment feedComment = feedCommentRepository.findByIdAndState(commentId, ACTIVE)
                 .orElseThrow(()-> new BaseException(NOT_FIND_COMMENT));
         feedComment.deleteComment();
-        LogEntity logEntity= new LogEntity(feedComment.getUser().getEmail(), COMMENT,"댓글삭제");
-        logEntityRepository.save(logEntity);
     }
 }

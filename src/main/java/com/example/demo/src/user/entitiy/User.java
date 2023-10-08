@@ -1,6 +1,6 @@
 package com.example.demo.src.user.entitiy;
 
-import com.example.demo.common.entity.BaseEntity;
+import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.chatting.entitiy.ChattingRoom;
 import com.example.demo.src.chatting.entitiy.ChattingText;
 import com.example.demo.src.comment.entity.CommentLike;
@@ -10,6 +10,7 @@ import com.example.demo.src.feed.entitiy.Feed;
 import com.example.demo.src.feed.entitiy.FeedBookMark;
 import com.example.demo.src.feed.entitiy.FeedLike;
 import com.example.demo.src.followMapping.entitiy.FollowMapping;
+import com.example.demo.src.user.enumeration.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,6 +41,9 @@ public class User extends BaseEntity {
     private LocalDateTime birthday;
 
     private LocalDateTime lastLoginTime;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 
     @OneToMany(mappedBy = "user")
@@ -83,6 +87,12 @@ public class User extends BaseEntity {
         this.email = email;
         this.password = password;
         this.name = name;
+    }
+    public User(String email, String password, String name,Role role) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.role=role;
     }
     public void lastLogin(){this.lastLoginTime=LocalDateTime.now();}
 

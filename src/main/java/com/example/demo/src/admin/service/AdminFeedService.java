@@ -1,7 +1,8 @@
 package com.example.demo.src.admin.service;
 
 
-import com.example.demo.common.exceptions.BaseException;
+import com.example.demo.src.common.entity.BaseEntity.State;
+import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.admin.dto.response.AdminFeedRequestRes;
 import com.example.demo.src.feed.dto.response.FeedDetailRes;
 import com.example.demo.src.feed.entitiy.Feed;
@@ -17,8 +18,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.demo.common.entity.BaseEntity.*;
-import static com.example.demo.common.response.BaseResponseStatus.*;
+import static com.example.demo.src.common.response.BaseResponseStatus.DATABASE_ERROR;
+import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_FEED;
 
 @Transactional
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class AdminFeedService {
     private final FuncUser funcUser;
 
     @Transactional(readOnly = true)
-    public List<AdminFeedRequestRes> getFeed(String email, LocalDateTime fromDate, LocalDateTime toDate, State state,Pageable pageable) throws BaseException {
+    public List<AdminFeedRequestRes> getFeed(String email, LocalDateTime fromDate, LocalDateTime toDate, State state, Pageable pageable) throws BaseException {
         try{
             return feedRepository.findByCriteria(email,fromDate,toDate,state, pageable)
                     .stream()

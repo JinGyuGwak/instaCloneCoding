@@ -1,6 +1,6 @@
 package com.example.demo.src.chatting.entitiy;
 
-import com.example.demo.common.entity.BaseEntity;
+import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.user.entitiy.User;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.demo.common.entity.BaseEntity.State.*;
+import static com.example.demo.src.common.entity.BaseEntity.State.INACTIVE;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

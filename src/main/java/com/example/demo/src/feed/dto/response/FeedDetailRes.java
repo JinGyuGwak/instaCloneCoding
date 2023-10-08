@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class FeedDetailRes {
-    private Long id;
+    private Long feedId;
     private Long userId;
     private String postText;
 
@@ -20,7 +20,7 @@ public class FeedDetailRes {
     private List<String> whoLikeThisFeed = new ArrayList<>();
 
     public FeedDetailRes(Feed feed){
-        this.id=feed.getId();
+        this.feedId=feed.getId();
         this.userId=feed.getUser().getId();
         this.postText= feed.getPostText();
         for(FeedContent feedContent : feed.getFeedContentList()){

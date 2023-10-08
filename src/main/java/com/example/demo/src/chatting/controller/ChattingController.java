@@ -1,7 +1,7 @@
 package com.example.demo.src.chatting.controller;
 
 
-import com.example.demo.common.response.BaseResponse;
+import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.chatting.service.ChattingService;
 import com.example.demo.src.chatting.dto.response.ChattingRoomRequestRes;
 import com.example.demo.src.chatting.dto.response.MessageRequestRes;
@@ -26,9 +26,9 @@ public class ChattingController {
      */
     @ResponseBody
     @GetMapping("{userId}")
-    public BaseResponse<List<ChattingRoomRequestRes>> getChattingRoom(@PathVariable Long userId) {
+    public ResponseEntityCustom<List<ChattingRoomRequestRes>> getChattingRoom(@PathVariable Long userId) {
         List<ChattingRoomRequestRes> chattingRoomRequestResList = chattingService.getChattingRoom(userId);
-        return new BaseResponse<>(chattingRoomRequestResList);
+        return new ResponseEntityCustom<>(chattingRoomRequestResList);
     }
     /**
      * 채팅방 만들기
@@ -38,11 +38,11 @@ public class ChattingController {
      */
     @ResponseBody
     @PostMapping("")
-    public BaseResponse<ChattingRoomRequestRes> createChatting(@RequestBody ChattingRoomRequestDto chattingRoomRequestDto) {
+    public ResponseEntityCustom<ChattingRoomRequestRes> createChatting(@RequestBody ChattingRoomRequestDto chattingRoomRequestDto) {
 
         ChattingRoomRequestRes chattingRoomRequestRes = chattingService.createChatting(
                 chattingRoomRequestDto.getSendUserId(), chattingRoomRequestDto.getReceiveUserId());
-        return new BaseResponse<>(chattingRoomRequestRes);
+        return new ResponseEntityCustom<>(chattingRoomRequestRes);
     }
     /**
      * 채팅방 나가기
@@ -52,10 +52,10 @@ public class ChattingController {
      */
     @ResponseBody
     @DeleteMapping("{chattingRoomId}")
-    public BaseResponse<String> deleteChatting(@PathVariable Long chattingRoomId) {
+    public ResponseEntityCustom<String> deleteChatting(@PathVariable Long chattingRoomId) {
         chattingService.deleteChatting(chattingRoomId);
         String result = "채팅방을 나갑니다.";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
     }
 
     /**
@@ -66,11 +66,11 @@ public class ChattingController {
      */
     @ResponseBody
     @PostMapping("/message/{chattingRoomId}")
-    public BaseResponse<MessageRequestRes> sendMessage(@PathVariable Long chattingRoomId,
-                                                       @RequestBody MessageRequestDto messageRequestDto) {
+    public ResponseEntityCustom<MessageRequestRes> sendMessage(@PathVariable Long chattingRoomId,
+                                                               @RequestBody MessageRequestDto messageRequestDto) {
         MessageRequestRes messageRequestRes = chattingService.sendMessage(
                 chattingRoomId, messageRequestDto.getUserId(), messageRequestDto.getChatText());
-        return new BaseResponse<>(messageRequestRes);
+        return new ResponseEntityCustom<>(messageRequestRes);
     }
 
     /**
@@ -80,10 +80,10 @@ public class ChattingController {
      */
     @ResponseBody
     @GetMapping("/message/{chattingRoomId}")
-    public BaseResponse<List<MessageRequestRes>> getMessage(@PathVariable Long chattingRoomId) {
+    public ResponseEntityCustom<List<MessageRequestRes>> getMessage(@PathVariable Long chattingRoomId) {
         List<MessageRequestRes> messageRequestResList =
                 chattingService.getMessage(chattingRoomId);
-        return new BaseResponse<>(messageRequestResList);
+        return new ResponseEntityCustom<>(messageRequestResList);
     }
 
     /**
@@ -94,11 +94,11 @@ public class ChattingController {
      */
     @ResponseBody
     @DeleteMapping("/message/{chattingRoomId}/{chatTextId}")
-    public BaseResponse<String> getMessage(@PathVariable Long chattingRoomId,
-                                           @PathVariable Long chatTextId) {
+    public ResponseEntityCustom<String> getMessage(@PathVariable Long chattingRoomId,
+                                                   @PathVariable Long chatTextId) {
         chattingService.deleteMessage(chattingRoomId,chatTextId);
         String result = "삭제완료!";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
     }
 
     @Getter

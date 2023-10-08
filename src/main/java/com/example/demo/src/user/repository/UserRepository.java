@@ -1,5 +1,7 @@
 package com.example.demo.src.user.repository;
 
+import com.example.demo.src.common.entity.BaseEntity;
+import com.example.demo.src.common.entity.BaseEntity.State;
 import com.example.demo.src.user.entitiy.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,8 +12,6 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
-import static com.example.demo.common.entity.BaseEntity.*;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 

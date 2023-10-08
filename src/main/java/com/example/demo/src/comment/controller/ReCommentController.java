@@ -1,6 +1,6 @@
 package com.example.demo.src.comment.controller;
 
-import com.example.demo.common.response.BaseResponse;
+import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.comment.dto.request.FeedCommentUpdateRequestDto;
 import com.example.demo.src.comment.dto.response.GetReCommentRes;
 import com.example.demo.src.comment.dto.response.ReCommentRes;
@@ -26,9 +26,9 @@ public class ReCommentController {
      */
     @ResponseBody
     @GetMapping("/recomment/{commentId}")
-    public BaseResponse<List<GetReCommentRes>> searchReComment(@PathVariable Long commentId){
+    public ResponseEntityCustom<List<GetReCommentRes>> searchReComment(@PathVariable Long commentId){
         List<GetReCommentRes> getReCommentRes = reCommentService.searchReComment(commentId);
-        return new BaseResponse<>(getReCommentRes);
+        return new ResponseEntityCustom<>(getReCommentRes);
     }
 
     /**
@@ -38,13 +38,13 @@ public class ReCommentController {
      */
     @ResponseBody
     @PostMapping("/recomment/{commentId}")
-    public BaseResponse<ReCommentRes> createComment(@PathVariable Long commentId,
-                                                    @RequestBody ReCommentDto reCommentDto) {
+    public ResponseEntityCustom<ReCommentRes> createComment(@PathVariable Long commentId,
+                                                            @RequestBody ReCommentDto reCommentDto) {
         ReCommentRes reCommentRes = reCommentService.createReComment(
                 commentId,
                 reCommentDto.getUserId(),
                 reCommentDto.getReComment());
-        return new BaseResponse<>(reCommentRes);
+        return new ResponseEntityCustom<>(reCommentRes);
     }
 
     /**
@@ -53,11 +53,11 @@ public class ReCommentController {
      */
     @ResponseBody
     @PatchMapping("/recomment/{reCommentId}")
-    public BaseResponse<UpdateReCommentRes> updateReComment(@PathVariable Long reCommentId,
-                                                            @RequestBody FeedCommentUpdateRequestDto updateComment) {
+    public ResponseEntityCustom<UpdateReCommentRes> updateReComment(@PathVariable Long reCommentId,
+                                                                    @RequestBody FeedCommentUpdateRequestDto updateComment) {
         UpdateReCommentRes updateReCommentRes =
                 reCommentService.updateReComment(reCommentId,updateComment.getFeedComment());
-        return new BaseResponse<>(updateReCommentRes);
+        return new ResponseEntityCustom<>(updateReCommentRes);
     }
     /**
      * 리댓글 삭제
@@ -65,11 +65,11 @@ public class ReCommentController {
      */
     @ResponseBody
     @DeleteMapping("/recomment/{recommentId}")
-    public BaseResponse<String> deleteReComment(@PathVariable("recommentId") Long id){
+    public ResponseEntityCustom<String> deleteReComment(@PathVariable("recommentId") Long id){
         reCommentService.deleteReComment(id);
 
         String result = "삭제 완료!!";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
     }
 
     @Getter

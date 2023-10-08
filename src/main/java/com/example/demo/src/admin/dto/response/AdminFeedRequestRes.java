@@ -1,12 +1,12 @@
 package com.example.demo.src.admin.dto.response;
 
+import com.example.demo.src.common.entity.BaseEntity;
+import com.example.demo.src.common.entity.BaseEntity.State;
 import com.example.demo.src.feed.entitiy.Feed;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-
-import static com.example.demo.common.entity.BaseEntity.*;
 
 @Getter
 @NoArgsConstructor

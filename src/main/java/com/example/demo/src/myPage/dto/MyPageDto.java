@@ -1,10 +1,14 @@
-package com.example.demo.src.myPage.dto.request;
+package com.example.demo.src.myPage.dto;
+
 
 import com.example.demo.src.myPage.entitiy.MyPage;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +24,4 @@ public class MyPageDto {
         this.nickname= myPage.getNickname();
         this.introduction= myPage.getIntroduction();
     }
-
-
 }

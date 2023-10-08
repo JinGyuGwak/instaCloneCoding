@@ -1,7 +1,7 @@
 package com.example.demo.src.feed.entitiy;
 
 
-import com.example.demo.common.entity.BaseEntity;
+import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.comment.entity.FeedComment;
 import com.example.demo.src.feed.dto.request.FeedCreateRequestDto;
 import com.example.demo.src.user.entitiy.User;

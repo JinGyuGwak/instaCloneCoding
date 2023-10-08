@@ -1,7 +1,7 @@
 package com.example.demo.src.chatting.service;
 
 
-import com.example.demo.common.exceptions.BaseException;
+import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.chatting.repository.ChattingRoomRepository;
 import com.example.demo.src.chatting.repository.ChattingTextRepository;
 import com.example.demo.src.chatting.entitiy.ChattingRoom;
@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.demo.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.common.response.BaseResponseStatus.*;
+import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
+import static com.example.demo.src.common.response.BaseResponseStatus.*;
 
 @Transactional
 @RequiredArgsConstructor

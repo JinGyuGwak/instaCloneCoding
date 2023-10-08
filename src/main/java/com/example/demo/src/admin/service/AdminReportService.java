@@ -1,7 +1,7 @@
 package com.example.demo.src.admin.service;
 
-import com.example.demo.common.exceptions.BaseException;
-import com.example.demo.common.response.BaseResponseStatus;
+import com.example.demo.src.common.exceptions.BaseException;
+import com.example.demo.src.common.response.BaseResponseStatus;
 import com.example.demo.src.admin.dto.response.AdminReportRequestRes;
 import com.example.demo.src.feed.entitiy.FeedReport;
 import com.example.demo.src.feed.repository.FeedReportRepository;

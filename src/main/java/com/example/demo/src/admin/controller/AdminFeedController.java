@@ -1,9 +1,9 @@
 package com.example.demo.src.admin.controller;
 
 
-import com.example.demo.common.entity.BaseEntity;
-import com.example.demo.common.exceptions.BaseException;
-import com.example.demo.common.response.BaseResponse;
+import com.example.demo.src.common.entity.BaseEntity;
+import com.example.demo.src.common.exceptions.BaseException;
+import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.admin.dto.response.AdminFeedRequestRes;
 import com.example.demo.src.feed.dto.response.FeedDetailRes;
 import com.example.demo.src.admin.service.AdminFeedService;
@@ -34,7 +34,7 @@ public class AdminFeedController {
      */
     @ResponseBody
     @GetMapping("/filter")
-    public BaseResponse<List<AdminFeedRequestRes>> getFeedFilter(
+    public ResponseEntityCustom<List<AdminFeedRequestRes>> getFeedFilter(
             @PageableDefault(page=0, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             @RequestParam(value = "email", required = false) String email, //email
             @RequestParam(value = "fromDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
@@ -44,10 +44,10 @@ public class AdminFeedController {
             LocalDateTime fromDateTime = fromDate != null ? fromDate.atStartOfDay() : null;
             LocalDateTime toDateTime = toDate != null ? toDate.atStartOfDay() : null;
             List<AdminFeedRequestRes> adminFeedRequestRes = adminFeedService.getFeed(email,fromDateTime,toDateTime,state,pageable);
-            return new BaseResponse<>(adminFeedRequestRes);
+            return new ResponseEntityCustom<>(adminFeedRequestRes);
 
         }catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
+            return new ResponseEntityCustom<>((exception.getStatus()));
         }
     }
 
@@ -59,17 +59,17 @@ public class AdminFeedController {
      */
     @ResponseBody
     @GetMapping("{feedId}")
-    public BaseResponse<FeedDetailRes> getFeedDetail(@PathVariable Long feedId){
+    public ResponseEntityCustom<FeedDetailRes> getFeedDetail(@PathVariable Long feedId){
         FeedDetailRes feedDetailRes = adminFeedService.getFeedDetail(feedId);
-        return new BaseResponse<>(feedDetailRes);
+        return new ResponseEntityCustom<>(feedDetailRes);
     }
 
     @ResponseBody
     @DeleteMapping("{feedId}")
-    public BaseResponse<String> adminDeleteFeed(@PathVariable Long feedId){
+    public ResponseEntityCustom<String> adminDeleteFeed(@PathVariable Long feedId){
         adminFeedService.adminDeleteFeed(feedId);
         String result = "삭제완료!";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
     }
 
 

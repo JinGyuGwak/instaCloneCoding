@@ -1,7 +1,7 @@
 package com.example.demo.src.admin.controller;
 
 
-import com.example.demo.common.response.BaseResponse;
+import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.admin.dto.response.AdminReportRequestRes;
 import com.example.demo.src.admin.service.AdminReportService;
 import lombok.RequiredArgsConstructor;
@@ -27,18 +27,18 @@ public class AdminReportController {
      */
     @ResponseBody
     @GetMapping("")
-    public BaseResponse<List<AdminReportRequestRes>> getReport(
+    public ResponseEntityCustom<List<AdminReportRequestRes>> getReport(
             @PageableDefault(page=0, sort = "createdAt", direction = Sort.Direction.DESC)
             Pageable pageable){
         List<AdminReportRequestRes> adminReportRequestRes = adminReportService.getReport(pageable);
-        return new BaseResponse<>(adminReportRequestRes);
+        return new ResponseEntityCustom<>(adminReportRequestRes);
     }
     @ResponseBody
     @DeleteMapping("{feedReportId}")
-    public BaseResponse<String> deleteFeedFromReport(@PathVariable Long feedReportId){
+    public ResponseEntityCustom<String> deleteFeedFromReport(@PathVariable Long feedReportId){
         adminReportService.deleteFeedFromReport(feedReportId);
         String result = "피드를 삭제하였습니다.";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
 
     }
 

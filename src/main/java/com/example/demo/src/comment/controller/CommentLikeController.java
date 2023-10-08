@@ -1,6 +1,6 @@
 package com.example.demo.src.comment.controller;
 
-import com.example.demo.common.response.BaseResponse;
+import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.comment.dto.response.CommentLikeRes;
 import com.example.demo.src.comment.dto.response.GetCommentLike;
 import com.example.demo.src.feed.dto.request.FeedLikeDto;
@@ -24,10 +24,10 @@ public class CommentLikeController {
      */
     @ResponseBody
     @PostMapping("/commentLiked")
-    public BaseResponse<CommentLikeRes> commentLike(@RequestBody PostCommentLikeDto postCommentLikeDto) {
+    public ResponseEntityCustom<CommentLikeRes> commentLike(@RequestBody PostCommentLikeDto postCommentLikeDto) {
         CommentLikeRes commentLikeRes = commentLikeService
                 .commentLike(postCommentLikeDto.getUserId(), postCommentLikeDto.getCommentId());
-        return new BaseResponse<>(commentLikeRes);
+        return new ResponseEntityCustom<>(commentLikeRes);
     }
 
     /**
@@ -36,9 +36,9 @@ public class CommentLikeController {
      */
     @ResponseBody
     @GetMapping("comment/commentLiked/{feedCommentId}")
-    public BaseResponse<List<GetCommentLike>> commentLikeSearch(@PathVariable Long feedCommentId) {
+    public ResponseEntityCustom<List<GetCommentLike>> commentLikeSearch(@PathVariable Long feedCommentId) {
         List<GetCommentLike> getCommentLikeList = commentLikeService.commentLikeSearch(feedCommentId);
-        return new BaseResponse<>(getCommentLikeList);
+        return new ResponseEntityCustom<>(getCommentLikeList);
     }
 
     /**
@@ -48,11 +48,11 @@ public class CommentLikeController {
      */
     @ResponseBody
     @DeleteMapping("feed/comment/{commentId}")
-    public BaseResponse<String> feedLikeDelete1(@PathVariable Long commentId,
-                                                @RequestBody FeedLikeDto feedLikeDto) {
+    public ResponseEntityCustom<String> feedLikeDelete1(@PathVariable Long commentId,
+                                                        @RequestBody FeedLikeDto feedLikeDto) {
         commentLikeService.commentLikeDelete(commentId, feedLikeDto.getUserId());
         String result = "삭제 완료!!";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
     }
 
     @Getter

@@ -1,6 +1,6 @@
 package com.example.demo.src.followMapping.service;
 
-import com.example.demo.common.exceptions.BaseException;
+import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.followMapping.repository.FollowMappingRepository;
 import com.example.demo.src.followMapping.entitiy.FollowMapping;
 import com.example.demo.src.followMapping.dto.response.GetFollow;
@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.demo.common.entity.BaseEntity.State.*;
-import static com.example.demo.common.response.BaseResponseStatus.*;
+import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
+import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_USER;
 
 
 @Transactional

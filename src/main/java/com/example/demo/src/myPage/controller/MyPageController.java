@@ -1,14 +1,12 @@
 package com.example.demo.src.myPage.controller;
-
-
-import com.example.demo.common.response.BaseResponse;
-import com.example.demo.src.myPage.dto.request.MyPageDto;
+import com.example.demo.src.myPage.dto.MyPageDto;
 import com.example.demo.src.myPage.service.MyPageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/mypage")
@@ -19,35 +17,26 @@ public class MyPageController {
      * [POST] /mypage
      * 리퀘스트바디에 userId,이름,닉네임,소개 넣기
      */
-    @ResponseBody
     @PostMapping("")
-    public BaseResponse<MyPageDto> createMyPage(@RequestBody MyPageDto myPageDto) {
-
-        MyPageDto myPageRequestRes = myPageService.createMyPage(myPageDto);
-        return new BaseResponse<>(myPageRequestRes);
+    public ResponseEntity<MyPageDto> createMyPage(@RequestBody MyPageDto myPageDto) {
+        return new ResponseEntity<>(myPageService.createMyPage(myPageDto), HttpStatus.OK);
     }
     /**
      * 마이페이지 수정
      * [PATCH] /mypage
      * 리퀘스트바디에 userId,이름,닉네임,소개 넣기
      */
-    @ResponseBody
     @PatchMapping("")
-    public BaseResponse<MyPageDto> updateMyPage(@RequestBody MyPageDto myPageDto) {
-        MyPageDto myPageRequestRes =
-                myPageService.updateMyPage(myPageDto);
-        return new BaseResponse<>(myPageRequestRes);
+    public ResponseEntity<MyPageDto> updateMyPage(@RequestBody MyPageDto myPageDto) {
+        return new ResponseEntity<>(myPageService.updateMyPage(myPageDto), HttpStatus.OK);
     }
     /**
      * 마이페이지 조회
      * [GET] /mypage/{userId}
      */
-    @ResponseBody
     @GetMapping("{userId}")
-    public BaseResponse<MyPageDto> GetMyPage(@PathVariable Long userId) {
-        MyPageDto myPageRequestRes =
-                myPageService.GetMyPage(userId);
-        return new BaseResponse<>(myPageRequestRes);
+    public ResponseEntity<MyPageDto> GetMyPage(@PathVariable Long userId) {
+        return new ResponseEntity<>(myPageService.GetMyPage(userId), HttpStatus.OK);
     }
 
 }

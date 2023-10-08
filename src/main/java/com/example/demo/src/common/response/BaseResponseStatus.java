@@ -1,4 +1,4 @@
-package com.example.demo.common.response;
+package com.example.demo.src.common.response;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -72,6 +72,7 @@ public enum BaseResponseStatus {
     DELETE_FAIL_USERNAME(false,HttpStatus.INTERNAL_SERVER_ERROR.value(),"유저 삭제 실패"),
     MODIFY_FAIL_MEMO(false,HttpStatus.INTERNAL_SERVER_ERROR.value(),"메모 수정 실패"),
 
+    VALID_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "올바른 형식으로 입력해주세요."),
     UNEXPECTED_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "예상치 못한 에러가 발생했습니다.");
 
 

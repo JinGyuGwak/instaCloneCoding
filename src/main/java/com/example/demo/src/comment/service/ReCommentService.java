@@ -1,8 +1,6 @@
 package com.example.demo.src.comment.service;
 
-import com.example.demo.common.exceptions.BaseException;
-import com.example.demo.src.admin.repository.LogEntityRepository;
-import com.example.demo.src.admin.entitiy.LogEntity;
+import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.comment.entity.FeedComment;
 import com.example.demo.src.comment.entity.ReComment;
 import com.example.demo.src.comment.dto.response.GetReCommentRes;
@@ -19,9 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.demo.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
-import static com.example.demo.src.admin.entitiy.LogEntity.Domain.COMMENT;
+import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
+import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
 @RequiredArgsConstructor
 @Service
 public class ReCommentService {
@@ -32,7 +29,6 @@ public class ReCommentService {
 
     private final ReCommentRepository reCommentRepository;
 
-    private final LogEntityRepository logEntityRepository;
 
     //리댓글 생성
     @Transactional
@@ -44,8 +40,6 @@ public class ReCommentService {
         ReComment reComment = new ReComment(feedComment ,user, comment);
         reCommentRepository.save(reComment);
 
-        LogEntity logEntity= new LogEntity(feedComment.getUser().getEmail(), COMMENT,"리댓글생성");
-        logEntityRepository.save(logEntity);
         return new ReCommentRes(reComment);
 
     }
@@ -63,8 +57,6 @@ public class ReCommentService {
         ReComment reComment=findReCommentByIdAndState(reCommentId);
         reComment.updateReCommentText(updateReCommentText);
 
-        LogEntity logEntity= new LogEntity(reComment.getUser().getEmail(), COMMENT,"리댓글수정");
-        logEntityRepository.save(logEntity);
 
         return new UpdateReCommentRes(reCommentId,updateReCommentText);
     }
@@ -74,8 +66,6 @@ public class ReCommentService {
     public void deleteReComment(Long recommentId){
         ReComment reComment = findReCommentByIdAndState(recommentId);
         reComment.deleteComment();
-        LogEntity logEntity= new LogEntity(reComment.getUser().getEmail(), COMMENT,"리댓글삭제");
-        logEntityRepository.save(logEntity);
     }
 
     //ReComment 조회

@@ -1,6 +1,6 @@
 package com.example.demo.src.feed.controller;
 
-import com.example.demo.common.response.BaseResponse;
+import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.feed.dto.request.FeedLikeDto;
 import com.example.demo.src.feed.dto.response.GetFeedLikeRes;
 import com.example.demo.src.feed.service.FeedLikeService;
@@ -24,9 +24,9 @@ public class FeedLikeController {
      */
     @ResponseBody
     @PostMapping("/liked")
-    public BaseResponse<FeedLikeDto> userLikeFeed(@RequestBody FeedLikeDto feedLikeDto) {
+    public ResponseEntityCustom<FeedLikeDto> userLikeFeed(@RequestBody FeedLikeDto feedLikeDto) {
         FeedLikeDto feedLikeRes = feedLikeService.userLikeFeed(feedLikeDto);
-        return new BaseResponse<>(feedLikeRes);
+        return new ResponseEntityCustom<>(feedLikeRes);
     }
 
     /**
@@ -37,10 +37,10 @@ public class FeedLikeController {
      */
     @ResponseBody
     @DeleteMapping("/liked")
-    public BaseResponse<String> feedLikeDelete(@RequestBody FeedLikeDto feedLikeDto) {
+    public ResponseEntityCustom<String> feedLikeDelete(@RequestBody FeedLikeDto feedLikeDto) {
         feedLikeService.feedLikeDelete(feedLikeDto.getFeedId(), feedLikeDto.getUserId());
         String result = "삭제 완료!!";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
     }
     /**
      * 좋아요 조회
@@ -48,9 +48,9 @@ public class FeedLikeController {
      */
     @ResponseBody
     @GetMapping("/{feedId}/liked")
-    public BaseResponse<List<GetFeedLikeRes>> feedLikeSearch(@PathVariable Long feedId) {
+    public ResponseEntityCustom<List<GetFeedLikeRes>> feedLikeSearch(@PathVariable Long feedId) {
 
         List<GetFeedLikeRes> getFeedLikeResList = feedLikeService.feedLikeSearch(feedId);
-        return new BaseResponse<>(getFeedLikeResList);
+        return new ResponseEntityCustom<>(getFeedLikeResList);
     }
 }

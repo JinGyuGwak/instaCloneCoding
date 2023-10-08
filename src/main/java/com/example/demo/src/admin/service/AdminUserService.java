@@ -2,7 +2,9 @@ package com.example.demo.src.admin.service;
 
 
 import com.example.demo.src.admin.dto.response.AdminUserRequestRes;
-import com.example.demo.src.user.dto.response.UserDetailRes;
+import com.example.demo.src.common.entity.BaseEntity;
+import com.example.demo.src.common.entity.BaseEntity.State;
+import com.example.demo.src.user.dto.UserDto;
 import com.example.demo.src.func.FuncUser;
 import com.example.demo.src.user.repository.UserRepository;
 import com.example.demo.src.user.entitiy.User;
@@ -18,8 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.example.demo.common.entity.BaseEntity.*;
-
 @Transactional
 @RequiredArgsConstructor
 @Service
@@ -30,7 +30,7 @@ public class AdminUserService {
     //관리자페이지 유저 조회
     @Transactional(readOnly = true)
     public List<AdminUserRequestRes> getUsers(String email, String name, LocalDateTime fromDateTime,
-                                              LocalDateTime toDateTime, State state,Pageable pageable) {
+                                              LocalDateTime toDateTime, State state, Pageable pageable) {
         return userRepository.findByCriteria(email,name,fromDateTime,toDateTime,state,pageable)
                 .stream()
                 .map(AdminUserRequestRes::new)
@@ -82,10 +82,13 @@ public class AdminUserService {
 
     //관리자 페이지 유저 상세조회
     @Transactional
-    public UserDetailRes getUserDetail(Long userId){
+    public UserDto.UserDetailRes getUserDetail(Long userId){
         User user = funcUser.findUserById(userId);
-        return new UserDetailRes(user);
+        return UserDto.UserDetailRes.builder()
+                .user(user)
+                .build();
     }
+
 
     @Transactional
     public void userAdminDelete(Long userId){

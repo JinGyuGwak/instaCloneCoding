@@ -1,6 +1,6 @@
 package com.example.demo.src.feed.service;
 
-import com.example.demo.common.exceptions.BaseException;
+import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.feed.entitiy.Feed;
 import com.example.demo.src.feed.entitiy.FeedLike;
 import com.example.demo.src.feed.dto.request.FeedLikeDto;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.demo.common.response.BaseResponseStatus.NOT_FIND_FEED;
+import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_FEED;
 
 @Transactional
 @RequiredArgsConstructor

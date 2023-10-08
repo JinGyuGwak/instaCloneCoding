@@ -1,6 +1,7 @@
 package com.example.demo.src.feed.repository;
 
-import com.example.demo.common.entity.BaseEntity.*;
+import com.example.demo.src.common.entity.BaseEntity;
+import com.example.demo.src.common.entity.BaseEntity.State;
 import com.example.demo.src.feed.entitiy.Feed;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

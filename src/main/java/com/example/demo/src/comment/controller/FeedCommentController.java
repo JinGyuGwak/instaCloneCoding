@@ -1,6 +1,6 @@
 package com.example.demo.src.comment.controller;
 
-import com.example.demo.common.response.BaseResponse;
+import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.comment.dto.request.FeedCommentUpdateRequestDto;
 import com.example.demo.src.comment.dto.response.FeedCommentRes;
 import com.example.demo.src.comment.dto.response.GetFeedCommentRes;
@@ -26,9 +26,9 @@ public class FeedCommentController {
      */
     @ResponseBody
     @GetMapping("/comment/{feedId}")
-    public BaseResponse<List<GetFeedCommentRes>> searchFeedComment(@PathVariable Long feedId){
+    public ResponseEntityCustom<List<GetFeedCommentRes>> searchFeedComment(@PathVariable Long feedId){
         List<GetFeedCommentRes> getFeedRes = feedCommentService.searchFeedComment(feedId);
-        return new BaseResponse<>(getFeedRes);
+        return new ResponseEntityCustom<>(getFeedRes);
     }
 
     /**
@@ -38,11 +38,11 @@ public class FeedCommentController {
      */
     @ResponseBody
     @PostMapping("{feedId}/comment")
-    public BaseResponse<FeedCommentRes> createComment(@PathVariable Long feedId,
-                                                      @RequestBody FeedCommentDto feedCommentDto) {
+    public ResponseEntityCustom<FeedCommentRes> createComment(@PathVariable Long feedId,
+                                                              @RequestBody FeedCommentDto feedCommentDto) {
         FeedCommentRes feedCommentRes = feedCommentService.createFeedComment(
                 feedId,feedCommentDto.getUserId(), feedCommentDto.getFeedComment());
-        return new BaseResponse<>(feedCommentRes);
+        return new ResponseEntityCustom<>(feedCommentRes);
     }
 
     /**
@@ -51,11 +51,11 @@ public class FeedCommentController {
      */
     @ResponseBody
     @PatchMapping("comment/{commentId}")
-    public BaseResponse<UpdateFeedCommentRes> updateComment(@PathVariable Long commentId,
-                                                            @RequestBody FeedCommentUpdateRequestDto updateComment) {
+    public ResponseEntityCustom<UpdateFeedCommentRes> updateComment(@PathVariable Long commentId,
+                                                                    @RequestBody FeedCommentUpdateRequestDto updateComment) {
         UpdateFeedCommentRes updateFeedCommentRes =
                 feedCommentService.updateFeedComment(commentId,updateComment.getFeedComment());
-        return new BaseResponse<>(updateFeedCommentRes);
+        return new ResponseEntityCustom<>(updateFeedCommentRes);
     }
     /**
      * 피드 댓글 삭제
@@ -63,11 +63,11 @@ public class FeedCommentController {
      */
     @ResponseBody
     @DeleteMapping("/comment/{commentId}")
-    public BaseResponse<String> deleteComment(@PathVariable Long commentId){
+    public ResponseEntityCustom<String> deleteComment(@PathVariable Long commentId){
         feedCommentService.deleteFeedComment(commentId);
 
         String result = "삭제 완료!!";
-        return new BaseResponse<>(result);
+        return new ResponseEntityCustom<>(result);
     }
 
     @Getter

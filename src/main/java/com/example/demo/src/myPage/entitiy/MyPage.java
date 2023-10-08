@@ -1,7 +1,7 @@
 package com.example.demo.src.myPage.entitiy;
 
-import com.example.demo.common.entity.BaseEntity;
-import com.example.demo.src.myPage.dto.request.MyPageDto;
+import com.example.demo.src.common.entity.BaseEntity;
+import com.example.demo.src.myPage.dto.MyPageDto;
 import com.example.demo.src.user.entitiy.User;
 import lombok.AccessLevel;
 import lombok.Getter;

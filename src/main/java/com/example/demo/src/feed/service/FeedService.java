@@ -1,12 +1,10 @@
 package com.example.demo.src.feed.service;
 
-import com.example.demo.common.exceptions.BaseException;
-import com.example.demo.src.admin.repository.LogEntityRepository;
-import com.example.demo.src.admin.entitiy.LogEntity;
+import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.feed.entitiy.Feed;
 import com.example.demo.src.feed.entitiy.FeedContent;
 import com.example.demo.src.feed.entitiy.FeedReport;
-import com.example.demo.common.config.S3Uploader;
+import com.example.demo.src.common.config.S3Uploader;
 import com.example.demo.src.feed.dto.request.FeedCreateRequestDto;
 import com.example.demo.src.feed.dto.response.FeedReportRes;
 import com.example.demo.src.func.FuncFeed;
@@ -17,7 +15,7 @@ import com.example.demo.src.feed.repository.FeedReportRepository;
 import com.example.demo.src.feed.repository.FeedRepository;
 import com.example.demo.src.feed.dto.response.GetFeedRes;
 import com.example.demo.src.feed.dto.response.PostFeedRes;
-import com.example.demo.src.user.dto.response.UpdateFeedRes;
+import com.example.demo.src.admin.dto.response.UpdateFeedRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,9 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.demo.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.common.response.BaseResponseStatus.*;
-import static com.example.demo.src.admin.entitiy.LogEntity.Domain.*;
+import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
+import static com.example.demo.src.common.response.BaseResponseStatus.*;
 
 @Transactional
 @RequiredArgsConstructor
@@ -41,7 +38,6 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final FeedContentRepository feedContentRepository;
     private final FeedReportRepository feedReportRepository;
-    private final LogEntityRepository logEntityRepository;
 
     @Transactional
     public PostFeedRes upload(FeedCreateRequestDto requestDto , List<MultipartFile> files) throws Exception{
@@ -75,8 +71,6 @@ public class FeedService {
 
         Feed saveFeed = feedRepository.save(feed);
 
-        LogEntity logEntity= new LogEntity(feed.getUser().getEmail(),FEED,"피드생성");
-        logEntityRepository.save(logEntity);
 
         return new PostFeedRes(saveFeed);
     }
@@ -94,8 +88,6 @@ public class FeedService {
         Feed feed=funcFeed.findFeedByIdAndState(id);
         feed.update(postText);
 
-        LogEntity logEntity= new LogEntity(feed.getUser().getEmail(),FEED,"피드수정");
-        logEntityRepository.save(logEntity);
         return new UpdateFeedRes(id);
     }
 
@@ -147,8 +139,6 @@ public class FeedService {
         Feed feed = funcFeed.findFeedByIdAndState(feedId);
         feed.deleteFeed();
 
-        LogEntity logEntity= new LogEntity(feed.getUser().getEmail(), FEED,"피드삭제");
-        logEntityRepository.save(logEntity);
     }
 
     //피드 신고
@@ -160,8 +150,6 @@ public class FeedService {
         feedReportRepository.save(feedReport);
         feed.reported();
 
-        LogEntity logEntity= new LogEntity(feedReport.getUser().getEmail(), REPORT,"피드신고");
-        logEntityRepository.save(logEntity);
         return new FeedReportRes(feedReport);
     }
 
