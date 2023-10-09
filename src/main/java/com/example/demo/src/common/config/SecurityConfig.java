@@ -50,7 +50,7 @@ public class SecurityConfig {
 
                 //URL 관리
                 .authorizeRequests()
-                .antMatchers("/user/test/**","/job/**").authenticated()
+                .antMatchers("/user/test/**","/job/**","/follow/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
 

@@ -1,15 +1,17 @@
 package com.example.demo.src.comment.service;
 
+import com.example.demo.src.comment.dto.ReCommentDto;
+import com.example.demo.src.comment.dto.ReCommentDto.GetReCommentRes;
+import com.example.demo.src.comment.dto.ReCommentDto.ReCommentRes;
+import com.example.demo.src.comment.dto.ReCommentDto.UpdateReCommentRes;
 import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.comment.entity.FeedComment;
 import com.example.demo.src.comment.entity.ReComment;
-import com.example.demo.src.comment.dto.response.GetReCommentRes;
-import com.example.demo.src.comment.dto.response.ReCommentRes;
-import com.example.demo.src.comment.dto.response.UpdateReCommentRes;
-import com.example.demo.src.func.FuncUser;
+import com.example.demo.src.util.FuncUser;
 import com.example.demo.src.user.entitiy.User;
 import com.example.demo.src.comment.repository.FeedCommentRepository;
 import com.example.demo.src.comment.repository.ReCommentRepository;
+import com.example.demo.src.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,18 +26,16 @@ import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_C
 public class ReCommentService {
 
     private final FuncUser funcUser;
-
     private final FeedCommentRepository feedCommentRepository;
-
     private final ReCommentRepository reCommentRepository;
 
 
     //리댓글 생성
     @Transactional
-    public ReCommentRes createReComment(Long commentId, Long userId, String comment){
+    public ReCommentRes createReComment(Long commentId, String comment){
         FeedComment feedComment=feedCommentRepository.findByIdAndState(commentId,ACTIVE)
-                .orElseThrow(()->new BaseException(NOT_FIND_COMMENT));
-        User user=funcUser.findUserByIdAndState(userId);
+                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 댓글입니다."));
+        User user=funcUser.findUserByEmail(LoginUtil.getLoginEmail());
 
         ReComment reComment = new ReComment(feedComment ,user, comment);
         reCommentRepository.save(reComment);
@@ -44,7 +44,7 @@ public class ReCommentService {
 
     }
     //리댓글 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<GetReCommentRes> searchReComment(Long commentId){
         return reCommentRepository.findAllByFeedCommentIdAndState(commentId, ACTIVE).stream()
                 .map(GetReCommentRes::new)
@@ -56,9 +56,10 @@ public class ReCommentService {
     public UpdateReCommentRes updateReComment(Long reCommentId, String updateReCommentText){
         ReComment reComment=findReCommentByIdAndState(reCommentId);
         reComment.updateReCommentText(updateReCommentText);
-
-
-        return new UpdateReCommentRes(reCommentId,updateReCommentText);
+        return UpdateReCommentRes.builder()
+                .reCommentId(reCommentId)
+                .reComment(updateReCommentText)
+                .build();
     }
 
     //피드 리댓글 삭제
@@ -69,9 +70,10 @@ public class ReCommentService {
     }
 
     //ReComment 조회
-    private ReComment findReCommentByIdAndState(Long id){
+    @Transactional(readOnly = true)
+    public ReComment findReCommentByIdAndState(Long id){
         return reCommentRepository.findByIdAndState(id,ACTIVE).
-                orElseThrow(()-> new BaseException(NOT_FIND_COMMENT));
+                orElseThrow(()-> new IllegalArgumentException("댓글을 찾을 수 없습니다."));
     }
 
 }

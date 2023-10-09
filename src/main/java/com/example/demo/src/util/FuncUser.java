@@ -1,13 +1,11 @@
-package com.example.demo.src.func;
+package com.example.demo.src.util;
 
-import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.user.repository.UserRepository;
 import com.example.demo.src.user.entitiy.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_USER;
 
 @RequiredArgsConstructor
 @Service
@@ -16,12 +14,15 @@ public class FuncUser {
 
     public User findUserByIdAndState(Long userId){
         return userRepository.findByIdAndState(userId,ACTIVE)
-                .orElseThrow(()->new BaseException(NOT_FIND_USER));
+                .orElseThrow(()->new IllegalArgumentException("일치하는 유저가 없습니다."));
     }
-
     public User findUserById(Long userId){
         return userRepository.findById(userId)
-                .orElseThrow(()-> new BaseException(NOT_FIND_USER));
+                .orElseThrow(()-> new IllegalArgumentException("일치하는 유저가 없습니다."));
+    }
+    public User findUserByEmail(String email){
+        return userRepository.findByEmail(email)
+                .orElseThrow(()-> new IllegalArgumentException("일치하는 유저가 없습니다."));
     }
 
 }

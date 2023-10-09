@@ -1,12 +1,10 @@
-package com.example.demo.src.func;
+package com.example.demo.src.util;
 
-import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.feed.entitiy.Feed;
 import com.example.demo.src.feed.repository.FeedRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_FEED;
 
 @RequiredArgsConstructor
 @Service
@@ -15,7 +13,7 @@ public class FuncFeed {
 
     public Feed findFeedByIdAndState(Long feedId){
         return feedRepository.findByIdAndState(feedId,ACTIVE)
-                .orElseThrow(() -> new BaseException(NOT_FIND_FEED));
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
     }
 
 

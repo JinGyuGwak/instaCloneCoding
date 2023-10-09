@@ -17,11 +17,11 @@ public class FollowMapping extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "followUserId")
     private User followUser; //팔로우 당하는 유저
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "followerUserId")
     private User followerUser; //팔로우 하는 유저 (팔로워가 됨)
 

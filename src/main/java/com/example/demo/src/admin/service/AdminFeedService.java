@@ -7,7 +7,7 @@ import com.example.demo.src.admin.dto.response.AdminFeedRequestRes;
 import com.example.demo.src.feed.dto.response.FeedDetailRes;
 import com.example.demo.src.feed.entitiy.Feed;
 import com.example.demo.src.feed.repository.FeedRepository;
-import com.example.demo.src.func.FuncUser;
+import com.example.demo.src.util.FuncUser;
 import com.example.demo.src.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

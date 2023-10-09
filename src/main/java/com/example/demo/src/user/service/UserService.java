@@ -4,7 +4,7 @@ package com.example.demo.src.user.service;
 
 import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.common.login.jwt.JwtTokenProvider;
-import com.example.demo.src.func.FuncUser;
+import com.example.demo.src.util.FuncUser;
 import com.example.demo.src.user.dto.UserDto;
 import com.example.demo.src.user.dto.UserDto.*;
 import com.example.demo.src.user.enumeration.Role;

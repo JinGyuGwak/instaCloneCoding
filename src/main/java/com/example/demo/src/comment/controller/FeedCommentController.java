@@ -1,14 +1,14 @@
 package com.example.demo.src.comment.controller;
 
-import com.example.demo.src.common.response.ResponseEntityCustom;
-import com.example.demo.src.comment.dto.request.FeedCommentUpdateRequestDto;
-import com.example.demo.src.comment.dto.response.FeedCommentRes;
-import com.example.demo.src.comment.dto.response.GetFeedCommentRes;
-import com.example.demo.src.comment.dto.response.UpdateFeedCommentRes;
+import com.example.demo.src.comment.dto.CommentDto;
+import com.example.demo.src.comment.dto.CommentDto.*;
+import com.example.demo.src.comment.dto.CommentDto.FeedCommentDto;
 import com.example.demo.src.comment.service.FeedCommentService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,11 +24,9 @@ public class FeedCommentController {
      * 피드 댓글 조회
      * [GET] /feed/comment/{feedId}
      */
-    @ResponseBody
     @GetMapping("/comment/{feedId}")
-    public ResponseEntityCustom<List<GetFeedCommentRes>> searchFeedComment(@PathVariable Long feedId){
-        List<GetFeedCommentRes> getFeedRes = feedCommentService.searchFeedComment(feedId);
-        return new ResponseEntityCustom<>(getFeedRes);
+    public ResponseEntity<List<GetFeedCommentRes>> searchFeedComment(@PathVariable Long feedId){
+        return new ResponseEntity<>(feedCommentService.searchFeedComment(feedId), HttpStatus.OK);
     }
 
     /**
@@ -36,45 +34,30 @@ public class FeedCommentController {
      * [POST] /feed/{feedId}/comment
      * @return BaseResponse<FeedCommentRes>
      */
-    @ResponseBody
-    @PostMapping("{feedId}/comment")
-    public ResponseEntityCustom<FeedCommentRes> createComment(@PathVariable Long feedId,
-                                                              @RequestBody FeedCommentDto feedCommentDto) {
-        FeedCommentRes feedCommentRes = feedCommentService.createFeedComment(
-                feedId,feedCommentDto.getUserId(), feedCommentDto.getFeedComment());
-        return new ResponseEntityCustom<>(feedCommentRes);
+    @PostMapping("/{feedId}/comment")
+    public ResponseEntity<FeedCommentRes> createComment(@PathVariable Long feedId,
+                                                        @RequestBody FeedCommentDto feedCommentDto) {
+        return new ResponseEntity<>(feedCommentService.createFeedComment(feedCommentDto,feedId), HttpStatus.OK);
     }
 
     /**
      * 피드 댓글 수정
      * [PATCH] /feed/comment/{commentid}
      */
-    @ResponseBody
-    @PatchMapping("comment/{commentId}")
-    public ResponseEntityCustom<UpdateFeedCommentRes> updateComment(@PathVariable Long commentId,
-                                                                    @RequestBody FeedCommentUpdateRequestDto updateComment) {
-        UpdateFeedCommentRes updateFeedCommentRes =
-                feedCommentService.updateFeedComment(commentId,updateComment.getFeedComment());
-        return new ResponseEntityCustom<>(updateFeedCommentRes);
+    @PatchMapping("/comment/{commentId}")
+    public ResponseEntity<UpdateFeedCommentRes> updateComment(@PathVariable Long commentId,
+                                                              @RequestBody FeedCommentUpdateRequestDto updateComment) {
+        return new ResponseEntity<>(feedCommentService.updateFeedComment(commentId,updateComment.getCommentText()), HttpStatus.OK);
     }
     /**
      * 피드 댓글 삭제
      * [DELETE] /feed/comment/{commentId}
      */
-    @ResponseBody
     @DeleteMapping("/comment/{commentId}")
-    public ResponseEntityCustom<String> deleteComment(@PathVariable Long commentId){
+    public ResponseEntity<String> deleteComment(@PathVariable Long commentId){
         feedCommentService.deleteFeedComment(commentId);
-
         String result = "삭제 완료!!";
-        return new ResponseEntityCustom<>(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-    @Getter
-    private static class FeedCommentDto{
-        private Long userId;
-        private String feedComment;
-    }
-
 
 }

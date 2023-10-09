@@ -1,15 +1,16 @@
 package com.example.demo.src.comment.service;
 
+import com.example.demo.src.comment.dto.CommentLikeDto;
 import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.comment.entity.CommentLike;
 import com.example.demo.src.comment.entity.FeedComment;
-import com.example.demo.src.comment.dto.response.CommentLikeRes;
-import com.example.demo.src.comment.dto.response.GetCommentLike;
-import com.example.demo.src.func.FuncUser;
+import com.example.demo.src.util.FuncUser;
 import com.example.demo.src.user.entitiy.User;
 import com.example.demo.src.comment.repository.CommentLikeRepository;
 import com.example.demo.src.comment.repository.FeedCommentRepository;
+import com.example.demo.src.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,6 @@ import java.util.stream.Collectors;
 import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
 import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class CommentLikeService {
@@ -30,30 +30,30 @@ public class CommentLikeService {
 
     //댓글 좋아요
     @Transactional
-    public CommentLikeRes commentLike(Long userId, Long commentId){
-        User user=funcUser.findUserByIdAndState(userId);
-        FeedComment feedComment = feedCommentRepository.findByIdAndState(
-                        commentId, ACTIVE)
-                .orElseThrow(()-> new BaseException(NOT_FIND_COMMENT));
+    public CommentLikeDto commentLike(Long commentId){
+        User user=funcUser.findUserByEmail(LoginUtil.getLoginEmail());
+        FeedComment feedComment = feedCommentRepository.findByIdAndState(commentId, ACTIVE)
+                .orElseThrow(()-> new IllegalArgumentException("댓글이 존재하지 않습니다."));
         CommentLike commentLike = new CommentLike(user,feedComment);
         if(!commentLikeRepository.findByUserIdAndFeedCommentId(user.getId(), feedComment.getId()).isPresent()){
-            commentLikeRepository.save(commentLike);
+            commentLikeRepository.save(commentLike); //CommentLike 가 존재하지 않으면 생성(중복방지)
         }
-        return new CommentLikeRes(commentLike);
+        return new CommentLikeDto(commentLike);
     }
     //댓글 좋아요 조회
-    @Transactional
-    public List<GetCommentLike> commentLikeSearch(Long commentId){
+    @Transactional(readOnly = true)
+    public List<CommentLikeDto> commentLikeSearch(Long commentId){
         return commentLikeRepository.findByFeedCommentIdAndState(commentId, ACTIVE)
                 .stream()
-                .map(GetCommentLike::new)
+                .map(CommentLikeDto::new)
                 .collect(Collectors.toList());
     }
     //댓글 좋아요 삭제
     @Transactional
-    public void commentLikeDelete(Long commentId,Long userId){
-        CommentLike commentLike=commentLikeRepository.findByUserIdAndFeedCommentId(userId,commentId)
-                .orElseThrow(()-> new BaseException(NOT_FIND_COMMENT));
+    public void commentLikeDelete(Long commentId){
+        User loginUser = funcUser.findUserByEmail(LoginUtil.getLoginEmail());
+        CommentLike commentLike=commentLikeRepository.findByUserIdAndFeedCommentId(loginUser.getId(),commentId)
+                .orElseThrow(()-> new IllegalArgumentException("댓글이 존재하지 않습니다."));
         commentLikeRepository.delete(commentLike);
     }
 }

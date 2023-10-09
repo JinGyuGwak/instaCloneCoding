@@ -2,10 +2,9 @@ package com.example.demo.src.admin.service;
 
 
 import com.example.demo.src.admin.dto.response.AdminUserRequestRes;
-import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.common.entity.BaseEntity.State;
 import com.example.demo.src.user.dto.UserDto;
-import com.example.demo.src.func.FuncUser;
+import com.example.demo.src.util.FuncUser;
 import com.example.demo.src.user.repository.UserRepository;
 import com.example.demo.src.user.entitiy.User;
 import lombok.RequiredArgsConstructor;

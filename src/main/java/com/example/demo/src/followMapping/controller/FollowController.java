@@ -1,14 +1,13 @@
 package com.example.demo.src.followMapping.controller;
 
 
-import com.example.demo.src.common.response.ResponseEntityCustom;
+import com.example.demo.src.followMapping.dto.FollowMappingDto.*;
+import com.example.demo.src.followMapping.dto.FollowMappingDto.FollowerDto;
 import com.example.demo.src.followMapping.service.FollowService;
-import com.example.demo.src.followMapping.dto.response.GetFollow;
-import com.example.demo.src.followMapping.dto.response.GetFollower;
-import com.example.demo.src.followMapping.dto.response.PostFollowRes;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,22 +23,20 @@ public class FollowController {
      * 내가 팔로우 하는 사람 조회 (팔로우 조회)
      * [GET] /follow/{userId}
      */
-    @ResponseBody
     @GetMapping("{userId}")
-    public ResponseEntityCustom<List<GetFollow>> followMappingSearch(@PathVariable Long userId) {
-        List<GetFollow> getFollowList = followService.followSearch(userId);
-        return new ResponseEntityCustom<>(getFollowList);
+    public ResponseEntity<List<FollowDto>> followMappingSearch(@PathVariable Long userId) {
+        List<FollowDto> getFollowList = followService.followSearch(userId);
+        return new ResponseEntity<>(getFollowList, HttpStatus.OK);
     }
 
     /**
      * {userId}내 팔로워 조회 (팔로워 조회)
      * [GET] /follow/{userId}
      */
-    @ResponseBody
     @GetMapping("/follower/{userId}")
-    public ResponseEntityCustom<List<GetFollower>> followerSearch(@PathVariable Long userId) {
-        List<GetFollower> getFollowerList = followService.followerSearch(userId);
-        return new ResponseEntityCustom<>(getFollowerList);
+    public ResponseEntity<List<FollowerDto>> followerSearch(@PathVariable Long userId) {
+        List<FollowerDto> getFollowerList = followService.followerSearch(userId);
+        return new ResponseEntity<>(getFollowerList,HttpStatus.OK);
     }
 
     /**
@@ -47,13 +44,11 @@ public class FollowController {
      * [POST] /follow
      * 리퀘스트바디에 userId넣기
      */
-    @ResponseBody
     @PostMapping("")
-    public ResponseEntityCustom<PostFollowRes> followUser(@RequestBody PostFollowDto postFollowDto) {
-        PostFollowRes postFollowRes = followService.followUser(
+    public ResponseEntity<PostFollowDto> followUser(@RequestBody PostFollowDto postFollowDto) {
+        return new ResponseEntity<>(followService.followUser(
                 postFollowDto.getFollowUserId(),
-                postFollowDto.getFollowerUserId());
-        return new ResponseEntityCustom<>(postFollowRes);
+                postFollowDto.getFollowerUserId()),HttpStatus.OK);
     }
 
     /**
@@ -62,22 +57,12 @@ public class FollowController {
      * 팔로우매핑삭제는 STATE가 아닌 DB에서 바로 삭제
      * 리퀘스트 바디로 팔로우하는userId 팔로우당하는userId
      */
-    @ResponseBody
     @DeleteMapping("")
-    public ResponseEntityCustom<String> followDelete(@RequestBody PostFollowDto postFollowDto) {
+    public ResponseEntity<String> followDelete(@RequestBody PostFollowDto postFollowDto) {
         followService.followDelete(
                 postFollowDto.getFollowUserId(),
                 postFollowDto.getFollowerUserId());
-
         String result = "삭제 완료!!";
-        return new ResponseEntityCustom<>(result);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
-
-    @Getter
-    private static class PostFollowDto{
-        private Long followUserId; //팔로우 당하는 사람
-        private Long followerUserId; // 팔로우 하는 사람(팔로워가 됨)
-
-    }
-
 }

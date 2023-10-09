@@ -1,7 +1,6 @@
 package com.example.demo.src.myPage.service;
 
-import com.example.demo.src.common.exceptions.BaseException;
-import com.example.demo.src.func.FuncUser;
+import com.example.demo.src.util.FuncUser;
 import com.example.demo.src.myPage.dto.MyPageDto;
 import com.example.demo.src.myPage.repository.MyPageRepository;
 import com.example.demo.src.myPage.entitiy.MyPage;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.src.common.response.BaseResponseStatus.*;
 
 @RequiredArgsConstructor
 @Service

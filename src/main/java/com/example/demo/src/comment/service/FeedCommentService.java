@@ -1,13 +1,10 @@
 package com.example.demo.src.comment.service;
 
-import com.example.demo.src.common.exceptions.BaseException;
+import com.example.demo.src.comment.dto.CommentDto.*;
 import com.example.demo.src.feed.entitiy.Feed;
 import com.example.demo.src.comment.entity.FeedComment;
-import com.example.demo.src.comment.dto.response.FeedCommentRes;
-import com.example.demo.src.comment.dto.response.GetFeedCommentRes;
-import com.example.demo.src.comment.dto.response.UpdateFeedCommentRes;
-import com.example.demo.src.func.FuncFeed;
-import com.example.demo.src.func.FuncUser;
+import com.example.demo.src.util.FuncFeed;
+import com.example.demo.src.util.FuncUser;
 import com.example.demo.src.user.entitiy.User;
 import com.example.demo.src.comment.repository.FeedCommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class FeedCommentService {
@@ -31,17 +26,17 @@ public class FeedCommentService {
 
     //피드 댓글 생성
     @Transactional
-    public FeedCommentRes createFeedComment(Long feedId, Long userId, String comment){
-        User user=funcUser.findUserByIdAndState(userId);
+    public FeedCommentRes createFeedComment(FeedCommentDto feedCommentDto, Long feedId){
+        User user=funcUser.findUserByIdAndState(feedCommentDto.getUserId());
         Feed feed=funcFeed.findFeedByIdAndState(feedId);
-        FeedComment feedComment = new FeedComment(feed,user, comment);
+        FeedComment feedComment = new FeedComment(feed,user, feedCommentDto.getCommentText());
         feedCommentRepository.save(feedComment);
 
         return new FeedCommentRes(feedComment);
     }
 
     //피드 댓글 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<GetFeedCommentRes> searchFeedComment(Long feedId){
         return feedCommentRepository.findAllByFeedIdAndState(feedId, ACTIVE)
                 .stream()
@@ -52,17 +47,20 @@ public class FeedCommentService {
     @Transactional
     public UpdateFeedCommentRes updateFeedComment(Long commentId, String updateComment){
         FeedComment feedComment=feedCommentRepository.findByIdAndState(commentId,ACTIVE).
-                orElseThrow(()-> new BaseException(NOT_FIND_COMMENT));
+                orElseThrow(()-> new IllegalArgumentException("댓글이 존재하지 않습니다."));
         feedComment.updateFeedComment(updateComment);
-
-        return new UpdateFeedCommentRes(commentId,updateComment);
+        return UpdateFeedCommentRes.builder()
+                .commentId(commentId)
+                .commentText(updateComment)
+                .build();
     }
+
 
     //피드 댓글 삭제
     @Transactional
     public void deleteFeedComment(Long commentId){
         FeedComment feedComment = feedCommentRepository.findByIdAndState(commentId, ACTIVE)
-                .orElseThrow(()-> new BaseException(NOT_FIND_COMMENT));
+                .orElseThrow(()-> new IllegalArgumentException("댓글이 존재하지 않습니다."));
         feedComment.deleteComment();
     }
 }

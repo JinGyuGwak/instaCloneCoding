@@ -8,7 +8,7 @@ import com.example.demo.src.chatting.entitiy.ChattingRoom;
 import com.example.demo.src.chatting.entitiy.ChattingText;
 import com.example.demo.src.chatting.dto.response.ChattingRoomRequestRes;
 import com.example.demo.src.chatting.dto.response.MessageRequestRes;
-import com.example.demo.src.func.FuncUser;
+import com.example.demo.src.util.FuncUser;
 import com.example.demo.src.user.entitiy.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
