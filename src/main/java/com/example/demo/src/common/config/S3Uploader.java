@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.demo.src.feed.entitiy.FeedContent;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class S3Uploader {
     private final AmazonS3Client amazonS3Client;
     @Value("${cloud.aws.s3.bucket}")
@@ -43,8 +45,8 @@ public class S3Uploader {
             String fileName = filePath + "/" + UUID.randomUUID() + a.getName();   // S3에 저장된 파일 이름
             String uploadImageUrl = putS3(a, fileName); // s3로 업로드
             removeNewFile(a);
-            System.out.println("uploadFile = " + a.getName());
-            System.out.println("uploadImageUrl = " + uploadImageUrl);
+            log.info("uploadFile = {}", a.getName());
+            log.info("uploadImageUrl = {}", uploadImageUrl);
 
             FeedContent feedContent = new FeedContent(a.getName(),uploadImageUrl,a.length());
             fileList.add(feedContent);
@@ -71,7 +73,7 @@ public class S3Uploader {
         return Optional.empty();
     }
 
-    // 로컬에 저장된 이미지 지우기
+    // 로컬에 저장된 이미지 지우기 (로컬에 이미지 저장 후 바로 삭제함)
     private void removeNewFile(File targetFile) {
         System.out.println("로컬에 이미지 지우기");
         if (targetFile.delete()) {
