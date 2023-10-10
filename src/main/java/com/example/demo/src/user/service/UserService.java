@@ -48,13 +48,13 @@ public class UserService {
         //중복 체크
         Optional<User> checkUser = userRepository.findByEmailAndState(email, ACTIVE);
         if(checkUser.isPresent()){
-            throw new BaseException(POST_USERS_EXISTS_EMAIL);
+            throw new IllegalArgumentException("중복된 이메일입니다.");
         }
         String encryptPwd;
         try { //비밀번호 암호화
             encryptPwd = passwordEncoder.encode(password);
         } catch (Exception exception) {
-            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+            throw new IllegalArgumentException("비밀번호 암호화에 실패하였습니다.");
         }
         User saveUser = userRepository.save(new User(email,encryptPwd,name, Role.ROLE_USER));
         return PostUserRes.builder()
@@ -92,7 +92,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<GetUserRes> getUsersByEmail(String email) {
         User user = userRepository.findByEmailAndState(email, ACTIVE)
-                .orElseThrow(()->new BaseException(NOT_FIND_USER));
+                .orElseThrow(()->new IllegalArgumentException("일치하는 유저가 없습니다."));
         List<GetUserRes> getUserResList = new ArrayList<>();
         getUserResList.add(GetUserRes.builder()
                 .id(user.getId())
@@ -121,7 +121,7 @@ public class UserService {
 
         //이메일에 맞는 User 찾기
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new BaseException(NOT_FIND_USER));
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 유저가 없습니다."));
 
         String jwt = jwtTokenProvider.createToken(authentication);
         HttpHeaders httpHeaders = new HttpHeaders();

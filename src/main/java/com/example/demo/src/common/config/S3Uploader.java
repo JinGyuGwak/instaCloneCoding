@@ -28,7 +28,6 @@ public class S3Uploader {
 
     //파일변환
     public List<FeedContent> uploadFiles(List<MultipartFile> multipartFileList, String dirName) throws IOException {
-
         List<File> files = new ArrayList<>();
         for(MultipartFile multipartFile : multipartFileList){
             File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
