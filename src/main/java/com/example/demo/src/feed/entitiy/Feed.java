@@ -32,20 +32,25 @@ public class Feed extends BaseEntity {
     private int reportCount;
 
 
+    @Builder.Default
     @OneToMany(mappedBy = "feed",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     List<FeedContent> feedContentList = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     List<FeedBookMark> feedBookMarkList = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     List<FeedComment> feedCommentList = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     List<FeedLike> feedLikeList = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     List<FeedReport> feedReportList = new ArrayList<>();
 

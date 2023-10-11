@@ -10,5 +10,6 @@ import java.util.Optional;
 
 public interface ChattingTextRepository extends JpaRepository<ChattingText,Long> {
     List<ChattingText> findByChattingRoomIdAndState(Long id, State state);
-    Optional<ChattingText> findByIdAndChattingRoomId(Long chattingRoomId, Long id);
+    Optional<ChattingText> findByIdAndChattingRoomId(Long id, Long chattingRoomId);
+
 }

@@ -1,11 +1,13 @@
 package com.example.demo.src.feed.controller;
 
 import com.example.demo.src.common.response.ResponseEntityCustom;
-import com.example.demo.src.feed.dto.request.FeedLikeDto;
-import com.example.demo.src.feed.dto.response.GetFeedLikeRes;
+import com.example.demo.src.feed.dto.FeedLikeDto;
+import com.example.demo.src.feed.dto.FeedLikeDto.GetFeedLikeRes;
 import com.example.demo.src.feed.service.FeedLikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,11 +24,9 @@ public class FeedLikeController {
      * [POST] /feed/liked
      * 리퀘스트바디에 userId,feedId넣기
      */
-    @ResponseBody
     @PostMapping("/liked")
-    public ResponseEntityCustom<FeedLikeDto> userLikeFeed(@RequestBody FeedLikeDto feedLikeDto) {
-        FeedLikeDto feedLikeRes = feedLikeService.userLikeFeed(feedLikeDto);
-        return new ResponseEntityCustom<>(feedLikeRes);
+    public ResponseEntity<FeedLikeDto> userLikeFeed(@RequestBody FeedLikeDto feedLikeDto) {
+        return new ResponseEntity<>(feedLikeService.userLikeFeed(feedLikeDto), HttpStatus.OK);
     }
 
     /**
@@ -35,22 +35,18 @@ public class FeedLikeController {
      * 좋아요는 STATE가 아닌 DB에서 바로 삭제
      * 리퀘스트바디에 userId,feedId 넣기
      */
-    @ResponseBody
     @DeleteMapping("/liked")
-    public ResponseEntityCustom<String> feedLikeDelete(@RequestBody FeedLikeDto feedLikeDto) {
-        feedLikeService.feedLikeDelete(feedLikeDto.getFeedId(), feedLikeDto.getUserId());
+    public ResponseEntity<String> feedLikeDelete(@RequestBody FeedLikeDto feedLikeDto) {
+        feedLikeService.feedLikeDelete(feedLikeDto);
         String result = "삭제 완료!!";
-        return new ResponseEntityCustom<>(result);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
     /**
      * 좋아요 조회
      * [GET] /feed/{feedId}/liked
      */
-    @ResponseBody
     @GetMapping("/{feedId}/liked")
-    public ResponseEntityCustom<List<GetFeedLikeRes>> feedLikeSearch(@PathVariable Long feedId) {
-
-        List<GetFeedLikeRes> getFeedLikeResList = feedLikeService.feedLikeSearch(feedId);
-        return new ResponseEntityCustom<>(getFeedLikeResList);
+    public ResponseEntity<List<GetFeedLikeRes>> feedLikeSearch(@PathVariable Long feedId) {
+        return new ResponseEntity<>(feedLikeService.feedLikeSearch(feedId),HttpStatus.OK);
     }
 }

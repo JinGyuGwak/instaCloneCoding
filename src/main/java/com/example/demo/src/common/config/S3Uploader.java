@@ -55,15 +55,15 @@ public class S3Uploader {
 
     // S3로 업로드
     private String putS3(File uploadFile, String fileName) {
-        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
+        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile));
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
 
     // 로컬에 파일 업로드 하기
     private Optional<File> convert(MultipartFile file) throws IOException {
-        System.out.println("로컬에 파일 업로드");
+        log.info("로컬에 파일 업로드");
         File convertFile = new File(System.getProperty("user.dir") + "/" + file.getOriginalFilename());
-        if (convertFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
+        if(convertFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
             try (FileOutputStream fos = new FileOutputStream(convertFile)) { // FileOutputStream 데이터를 파일에 바이트 스트림으로 저장하기 위함
                 fos.write(file.getBytes());
             }
@@ -74,12 +74,12 @@ public class S3Uploader {
 
     // 로컬에 저장된 이미지 지우기 (로컬에 이미지 저장 후 바로 삭제함)
     private void removeNewFile(File targetFile) {
-        System.out.println("로컬에 이미지 지우기");
+        log.info("로컬에 이미지 삭제");
         if (targetFile.delete()) {
-            System.out.println("File delete success");
+            log.info("로컬 이미지 삭제 성공");
             return;
         }
-        System.out.println("File delete fail");
+        log.info("로컬 이미지 삭제 실패");
     }
 
 

@@ -86,7 +86,7 @@ public class ChattingService {
     @Transactional
     public void deleteMessage(Long chattingRoomId,Long chatTextId){
         ChattingText chattingText=
-                chattingTextRepository.findByIdAndChattingRoomId(chattingRoomId,chatTextId)
+                chattingTextRepository.findByIdAndChattingRoomId(chatTextId,chattingRoomId)
                         .orElseThrow(()->new IllegalArgumentException("존재하지 않는 메시지 입니다."));
         chattingText.deleteMessage();
     }

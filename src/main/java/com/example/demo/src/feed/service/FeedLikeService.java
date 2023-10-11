@@ -1,10 +1,10 @@
 package com.example.demo.src.feed.service;
 
 import com.example.demo.src.common.exceptions.BaseException;
+import com.example.demo.src.feed.dto.FeedLikeDto;
+import com.example.demo.src.feed.dto.FeedLikeDto.GetFeedLikeRes;
 import com.example.demo.src.feed.entitiy.Feed;
 import com.example.demo.src.feed.entitiy.FeedLike;
-import com.example.demo.src.feed.dto.request.FeedLikeDto;
-import com.example.demo.src.feed.dto.response.GetFeedLikeRes;
 import com.example.demo.src.feed.repository.FeedLikeRepository;
 import com.example.demo.src.util.FuncFeed;
 import com.example.demo.src.util.FuncUser;
@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_FEED;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class FeedLikeService {
@@ -44,14 +43,14 @@ public class FeedLikeService {
 
     //좋아요 삭제
     @Transactional
-    public void feedLikeDelete(Long feedId, Long userId){
-        FeedLike feedLike=feedLikeRepository.findByFeedIdAndUserId(feedId,userId)
+    public void feedLikeDelete(FeedLikeDto feedLikeDto){
+        FeedLike feedLike=feedLikeRepository.findByFeedIdAndUserId(feedLikeDto.getFeedId(),feedLikeDto.getUserId())
                 .orElseThrow(()-> new BaseException(NOT_FIND_FEED));
         feedLikeRepository.delete(feedLike);
     }
 
     //좋아요 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<GetFeedLikeRes> feedLikeSearch(Long feedId){
         return feedLikeRepository.findByFeedId(feedId)
                 .stream()
