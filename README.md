@@ -8,6 +8,10 @@
 
 이번 프로젝트를 통해 ERD 설계부터 EC2를 이용한 배포까지 쥬니어 백엔드 개발자가 되기위해 필요한 최소한의 능력을 갖출 수 있게 되었습니다.
 
+새로운 기술을 배울 때 저에게 가장 효과적인 방법은 직접 그 기술을 사용하는 것이라고 느꼈습니다.
+
+처음 이 프로젝트를 시작했을 때에는 게시판 만들기로 단순한 CRUD 만을 구현하였지만 이후에 지속적으로 학습을 하며 배운 기술들을 프로젝트에 적용시켜 
+
 <br>
 
 # 사용 기술
@@ -20,6 +24,7 @@
 - SpringBoot 2.7.5
 - AWS EC2
 - AWS S3
+- MariaDB (RDS)
 
 ### Dependency
 
@@ -27,7 +32,7 @@
 - Spring Data JPA
 - JWT
 - Lombok
-- MySQL
+- MariaDB
 
 <br>
 
@@ -59,9 +64,11 @@ https://singsinggyu.tistory.com/2#comment13423223
 
 클라이언트에게 응답을 내려줄 때 필요한 정보만 줄 수 있도록 구현했습니다.
 
-하지만 그 과정에서 엔드포인트가 늘어날수록 DTO가 많아져 관리하기 힘들어지고 네이밍 문제도 생기게 되었습니다.
+하지만 그 과정에서 엔드포인트가 늘어날수록 DTO 클래스가 많아져 관리하기 힘들다는 문제가 생겼습니다.
 
-이를 해결하기 위해 하나의 엔드포인트에서만 사용하거나 POST,UPDATE 처럼 필드가 겹치는 RequestDTO는 Inner Class로 처리하게 되었고 Request와 Response 패키지를 분리함으로써 관리를 수월하게 했습니다.
+이를 해결하기 위해 각각의 주요 기능별로 DTO 클래스를 하나씩 만들어서 extends 와 static 클래스를 이용하여 기존에 30개가 넘는 클래스를 6개로 줄였습니다.
+
+
 
 <br>
 
@@ -92,31 +99,25 @@ https://singsinggyu.tistory.com/2#comment13423223
 
 ## 4.프로젝트 아키텍처 수정
 
-기존 아키텍처 구조는 레이어드 아키텍쳐 기반에 DDD의 흉내를 낸 이도저도 아닌 구조였습니다. 코드를 리팩토링 하는 과정에서 이 구조는 상당히 지저분하다고 느끼게 되었고 프로젝트를 처음 보는 사람은 구조 파악이 힘들것이라 생각하게 되어 어설프게 적용된 DDD를 버렸습니다.
-<img width="100%" src="https://user-images.githubusercontent.com/104514223/226563923-6d2fed22-7793-4f9c-ac09-d614f8326575.png">
+기존 아키텍처 구조는 Controller, Service, Entity 등 하나의 패키지에서 관리하였지만 기능을 추가 할수록 오히려 관리하기 힘들다는 느낌을 받았습니다.
+
+이를 해결하기 위해 기존의 구조에서 기능별로 패키지를 나누어 관리하게 되었습니다.
+
+<img width="100%" src="https://github.com/JinGyuGwak/instaCloneCoding/assets/134255553/480b4ff3-10a5-4c91-aad5-72fc2f7901a6">
 
 <br>
-
-## 5.신고 누적 피드 블라인드 처리시 예상되는 문제
-
-FEED의 신고 횟수가 5회가 넘어가면 유저들이 볼 수 없게 블라인드 처리를 하는 기능을 구현하였습니다. 이를 구현하기 위해 FEEDREPORT 테이블을 만들어 신고한 유저의 id와 신고된 FEED의 id 를 저장하였고 FEED를 조회할 때 FEEDREPORT의 외래키인 FEED의 id를 카운트하여 만약 5가 넘어갈 경우에는 반환하지 않도록 했습니다.
-
-하지만 이렇게 되면 FEED를 전체 조회 할 때 FEED마다 연관된 FEEDREPORT 테이블을 where 절을 이용하여 조회하게 됩니다. 데이터가 적은 경우에는 성능에 큰 문제는 없겠지만 FEED와 FEEDREPORT의 수가 많아지면 문제가 생길 것으로 예상하여 FEED 엔티티에 누적신고횟수(reporCount) 필드를 추가하여 FEEDREPORT를 조회할 필요 없이 블라인드 처리를 할 수 있게 수정하였습니다.
-
 <br>
 
-수정 전 코드) Feed와 연관 된 FeedReport를 조회합니다.
+# 현재 진행 및 예정 작업
 
-    return feedRepository.findAllByState(ACTIVE, pageable)
-        .stream()
-        .filter(feed -> feed.getFeedReportList().size() < 6)
-        .map(GetFeedRes::new)
-        .collect(Collectors.toList());
+## 5. Spring Rest Docs 와 Swagger
 
-수정 후 코드) Feed만 조회하고 FeedReport를 조회하지 않습니다.
+백엔드 개발자가 다른 사람들과 협업할 때 가장 중요한 문서 중 하나가 API 문서라고 생각합니다.
 
-    return feedRepository.findAllByState(ACTIVE, pageable)
-        .stream()
-        .filter(feed -> feed.getReportCount() < 6)
-        .map(GetFeedRes::new)
-        .collect(Collectors.toList());
+하지만 많은 사람들이 사용하고 있는 Swagger 은 실제 동작하는 코드에 추가로 코드를 작성하는 방식으로 비지니스 코드의 가독성을 떨어트린다고 생각하였습니다.
+
+Spring Rest Docs는 Swagger 와는 다르게 API문서를 Controller 테스트 코드에 작성함으로 Swagger의 단점을 보완함과 동시에 강제적으로 Test 코드를 작성해야 한다는 단점처럼 보이는 장점을 가지고 있습니다. 
+
+## 6. Service 코드 단위테스트 작성
+
+## 7. Jenkins를 이용한 CI/CD 구축

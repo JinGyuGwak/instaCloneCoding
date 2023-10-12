@@ -19,10 +19,9 @@ public class FeedContent extends BaseEntity {
     @JoinColumn(name = "feedId")
     private Feed feed;
 
-    @Column(nullable = false) //파일 이름
     private String postName;
 
-    @Column(nullable = false) //파일 저장 경로
+    @Column(columnDefinition = "TEXT") //파일 저장 경로
     private String postURL;
 
     private Long fileSize;

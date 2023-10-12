@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
@@ -53,13 +54,16 @@ public class FeedService {
                 .user(userService.searchUserById(userId))
                 .postText(postText)
                 .build();
-
-        List<FeedContent> contentList = s3Uploader.uploadFiles(files,"static");
-        if(!contentList.isEmpty()){
-            for (FeedContent feedContent : contentList){
-                feed.addFeedContent(feedContentRepository.save(feedContent));
+        if(Objects.requireNonNull(files.get(0).getOriginalFilename()).length()>2) {  //업로드 했는지 체크(업로드 안했으면 length 는 0임)
+            List<FeedContent> contentList = s3Uploader.uploadFiles(files, "static");
+            if (!contentList.isEmpty()) {
+                for (FeedContent feedContent : contentList) {
+                    FeedContent oneFeed = feedContentRepository.save(feedContent);
+                    feed.addFeedContent(oneFeed); //시간이 좀 흘러야 이게 되는구나 뭐지 ?
+                }
             }
         }
+
         Feed saveFeed = feedRepository.save(feed);
         return new PostFeedRes(saveFeed);
     }

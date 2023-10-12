@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.7.5'
     id 'io.spring.dependency-management' version '1.1.0'
+    id "org.asciidoctor.jvm.convert" version "3.3.2"  // (1)
     id 'java'
 }
 
@@ -13,6 +14,7 @@ targetCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
 
 configurations {
+    asciidoctorExt // (2)
     compileOnly {
         extendsFrom annotationProcessor
     }
@@ -58,17 +60,15 @@ dependencies {
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
-
-    //OAuth
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    //AsciiDocs
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor' // (3)
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc' // (4)
 
     //파일처리관련의존성
     implementation 'commons-io:commons-io:2.6'
 
     //AWS 의존성
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-
-
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
@@ -78,4 +78,33 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets') // (5)
+}
+tasks.named('test') {
+    useJUnitPlatform()
+    outputs.dir snippetsDir // (6)
+}
+
+asciidoctor {
+    configurations 'asciidoctorExt' // (7)
+    baseDirFollowsSourceFile() // (8)
+    inputs.dir snippetsDir // (9)
+    dependsOn test // (10)
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')  // (11)
+}
+
+task copyDocument(type: Copy) { // (12)
+    dependsOn asciidoctor
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static/docs")
+}
+
+build {
+    dependsOn copyDocument
 }

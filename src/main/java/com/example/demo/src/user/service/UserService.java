@@ -44,7 +44,8 @@ public class UserService {
 
     //POST
     @Transactional
-    public PostUserRes createUser(String email, String password, String name) {
+    public PostUserRes createUser(UserDto postUserReq) {
+        String email = postUserReq.getEmail();
         //중복 체크
         Optional<User> checkUser = userRepository.findByEmailAndState(email, ACTIVE);
         if(checkUser.isPresent()){
@@ -52,11 +53,11 @@ public class UserService {
         }
         String encryptPwd;
         try { //비밀번호 암호화
-            encryptPwd = passwordEncoder.encode(password);
+            encryptPwd = passwordEncoder.encode(postUserReq.getPassword());
         } catch (Exception exception) {
             throw new IllegalArgumentException("비밀번호 암호화에 실패하였습니다.");
         }
-        User saveUser = userRepository.save(new User(email,encryptPwd,name, Role.ROLE_USER));
+        User saveUser = userRepository.save(new User(email,encryptPwd, postUserReq.getName(), Role.ROLE_USER));
         return PostUserRes.builder()
                 .id(saveUser.getId())
                 .email(saveUser.getEmail())

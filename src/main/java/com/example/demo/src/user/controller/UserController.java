@@ -31,10 +31,7 @@ public class UserController {
 
     @PostMapping("")
     public ResponseEntity<UserDto.PostUserRes> createUser(@Valid @RequestBody UserDto postUserReq) {
-        return new ResponseEntity<>(userService.createUser(
-                postUserReq.getEmail(),
-                postUserReq.getPassword(),
-                postUserReq.getName()),HttpStatus.OK);
+        return new ResponseEntity<>(userService.createUser(postUserReq),HttpStatus.OK);
     }
 
     /**
