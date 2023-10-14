@@ -1,0 +1,15 @@
+= MY Project Spring Rest Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+= User 관련 API
+
+[[create_user]]
+== create user
+user를 등록하는 API입니다.
+
+operation::createUser[]
