@@ -83,7 +83,7 @@ public class UserController {
      * [POST] /app/users/logIn
      * @return BaseResponse<PostLoginRes>
      */
-    @PostMapping("/logIn")
+    @PostMapping("/login")
     public ResponseEntity<PostUserRes> logIn(@RequestBody @Valid UserDto loginReq){
         return new ResponseEntity<>(userService.logIn(loginReq.getEmail(),loginReq.getPassword()),HttpStatus.OK);
     }

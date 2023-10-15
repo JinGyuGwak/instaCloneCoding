@@ -188,7 +188,49 @@ public class UserControllerTest {
                         ),
                         responseBody()
                         ));
+    }
+    @Test
+    @WithMockUser
+    public void delete_user() throws Exception{
+        //given
+        doNothing().when(userService).deleteUser(anyLong());
+        //when, then
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/app/users/{userId}",1)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andDo(document("deleteUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("userId").description("유저 ID")),
+                        responseBody()
+                        ));
+    }
+    @Test
+    @WithMockUser
+    public void login() throws Exception{
+        //given
+        given(userService.logIn(anyString(),anyString())).willReturn(dummyPostUserRes());
+        //when & then
+        mockMvc.perform(post("/app/users/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMApper.writeValueAsString(dummyUserDto()))
+                    .with(csrf()))
+                .andExpect(status().isOk())
+                .andDo(document("loginUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        relaxedRequestFields(
+                                fieldWithPath("email").description("유저이메일").type(JsonFieldType.STRING),
+                                fieldWithPath("password").description("유저비밀번호").type(JsonFieldType.STRING)
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("id").description("유저ID").type(JsonFieldType.NUMBER),
+                                fieldWithPath("jwt").description("JWT 토큰").type(JsonFieldType.STRING),
+                                fieldWithPath("email").description("유저이메일").type(JsonFieldType.STRING),
+                                fieldWithPath("password").description("유저비밀번호").type(JsonFieldType.STRING)
 
+                        )));
 
     }
 

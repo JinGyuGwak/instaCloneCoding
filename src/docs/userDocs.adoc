@@ -31,3 +31,16 @@ operation::getUsersWithOutEmail[]
 user의 name을 변경하는 API입니다.
 
 operation::modifyUserName[]
+
+[[delete_user]]
+== delete_user
+user 삭제하는 API입니다.
+
+operation::deleteUser[]
+
+[[login_user]]
+== login_user
+로그인 하는 API입니다.
+
+operation::loginUser[]
+
