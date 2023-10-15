@@ -13,3 +13,21 @@
 user를 등록하는 API입니다.
 
 operation::createUser[]
+
+[[get_user_by_email]]
+== get_user_by_email
+email로 user를 조회하는 API입니다.
+
+operation::getUserByEmail[]
+
+[[get_users_without_email]]
+== get_users_without_email
+users를 조회하는 API입니다.
+
+operation::getUsersWithOutEmail[]
+
+[[modify_user_name]]
+== modify_user_name
+user의 name을 변경하는 API입니다.
+
+operation::modifyUserName[]
