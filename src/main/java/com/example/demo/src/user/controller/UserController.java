@@ -4,7 +4,6 @@ package com.example.demo.src.user.controller;
 import com.example.demo.src.user.dto.UserDto.*;
 import com.example.demo.src.user.dto.UserDto;
 import com.example.demo.src.user.service.UserService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +29,7 @@ public class UserController {
 
 
     @PostMapping("")
-    public ResponseEntity<UserDto.PostUserRes> createUser(@Valid @RequestBody UserDto postUserReq) {
+    public ResponseEntity<UserDto.PostUserDto> createUser(@Valid @RequestBody UserDto.PostUserDto postUserReq) {
         return new ResponseEntity<>(userService.createUser(postUserReq),HttpStatus.OK);
     }
 
@@ -60,7 +59,7 @@ public class UserController {
      * @return BaseResponse<String>
      */
     @PatchMapping("/{userId}")
-    public ResponseEntity<String> modifyUserName(@PathVariable("userId") Long userId, @RequestBody UserDto patchUserReq){
+    public ResponseEntity<String> modifyUserName(@PathVariable("userId") Long userId, @RequestBody PatchUserDto patchUserReq){
         userService.modifyUserName(userId, patchUserReq.getName());
         return new ResponseEntity<>("수정 완료!",HttpStatus.OK);
 
@@ -84,7 +83,7 @@ public class UserController {
      * @return BaseResponse<PostLoginRes>
      */
     @PostMapping("/login")
-    public ResponseEntity<PostUserRes> logIn(@RequestBody @Valid UserDto loginReq){
+    public ResponseEntity<LoginUserDto> logIn(@RequestBody @Valid LoginUserDto loginReq){
         return new ResponseEntity<>(userService.logIn(loginReq.getEmail(),loginReq.getPassword()),HttpStatus.OK);
     }
 

@@ -9,38 +9,39 @@
 = User 관련 API
 
 [[create_user]]
-== create user
+== 유저 등록 API
 user를 등록하는 API입니다.
 
-operation::createUser[]
+operation::createUser[snippets='http-request,request-body,request-fields,response-body,response-fields']
 
 [[get_user_by_email]]
-== get_user_by_email
+== 이메일로 유저 조회(파라미터 O) API
 email로 user를 조회하는 API입니다.
 
-operation::getUserByEmail[]
+operation::getUserByEmail[snippets='http-request,request-parameters,response-body,response-fields']
 
 [[get_users_without_email]]
-== get_users_without_email
+== 유저 조회(파라미터 X) API
 users를 조회하는 API입니다.
 
-operation::getUsersWithOutEmail[]
+operation::getUsersWithOutEmail[snippets='http-request,response-body,response-fields']
+
 
 [[modify_user_name]]
-== modify_user_name
+== 유저 정보 변경 API
 user의 name을 변경하는 API입니다.
 
-operation::modifyUserName[]
+operation::modifyUserName[snippets='http-request,path-parameters,request-body,request-fields,response-body']
 
 [[delete_user]]
-== delete_user
+== 유저 삭제 API
 user 삭제하는 API입니다.
 
-operation::deleteUser[]
+operation::deleteUser[snippets='http-request,path-parameters,response-body']
 
 [[login_user]]
-== login_user
+== 로그인 API
 로그인 하는 API입니다.
 
-operation::loginUser[]
+operation::loginUser[snippets='http-request,request-body,request-fields,response-body,response-fields']
 

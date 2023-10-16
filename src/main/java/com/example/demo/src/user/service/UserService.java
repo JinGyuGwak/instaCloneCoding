@@ -2,7 +2,6 @@ package com.example.demo.src.user.service;
 
 
 
-import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.common.login.jwt.JwtTokenProvider;
 import com.example.demo.src.util.FuncUser;
 import com.example.demo.src.user.dto.UserDto;
@@ -28,7 +27,6 @@ import java.util.stream.Collectors;
 
 import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
 import static com.example.demo.src.common.login.jwt.JwtFilter.AUTHORIZATION_HEADER;
-import static com.example.demo.src.common.response.BaseResponseStatus.*;
 
 // Service Create, Update, Delete 의 로직 처리
 @RequiredArgsConstructor
@@ -44,7 +42,7 @@ public class UserService {
 
     //POST
     @Transactional
-    public PostUserRes createUser(UserDto postUserReq) {
+    public PostUserDto createUser(PostUserDto postUserReq) {
         String email = postUserReq.getEmail();
         //중복 체크
         Optional<User> checkUser = userRepository.findByEmailAndState(email, ACTIVE);
@@ -58,7 +56,7 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호 암호화에 실패하였습니다.");
         }
         User saveUser = userRepository.save(new User(email,encryptPwd, postUserReq.getName(), Role.ROLE_USER));
-        return PostUserRes.builder()
+        return PostUserDto.builder()
                 .id(saveUser.getId())
                 .email(saveUser.getEmail())
                 .name(saveUser.getName())
@@ -112,7 +110,7 @@ public class UserService {
 
 
     @Transactional
-    public PostUserRes logIn(String email, String password) {
+    public LoginUserDto logIn(String email, String password) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(email, password);
 
@@ -128,9 +126,9 @@ public class UserService {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(AUTHORIZATION_HEADER, "Bearer " + jwt);
 //        return new PostUserRes(user.getId(),jwt);
-        return PostUserRes.builder()
+        return LoginUserDto.builder()
                 .email(user.getEmail())
-                .name(user.getName())
+                .password(password)
                 .jwt(jwt)
                 .build();
     }
