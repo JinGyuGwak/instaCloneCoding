@@ -1,6 +1,5 @@
 package com.example.demo.src.feed.controller;
 
-import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.feed.dto.FeedLikeDto;
 import com.example.demo.src.feed.dto.FeedLikeDto.GetFeedLikeRes;
 import com.example.demo.src.feed.service.FeedLikeService;

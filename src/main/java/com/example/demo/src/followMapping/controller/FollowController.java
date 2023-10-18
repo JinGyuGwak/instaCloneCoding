@@ -30,7 +30,7 @@ public class FollowController {
     }
 
     /**
-     * {userId}내 팔로워 조회 (팔로워 조회)
+     * {userId}워내 팔로워 조회 (팔로워 조회)
      * [GET] /follow/{userId}
      */
     @GetMapping("/follower/{userId}")

@@ -1,7 +1,5 @@
 package com.example.demo.src.common.exceptions;
 
-import com.example.demo.src.common.response.ResponseEntityCustom;
-import com.example.demo.src.common.response.BaseResponseStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +15,6 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class ExceptionAdvice {
 
-    @ExceptionHandler(BaseException.class)
-    public ResponseEntityCustom<BaseResponseStatus> BaseExceptionHandle(BaseException exception) {
-        log.warn("BaseException. error message: {}", exception.getMessage());
-        return new ResponseEntityCustom<>(exception.getStatus());
-    }
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Object> IllegalArgumentExceptionHandle(IllegalArgumentException exception, WebRequest webRequest) {
         log.warn("IllegalArgumentException. error message: {}", exception.getMessage());
@@ -46,12 +39,6 @@ public class ExceptionAdvice {
                         .details(webRequest.getDescription(true))
                         .build()
                         ,HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntityCustom<BaseResponseStatus> ExceptionHandle(Exception exception) {
-        log.error("Exception has occured. ", exception);
-        return new ResponseEntityCustom<>(BaseResponseStatus.UNEXPECTED_ERROR);
     }
 
 

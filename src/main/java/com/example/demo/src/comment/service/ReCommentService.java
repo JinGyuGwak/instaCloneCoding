@@ -4,7 +4,6 @@ import com.example.demo.src.comment.dto.ReCommentDto;
 import com.example.demo.src.comment.dto.ReCommentDto.GetReCommentRes;
 import com.example.demo.src.comment.dto.ReCommentDto.ReCommentRes;
 import com.example.demo.src.comment.dto.ReCommentDto.UpdateReCommentRes;
-import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.comment.entity.FeedComment;
 import com.example.demo.src.comment.entity.ReComment;
 import com.example.demo.src.util.FuncUser;
@@ -20,7 +19,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
 @RequiredArgsConstructor
 @Service
 public class ReCommentService {

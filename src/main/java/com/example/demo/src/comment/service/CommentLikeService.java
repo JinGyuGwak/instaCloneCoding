@@ -1,7 +1,6 @@
 package com.example.demo.src.comment.service;
 
 import com.example.demo.src.comment.dto.CommentLikeDto;
-import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.comment.entity.CommentLike;
 import com.example.demo.src.comment.entity.FeedComment;
 import com.example.demo.src.util.FuncUser;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
-import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_COMMENT;
 
 @RequiredArgsConstructor
 @Service

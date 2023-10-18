@@ -1,7 +1,6 @@
 package com.example.demo.src.comment.controller;
 
 import com.example.demo.src.comment.dto.CommentLikeDto;
-import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.comment.service.CommentLikeService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

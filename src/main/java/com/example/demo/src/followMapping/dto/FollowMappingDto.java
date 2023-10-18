@@ -49,9 +49,7 @@ public class FollowMappingDto {
     public static class PostFollowDto{
         private Long followUserId; //팔로우 당하는 사람
         private Long followerUserId; // 팔로우 하는 사람(팔로워가 됨)
-        private String loginUserEmail;
         public PostFollowDto(FollowMapping followMapping){
-            this.loginUserEmail= LoginUtil.getLoginEmail();
             this.followUserId=followMapping.getFollowUser().getId();
             this.followerUserId=followMapping.getFollowerUser().getId();
         }

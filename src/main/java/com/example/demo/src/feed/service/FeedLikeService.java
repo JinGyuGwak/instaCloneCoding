@@ -1,6 +1,5 @@
 package com.example.demo.src.feed.service;
 
-import com.example.demo.src.common.exceptions.BaseException;
 import com.example.demo.src.feed.dto.FeedLikeDto;
 import com.example.demo.src.feed.dto.FeedLikeDto.GetFeedLikeRes;
 import com.example.demo.src.feed.entitiy.Feed;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.demo.src.common.response.BaseResponseStatus.NOT_FIND_FEED;
 
 @RequiredArgsConstructor
 @Service
@@ -45,7 +43,7 @@ public class FeedLikeService {
     @Transactional
     public void feedLikeDelete(FeedLikeDto feedLikeDto){
         FeedLike feedLike=feedLikeRepository.findByFeedIdAndUserId(feedLikeDto.getFeedId(),feedLikeDto.getUserId())
-                .orElseThrow(()-> new BaseException(NOT_FIND_FEED));
+                .orElseThrow(()-> new IllegalArgumentException("게시글이 존재하지 않습니다."));
         feedLikeRepository.delete(feedLike);
     }
 

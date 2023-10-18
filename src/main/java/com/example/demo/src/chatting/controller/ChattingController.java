@@ -3,7 +3,6 @@ package com.example.demo.src.chatting.controller;
 
 import com.example.demo.src.chatting.dto.ChattingDto;
 import com.example.demo.src.chatting.dto.ChattingDto.*;
-import com.example.demo.src.common.response.ResponseEntityCustom;
 import com.example.demo.src.chatting.service.ChattingService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
