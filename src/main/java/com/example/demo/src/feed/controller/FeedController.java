@@ -50,10 +50,9 @@ public class FeedController {
      * 피드 업데이트(텍스트 변경)
      * [PATCH] /feed/{id}
      */
-    @PatchMapping("{feedId}") //피드 아이디
-    public ResponseEntity<UpdateFeedRes> updateFeed(@PathVariable Long feedId,
-                                                    @RequestBody FeedDto requestDto) {
-        return new ResponseEntity<>(feedService.updateFeed(feedId,requestDto),HttpStatus.OK);
+    @PatchMapping("") //피드 아이디
+    public ResponseEntity<UpdateFeedDto> updateFeed(@RequestBody UpdateFeedDto requestDto) {
+        return new ResponseEntity<>(feedService.updateFeed(requestDto),HttpStatus.OK);
     }
     /**
      * 피드조회 API

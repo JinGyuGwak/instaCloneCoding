@@ -20,9 +20,10 @@ public class ReCommentDto {
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class GetReCommentRes extends ReCommentDto{
+    public static class GetReCommentRes{
         private String username;
         private LocalDateTime updateDate;
+        private String reComment;
 
         public GetReCommentRes(ReComment reComment){
             this.username=reComment.getUser().getName();
@@ -34,18 +35,21 @@ public class ReCommentDto {
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateReCommentRes extends ReCommentDto{
+    public static class UpdateReCommentRes{
         private Long reCommentId;
+        private String reComment;
+
     }
 
     @Getter
     @SuperBuilder
     @NoArgsConstructor
-    public static class ReCommentRes extends ReCommentDto{
+    public static class ReCommentRes{
         private Long id; // ReCommentId
         private Long commentId;
         private Long userId;
         private String userName;
+        private String reComment;
         public ReCommentRes(ReComment reComment){
             this.id=reComment.getId();
             this.commentId=reComment.getFeedComment().getId();

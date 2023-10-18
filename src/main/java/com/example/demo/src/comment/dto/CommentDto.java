@@ -22,11 +22,12 @@ public class CommentDto {
     @SuperBuilder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class FeedCommentRes extends CommentDto{
+    public static class FeedCommentRes{
         private Long id; // FeedCommentId
         private Long feedId;
         private Long userId;
         private String username;
+        private String commentText;
         public FeedCommentRes(FeedComment feedComment){
             this.id= feedComment.getId();
             this.feedId=feedComment.getFeed().getId();
@@ -38,14 +39,16 @@ public class CommentDto {
     @Getter
     @SuperBuilder
     @AllArgsConstructor
-    public static class FeedCommentUpdateRequestDto extends CommentDto{
+    public static class FeedCommentUpdateRequestDto{
+        private String commentText;
         //CommentDto 를 사용하지 않은 이유는 추후에 commentText 뿐 아니라 새로운 필드가 추가 될 가능성이 있기 때문에 나눴음
     }
     @Getter
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateFeedCommentRes extends CommentDto {
+    public static class UpdateFeedCommentRes {
+        private String commentText;
         private Long commentId;
     }
 
@@ -54,16 +57,18 @@ public class CommentDto {
     @SuperBuilder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class FeedCommentDto extends CommentDto{
+    public static class FeedCommentDto{
         private Long userId;
+        private String commentText;
     }
     @Getter
     @SuperBuilder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class GetFeedCommentRes extends CommentDto{
+    public static class GetFeedCommentRes{
         private String username;
         private LocalDateTime updateDate;
+        private String commentText;
         public GetFeedCommentRes(FeedComment feedComment){
             this.username=feedComment.getUser().getName();
             this.commentText= feedComment.getCommentText();

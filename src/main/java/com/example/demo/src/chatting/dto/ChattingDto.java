@@ -18,16 +18,18 @@ public class ChattingDto {
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MessageDto extends ChattingDto{
-        protected String chatText;
+    public static class MessageDto {
+        private Long sendUserId;
+        private String chatText;
     }
     @Getter
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MessageResponseDto extends MessageDto{
+    public static class MessageResponseDto {
         private String chatText;
         private Long chattingRoomId;
+        private Long sendUserId;
         public MessageResponseDto(ChattingText chattingText){
             this.chattingRoomId=chattingText.getChattingRoom().getId();
             this.sendUserId=chattingText.getUser().getId();
@@ -39,8 +41,9 @@ public class ChattingDto {
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ChattingRoomDto extends ChattingDto{
+    public static class ChattingRoomDto{
         private Long receiveUserId;
+        private Long sendUserId;
 
         public ChattingRoomDto(ChattingRoom chattingRoom){
             this.sendUserId=chattingRoom.getSendUser().getId();

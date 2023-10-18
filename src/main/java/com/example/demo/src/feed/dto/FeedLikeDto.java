@@ -36,12 +36,16 @@ public class FeedLikeDto {
             this.userEmail=feedLike.getUser().getEmail();
         }
     }
+
+
     @Getter
     @SuperBuilder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class FeedDetailRes extends FeedLikeDto{
+    public static class FeedDetailRes{
         private String postText;
+        protected Long feedId;
+        protected Long userId;
         @Builder.Default
         private List<String> feedContentURL = new ArrayList<>();
         @Builder.Default

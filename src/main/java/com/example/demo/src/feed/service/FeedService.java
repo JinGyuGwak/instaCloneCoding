@@ -70,18 +70,19 @@ public class FeedService {
 
     //피드 텍스트 변경(업데이트)
     @Transactional
-    public UpdateFeedRes updateFeed(Long id, FeedDto feedDto){
-        String postText = feedDto.getFeedText();
+    public UpdateFeedDto updateFeed(UpdateFeedDto feedDto){
+        String postText = feedDto.getUpdateText();
+        Long feedId = feedDto.getFeedId();
         if(postText.length()>2200){ //글자수가 너무 크면 예외발생
             throw new IllegalArgumentException("2200자 까지 입력 가능합니다.");
         }
         else if(postText.length()<1){
             throw new IllegalArgumentException("글자가 입력되지 않았습니다.");
         }
-        Feed feed=funcFeed.findFeedByIdAndState(id);
+        Feed feed=funcFeed.findFeedByIdAndState(feedId);
         feed.update(postText);
-        return UpdateFeedRes.builder()
-                .feedId(id)
+        return UpdateFeedDto.builder()
+                .feedId(feedId)
                 .updateText(postText)
                 .build();
     }

@@ -1,4 +1,4 @@
-= MY Project Spring Rest Docs
+= User 관련 Docs
 :doctype: book
 :source-highlighter: highlightjs
 :toc: left

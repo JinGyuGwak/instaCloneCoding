@@ -40,7 +40,7 @@ public class MyPageService {
 
     //마이페이지 조회
     @Transactional(readOnly = true)
-    public MyPageDto GetMyPage(@NonNull Long userId){
+    public MyPageDto getMyPage(@NonNull Long userId){
         MyPage myPage=myPageRepository.findByUserIdAndState(userId,ACTIVE)
                 .orElseThrow(()-> new IllegalArgumentException("유저를 찾을 수 없습니다."));
         return new MyPageDto(myPage);

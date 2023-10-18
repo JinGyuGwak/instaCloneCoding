@@ -2,7 +2,6 @@ package com.example.demo.src.myPage.controller;
 import com.example.demo.src.myPage.dto.MyPageDto;
 import com.example.demo.src.myPage.service.MyPageService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +35,7 @@ public class MyPageController {
      */
     @GetMapping("{userId}")
     public ResponseEntity<MyPageDto> GetMyPage(@PathVariable Long userId) {
-        return new ResponseEntity<>(myPageService.GetMyPage(userId), HttpStatus.OK);
+        return new ResponseEntity<>(myPageService.getMyPage(userId), HttpStatus.OK);
     }
 
 }

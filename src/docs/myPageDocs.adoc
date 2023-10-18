@@ -1,0 +1,15 @@
+= MyPage 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+= MyPage 관련 Docs
+
+[[create_mypage]]
+== 마이페이지 등록 API
+MyPage를 등록하는 API입니다.
+
+operation::createMyPage[snippets='http-request,request-body,request-fields,response-body,response-fields']

@@ -16,19 +16,16 @@ import java.util.List;
 @Getter
 @SuperBuilder
 @AllArgsConstructor
-@NoArgsConstructor
 public class FeedDto {
-
-    protected String feedText;
-
 
     @Getter
     @SuperBuilder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class GetFeedRes extends FeedDto{
+    public static class GetFeedRes {
         private Long feedId; //피드Id
         private String username;
+        private String feedText;
         @Builder.Default
         private List<String> feedContentListURL = new ArrayList<>();
 
@@ -47,8 +44,8 @@ public class FeedDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class PostFeedRes {
-        protected Long feedId; //postId
-        protected Long userId; //userId
+        private Long feedId; //postId
+        private Long userId; //userId
 
         public PostFeedRes(Feed feed){
             this.feedId = feed.getId();
@@ -59,8 +56,9 @@ public class FeedDto {
     @SuperBuilder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class UpdateFeedRes extends PostFeedRes{
-        protected String updateText;
+    public static class UpdateFeedDto {
+        private String updateText;
+        private Long feedId; //postId
     }
 
     @Getter
