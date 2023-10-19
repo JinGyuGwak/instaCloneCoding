@@ -7,15 +7,21 @@ import com.example.demo.src.feed.service.FeedService;
 import com.example.demo.src.myPage.service.MyPageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.io.IOException;
@@ -35,6 +41,9 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(FeedController.class)
+@AutoConfigureMockMvc
+@AutoConfigureRestDocs
+@ExtendWith(RestDocumentationExtension.class)
 public class FeedControllerTest {
 
     @Autowired
@@ -45,10 +54,19 @@ public class FeedControllerTest {
     private FeedService feedService;
 
     private static MockMultipartFile getMockMultipart() throws IOException{
-        InputStream inputStream = new ClassPathResource("file/test.png").getInputStream();
-        MockMultipartFile file = new MockMultipartFile("files", "saveOriginalName.txt",
-                "test/png", inputStream);
+        InputStream inputStream = new ClassPathResource("").getInputStream();
+        MockMultipartFile file = new MockMultipartFile("files", "saveOriginalName.png",
+                "image/png", inputStream);
         return file;
+    }
+    private static MockMultipartHttpServletRequestBuilder getPutMultipart(String uri) {
+        MockMultipartHttpServletRequestBuilder multipartBuilder =
+                MockMvcRequestBuilders.multipart(uri);
+        multipartBuilder.with(request -> {
+            request.setMethod("POST");
+            return request;
+        });
+        return multipartBuilder;
     }
     FeedDto.PostFeedRes dummyPostFeedRes(){
         return FeedDto.PostFeedRes.builder()
@@ -58,15 +76,18 @@ public class FeedControllerTest {
     }
 
     @Test
+    @WithMockUser
     public void createFeed_test() throws Exception{
         MockMultipartFile file = getMockMultipart();
 //        List<MockMultipartFile> fileList = new ArrayList<>();
 //        fileList.add(file);
         given(feedService.upload(anyLong(),any(),anyString())).willReturn(dummyPostFeedRes());
         //when & then
-        mockMvc.perform(MockMvcRequestBuilders.multipart("/feed")
+        MockMultipartHttpServletRequestBuilder multipart = getPutMultipart("/feed");
+
+        mockMvc.perform(multipart
                 .file(file)
-                .param("userId","1L")
+                .param("userId","1")
                 .param("postText","Feed Test")
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .with(csrf()))
@@ -79,7 +100,7 @@ public class FeedControllerTest {
                                 parameterWithName("postText").optional().description("피드 본문 내용")
                         ),
                         relaxedRequestParts(
-                                partWithName("files").description("파일 리스트 업로드 하세요")
+                                partWithName("files").description("첨부 파일 리스트")
                         ),
                         relaxedResponseFields(
                                 fieldWithPath("feedId").description("생성한 피드 Id").type(JsonFieldType.NUMBER),

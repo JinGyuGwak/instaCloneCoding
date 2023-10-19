@@ -1,0 +1,15 @@
+= Feed 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+= Feed 관련 Docs
+
+[[post_Feed]]
+== 피드 등록 API
+피드 등록 하는 API입니다.
+
+operation::createFeed[snippets='http-request,request-parameters,request-parts,response-body,response-fields']
