@@ -39,7 +39,7 @@ public class FeedService {
     private final UserService userService;
 
     @Transactional
-    public PostFeedRes upload(Long userId, String postText , List<MultipartFile> files) throws Exception{
+    public PostFeedRes upload(Long userId,  List<MultipartFile> files,String postText ) throws Exception{
         if(files.size()>10){ //이미지가 10개가 넘어가면 안 됨
             throw new IllegalArgumentException("이미지는 10개까지 업로드 가능합니다.");
         }

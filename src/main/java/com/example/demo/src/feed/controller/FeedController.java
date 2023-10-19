@@ -1,7 +1,6 @@
 package com.example.demo.src.feed.controller;
 
 
-import com.example.demo.src.feed.dto.FeedDto;
 import com.example.demo.src.feed.dto.FeedDto.*;
 import com.example.demo.src.feed.service.FeedService;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +29,11 @@ public class FeedController {
      * @return
      */
     @PostMapping("")
-    public ResponseEntity<PostFeedRes> updateUserImage(
+    public ResponseEntity<PostFeedRes> createFeed(
             @RequestParam(value = "userId") Long userId,
             @RequestParam("files") List<MultipartFile> files,
             @RequestParam(value = "postText", required = false) String postText) throws Exception {
-        return new ResponseEntity<>(feedService.upload(userId,postText,files), HttpStatus.OK);
+        return new ResponseEntity<>(feedService.upload(userId,files,postText), HttpStatus.OK);
     }
     /**
      * 피드 삭제구현 API
