@@ -13,3 +13,27 @@
 피드 등록 하는 API입니다.
 
 operation::createFeed[snippets='http-request,request-parameters,request-parts,response-body,response-fields']
+
+[[delete_Feed]]
+== 피드 삭제 API
+피드 삭제 하는 API입니다.
+
+operation::deleteFeed[snippets='http-request,path-parameters,response-body']
+
+[[update_Feed]]
+== 피드 업데이트 API
+피드 업데이트 하는 API입니다.
+
+operation::updateFeedText[snippets='http-request,request-body,request-fields,response-body,response-fields']
+
+[[searchAll_Feed]]
+== 모든 피드 조회 API
+모든 피드 조회 하는 API입니다.
+
+operation::getAllFeed[snippets='http-request,request-parameters,response-body,response-fields']
+
+[[search_User_Feed]]
+== 유저 피드 조화 API
+유저의 피드 조회 하는 API입니다.
+
+operation::getUserFeed[snippets='http-request,response-body,response-fields']
