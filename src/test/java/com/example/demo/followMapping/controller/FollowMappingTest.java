@@ -1,4 +1,4 @@
-package com.example.demo.followMapping;
+package com.example.demo.followMapping.controller;
 
 import com.example.demo.src.followMapping.controller.FollowController;
 import com.example.demo.src.followMapping.dto.FollowMappingDto;

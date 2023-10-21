@@ -1,4 +1,4 @@
-package com.example.demo.myPage;
+package com.example.demo.myPage.controller;
 
 
 import com.example.demo.src.myPage.controller.MyPageController;

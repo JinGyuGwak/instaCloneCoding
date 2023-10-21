@@ -1,10 +1,8 @@
 package com.example.demo.src.comment.controller;
 
-import com.example.demo.src.comment.dto.CommentDto;
 import com.example.demo.src.comment.dto.CommentDto.*;
 import com.example.demo.src.comment.dto.CommentDto.FeedCommentDto;
 import com.example.demo.src.comment.service.FeedCommentService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,8 +23,8 @@ public class FeedCommentController {
      * [GET] /feed/comment/{feedId}
      */
     @GetMapping("/comment/{feedId}")
-    public ResponseEntity<List<GetFeedCommentRes>> searchFeedComment(@PathVariable Long feedId){
-        return new ResponseEntity<>(feedCommentService.searchFeedComment(feedId), HttpStatus.OK);
+    public ResponseEntity<List<GetFeedCommentRes>> getFeedComment(@PathVariable Long feedId){
+        return new ResponseEntity<>(feedCommentService.getFeedComment(feedId), HttpStatus.OK);
     }
 
     /**
@@ -42,7 +40,7 @@ public class FeedCommentController {
 
     /**
      * 피드 댓글 수정
-     * [PATCH] /feed/comment/{commentid}
+     * [PATCH] /feed/comment/{commentId}
      */
     @PatchMapping("/comment/{commentId}")
     public ResponseEntity<UpdateFeedCommentRes> updateComment(@PathVariable Long commentId,

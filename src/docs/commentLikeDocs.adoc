@@ -1,0 +1,29 @@
+= CommentLike 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+= CommentLike 관련 Docs
+
+[[create_commentLike]]
+== 피드 댓글 좋아요 등록 API
+피드 댓글 좋아요 등록 하는 API입니다.
+
+유저의 정보는 JWT 의 내용을 해석해서 얻습니다. (즉, 로그인한 유저)
+
+operation::postCommentLike[snippets='http-request,path-parameters,response-body,response-fields']
+
+[[get_commentLike]]
+== 피드 댓글 좋아요 조회 API
+피드 댓글 좋아요 조회 하는 API입니다.
+
+operation::getCommentLike[snippets='http-request,path-parameters,response-body,response-fields']
+
+[[delete_commentLike]]
+== 피드 댓글 삭제 API
+피드 댓글 삭제 하는 API입니다.
+
+operation::deleteCommentLike[snippets='http-request,path-parameters,response-body']

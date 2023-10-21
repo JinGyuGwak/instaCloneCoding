@@ -37,7 +37,7 @@ public class FeedCommentService {
 
     //피드 댓글 조회
     @Transactional(readOnly = true)
-    public List<GetFeedCommentRes> searchFeedComment(Long feedId){
+    public List<GetFeedCommentRes> getFeedComment(Long feedId){
         return feedCommentRepository.findAllByFeedIdAndState(feedId, ACTIVE)
                 .stream()
                 .map(GetFeedCommentRes::new)

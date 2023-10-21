@@ -30,9 +30,9 @@ public class CommentLikeController {
      * 댓글 좋아요 조회
      * [GET] /feed/comment/commentLiked
      */
-    @GetMapping("comment/commentLiked/{feedCommentId}")
-    public ResponseEntity<List<CommentLikeDto>> commentLikeSearch(@PathVariable Long feedCommentId) {
-        return new ResponseEntity<>(commentLikeService.commentLikeSearch(feedCommentId), HttpStatus.OK);
+    @GetMapping("/comment/commentLiked/{commentId}")
+    public ResponseEntity<List<CommentLikeDto>> commentLikeSearch(@PathVariable Long commentId) {
+        return new ResponseEntity<>(commentLikeService.commentLikeSearch(commentId), HttpStatus.OK);
     }
 
     /**
@@ -40,7 +40,7 @@ public class CommentLikeController {
      * [DELETE] /feed/comment/{commentLikeId}
      * 좋아요는 State없이 DB에서 바로 삭제할꺼임
      */
-    @DeleteMapping("feed/comment/{commentId}")
+    @DeleteMapping("/comment/{commentId}")
     public ResponseEntity<String> feedLikeDelete(@PathVariable Long commentId) {
         commentLikeService.commentLikeDelete(commentId);
         String result = "삭제 완료!!";

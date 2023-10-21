@@ -38,6 +38,7 @@ public class CommentDto {
     }
     @Getter
     @SuperBuilder
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class FeedCommentUpdateRequestDto{
         private String commentText;

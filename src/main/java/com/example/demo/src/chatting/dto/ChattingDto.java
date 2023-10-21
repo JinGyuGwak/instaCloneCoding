@@ -42,10 +42,12 @@ public class ChattingDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ChattingRoomDto{
+        private Long chattingRoomId;
         private Long receiveUserId;
         private Long sendUserId;
 
         public ChattingRoomDto(ChattingRoom chattingRoom){
+            this.chattingRoomId=chattingRoom.getId();
             this.sendUserId=chattingRoom.getSendUser().getId();
             this.receiveUserId=chattingRoom.getReceiveUser().getId();
         }

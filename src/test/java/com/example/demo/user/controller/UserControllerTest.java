@@ -1,4 +1,4 @@
-package com.example.demo.user;
+package com.example.demo.user.controller;
 import com.example.demo.src.user.controller.UserController;
 import com.example.demo.src.user.dto.UserDto;
 import com.example.demo.src.user.service.UserService;

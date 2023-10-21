@@ -37,3 +37,4 @@ operation::getAllFeed[snippets='http-request,request-parameters,response-body,re
 유저의 피드 조회 하는 API입니다.
 
 operation::getUserFeed[snippets='http-request,response-body,response-fields']
+

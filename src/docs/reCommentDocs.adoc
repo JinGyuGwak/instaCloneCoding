@@ -1,0 +1,29 @@
+= ReComment 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+= ReComment 관련 Docs
+
+[[get_Recomment]]
+== 대댓글 조회 하는 API
+
+operation::getRecomment[snippets='http-request,path-parameters,response-body,response-fields']
+
+[[post_Recomment]]
+== 대댓글 생성 하는 API
+
+operation::postReComment[snippets='http-request,path-parameters,request-body,request-fields,response-body,response-fields']
+
+[[delete_Recomment]]
+== 대댓글 삭제 하는 API
+
+operation::deleteReComment[snippets='http-request,path-parameters,response-body']
+
+[[update_Recomment]]
+== 대댓글 수정 하는 API
+
+operation::updateReComment[snippets='http-request,path-parameters,request-body,request-fields,response-body,response-fields']

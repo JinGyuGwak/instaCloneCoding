@@ -1,10 +1,8 @@
 package com.example.demo.src.chatting.controller;
 
 
-import com.example.demo.src.chatting.dto.ChattingDto;
 import com.example.demo.src.chatting.dto.ChattingDto.*;
 import com.example.demo.src.chatting.service.ChattingService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -70,7 +68,7 @@ public class ChattingController {
      * @return
      */
     @GetMapping("/message/{chattingRoomId}")
-    public ResponseEntity<List<MessageResponseDto>> getMessage(@PathVariable Long chattingRoomId) {
+    public ResponseEntity<List<MessageResponseDto>> deleteMessage(@PathVariable Long chattingRoomId) {
         return new ResponseEntity<>(chattingService.getMessage(chattingRoomId), HttpStatus.OK);
     }
 
@@ -81,8 +79,8 @@ public class ChattingController {
      * @return
      */
     @DeleteMapping("/message/{chattingRoomId}/{chatTextId}")
-    public ResponseEntity<String> getMessage(@PathVariable Long chattingRoomId,
-                                             @PathVariable Long chatTextId) {
+    public ResponseEntity<String> deleteMessage(@PathVariable Long chattingRoomId,
+                                                @PathVariable Long chatTextId) {
         chattingService.deleteMessage(chattingRoomId,chatTextId);
         String result = "삭제완료!";
         return new ResponseEntity<>(result, HttpStatus.OK);

@@ -1,4 +1,4 @@
-package com.example.demo.feed;
+package com.example.demo.feed.controller;
 
 
 import com.example.demo.src.feed.controller.FeedController;

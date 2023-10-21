@@ -47,7 +47,7 @@ public class ReCommentController {
      */
     @PatchMapping("/recomment/{reCommentId}")
     public ResponseEntity<UpdateReCommentRes> updateReComment(@PathVariable Long reCommentId,
-                                                                    @RequestBody ReCommentDto updateComment) {
+                                                              @RequestBody ReCommentDto updateComment) {
 
         return new ResponseEntity<>(reCommentService.updateReComment(reCommentId,updateComment.getReComment()),HttpStatus.OK);
     }
