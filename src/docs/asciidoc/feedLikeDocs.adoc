@@ -1,0 +1,27 @@
+= Feed Like 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+Feed Like관련 Docs
+
+[[postFeedLike]]
+== postFeedLike
+피드 좋아요 등록 하는 API입니다.
+
+operation::feedLike/postFeedLike[snippets='http-request,request-body,request-fields,response-body,response-fields']
+
+[[deleteFeedLike]]
+== deleteFeedLike
+피드 좋아요 삭제 하는 API입니다.
+
+operation::feedLike/deleteFeedLike[snippets='http-request,request-body,request-fields,response-body']
+
+[[getFeedLike]]
+== getFeedLike
+피드 좋아요 누른 유저 조회 API
+
+operation::feedLike/getFeedLike[snippets='http-request,path-parameters,response-fields,response-body']

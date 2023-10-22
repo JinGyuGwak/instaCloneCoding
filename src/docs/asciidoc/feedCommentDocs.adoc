@@ -1,0 +1,33 @@
+= Feed Comment 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+FeedComment 관련 Docs
+
+[[create_FeedComment]]
+== postFeedComment
+피드 댓글 등록 하는 API입니다.
+
+operation::feedComment/createComment[snippets='http-request,path-parameters,request-body,request-fields,response-body,response-fields']
+
+[[update_FeedText]]
+== patchFeedComment
+피드 댓글 수정 하는 API입e니다.
+
+operation::feedComment/updateCommentDocs[snippets='http-request,path-parameters,request-body,request-fields,response-body']
+
+[[delete_FeedComment]]
+== deleteFeedComment
+피드 댓글 삭제 하는 API입니다.
+
+operation::feedComment/deleteComment[snippets='http-request,path-parameters,response-body']
+
+[[get_FeedComment]]
+== getFeedComment
+피드 댓글 조회 하는 API입니다.
+
+operation::feedComment/getFeedComment[snippets='http-request,path-parameters,response-body,response-fields']

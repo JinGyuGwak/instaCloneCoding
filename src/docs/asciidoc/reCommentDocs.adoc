@@ -1,0 +1,29 @@
+= ReComment 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+ReComment 관련 Docs
+
+[[get_Recomment]]
+== getReComment
+
+operation::reComment/getReComment[snippets='http-request,path-parameters,response-body,response-fields']
+
+[[post_Recomment]]
+== postReComment
+
+operation::reComment/postReComment[snippets='http-request,path-parameters,request-body,request-fields,response-body,response-fields']
+
+[[delete_Recomment]]
+== deleteReComment
+
+operation::reComment/deleteReComment[snippets='http-request,path-parameters,response-body']
+
+[[update_Recomment]]
+== patchReComment
+
+operation::reComment/updateReComment[snippets='http-request,path-parameters,request-body,request-fields,response-body,response-fields']

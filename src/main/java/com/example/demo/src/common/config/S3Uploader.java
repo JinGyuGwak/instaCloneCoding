@@ -30,9 +30,11 @@ public class S3Uploader {
     public List<FeedContent> uploadFiles(List<MultipartFile> multipartFileList, String dirName) throws IOException {
         List<File> files = new ArrayList<>();
         for(MultipartFile multipartFile : multipartFileList){
-            File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
-                    .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
-            files.add(uploadFile);
+            if(multipartFile.getSize() < 10 * 1024 * 1024) { //파일의 크기가 10MB이하일때만 가능
+                File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
+                        .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
+                files.add(uploadFile);
+            }
         }
         return upload(files, dirName);
     }

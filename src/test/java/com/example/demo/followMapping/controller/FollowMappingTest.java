@@ -106,7 +106,7 @@ public class FollowMappingTest {
                         .with(csrf())
                 )
                 .andExpect(status().isOk())
-                .andDo(document("postFollowUser",
+                .andDo(document("follow/postFollowUser",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestFields(
@@ -127,7 +127,7 @@ public class FollowMappingTest {
         //when & then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/follow/{userId}",1L))
                 .andExpect(status().isOk())
-                .andDo(document("getFollowUser",
+                .andDo(document("follow/getFollowUser",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -145,7 +145,7 @@ public class FollowMappingTest {
         //when & then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/follow/follower/{userId}",1L))
                 .andExpect(status().isOk())
-                .andDo(document("getFollowerUser",
+                .andDo(document("follow/getFollowerUser",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -167,7 +167,7 @@ public class FollowMappingTest {
                 .content(objectMapper.writeValueAsString(dummyPostFollowDto()))
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("deleteFollow",
+                .andDo(document("follow/deleteFollow",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestFields(

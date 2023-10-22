@@ -88,7 +88,7 @@ public class FeedCommentControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/feed/comment/{feedId}",1L)
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("getFeedComment",
+                .andDo(document("feedComment/getFeedComment",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -111,7 +111,7 @@ public class FeedCommentControllerTest {
                         .content(objectMapper.writeValueAsString(dummyFeedCommentDto()))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("createComment",
+                .andDo(document("feedComment/createComment",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -150,7 +150,7 @@ public class FeedCommentControllerTest {
                 .content(objectMapper.writeValueAsString(dummyReqDto)) //객체를 문자스트림으로(JSON)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("updateCommentDocs",
+                .andDo(document("feedComment/updateCommentDocs",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -175,7 +175,7 @@ public class FeedCommentControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/feed/comment/{commentId}",1L)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("deleteComment",
+                .andDo(document("feedComment/deleteComment",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(

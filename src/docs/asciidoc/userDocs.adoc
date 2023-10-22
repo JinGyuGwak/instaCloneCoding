@@ -1,0 +1,47 @@
+= User 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+User 관련 API
+
+[[create_user]]
+== postUser
+user를 등록하는 API입니다.
+
+operation::user/createUser[snippets='http-request,request-body,request-fields,response-body,response-fields']
+
+[[get_user_by_email]]
+== getUserByEmail
+email로 user를 조회하는 API입니다.
+
+operation::user/getUserByEmail[snippets='http-request,request-parameters,response-body,response-fields']
+
+[[get_users_without_email]]
+== getUsers
+users를 조회하는 API입니다.
+
+operation::user/getUsersWithOutEmail[snippets='http-request,response-body,response-fields']
+
+
+[[modify_user_name]]
+== patchUser
+user의 name을 변경하는 API입니다.
+
+operation::user/modifyUserName[snippets='http-request,path-parameters,request-body,request-fields,response-body']
+
+[[delete_user]]
+== deleteUser
+user 삭제하는 API입니다.
+
+operation::user/deleteUser[snippets='http-request,path-parameters,response-body']
+
+[[login_user]]
+== Login
+로그인 하는 API입니다.
+
+operation::user/loginUser[snippets='http-request,request-body,request-fields,response-body,response-fields']
+

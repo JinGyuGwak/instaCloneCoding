@@ -1,0 +1,27 @@
+= MyPage 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+MyPage 관련 Docs
+
+[[create_mypage]]
+== postMyPage
+MyPage를 등록하는 API입니다.
+
+operation::myPage/createMyPage[snippets='http-request,request-body,request-fields,response-body,response-fields']
+
+[[update_mypage]]
+== patchMyPage
+MyPage를 수정하는 API입니다.
+
+operation::myPage/updateMyPage[snippets='http-request,request-body,request-fields,response-body,response-fields']
+
+[[get_mypage]]
+== getMyPage
+MyPage를 조회하는 API입니다.
+
+operation::myPage/getMyPage[snippets='http-request,path-parameters,response-body,response-fields']

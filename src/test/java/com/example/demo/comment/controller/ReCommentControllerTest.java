@@ -92,7 +92,7 @@ public class ReCommentControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/feed/recomment/{commentId}",1L)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("getReComment",
+                .andDo(document("reComment/getReComment",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -116,7 +116,7 @@ public class ReCommentControllerTest {
                 .content(objectMapper.writeValueAsString(dummyReCommentDto()))
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("postReComment",
+                .andDo(document("reComment/postReComment",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -145,7 +145,7 @@ public class ReCommentControllerTest {
                 .content(objectMapper.writeValueAsString(dummyReCommentDto()))
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("updateReComment",
+                .andDo(document("reComment/updateReComment",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -169,7 +169,7 @@ public class ReCommentControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/feed/recomment/{recommentId}",1L)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("deleteReComment",
+                .andDo(document("reComment/deleteReComment",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(

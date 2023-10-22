@@ -62,7 +62,7 @@ public class MyPageControllerTest {
                 .with(csrf())
                 )
                 .andExpect(status().isOk())
-                .andDo(document("createMyPage",
+                .andDo(document("myPage/createMyPage",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestFields(
@@ -88,7 +88,7 @@ public class MyPageControllerTest {
                         .content(objectMApper.writeValueAsString(dummyMyPageDto()))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("updateMyPage",
+                .andDo(document("myPage/updateMyPage",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestFields(
@@ -114,7 +114,7 @@ public class MyPageControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/mypage/{userId}",1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(document("getMyPage",
+                .andDo(document("myPage/getMyPage",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(

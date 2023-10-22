@@ -40,7 +40,7 @@ public class CommentLikeController {
      * [DELETE] /feed/comment/{commentLikeId}
      * 좋아요는 State없이 DB에서 바로 삭제할꺼임
      */
-    @DeleteMapping("/comment/{commentId}")
+    @DeleteMapping("/commentlike/{commentId}")
     public ResponseEntity<String> feedLikeDelete(@PathVariable Long commentId) {
         commentLikeService.commentLikeDelete(commentId);
         String result = "삭제 완료!!";

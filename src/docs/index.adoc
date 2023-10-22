@@ -1,0 +1,20 @@
+= REST API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 1
+:sectlinks:
+
+== API 문서
+http://localhost:8080/docs/userDocs.html[UserApi로 이동]
+
+include::asciidoc/userDocs.adoc[]
+include::asciidoc/myPageDocs.adoc[]
+include::asciidoc/followMapping.adoc[]
+include::asciidoc/feedDocs.adoc[]
+include::asciidoc/feedLikeDocs.adoc[]
+include::asciidoc/feedCommentDocs.adoc[]
+include::asciidoc/reCommentDocs.adoc[]
+include::asciidoc/commentLikeDocs.adoc[]
+include::asciidoc/chattingDocs.adoc[]

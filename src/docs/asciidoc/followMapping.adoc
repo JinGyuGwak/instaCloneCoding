@@ -1,0 +1,33 @@
+= Follow 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+follow 관련 Docs
+
+[[post_follow]]
+== postFollow
+유저를 팔로우 하는 API입니다.
+
+operation::follow/postFollowUser[snippets='http-request,request-body,request-fields,response-body,response-fields']
+
+[[followMappingSearch]]
+== getFollowByUserId
+userId를 통해 팔로우 조회 하는 API입니다.
+
+operation::follow/getFollowUser[snippets='http-request,path-parameters,response-body,response-fields']
+
+[[followerSearch]]
+== getFollowerByUserID
+userId를 통해 팔로워 조회 하는 API입니다.
+
+operation::follow/getFollowerUser[snippets='http-request,path-parameters,response-body,response-fields']
+
+[[followDelete]]
+== deleteFollow
+팔로우를 삭제 하는 API입니다.
+
+operation::follow/deleteFollow[snippets='http-request,request-body,request-fields,response-body']

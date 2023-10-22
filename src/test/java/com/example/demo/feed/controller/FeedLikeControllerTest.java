@@ -75,7 +75,7 @@ public class FeedLikeControllerTest {
                     .content(objectMApper.writeValueAsString(dummyFeedLikeDto()))
                     .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("postFeedLike",
+                .andDo(document("feedLike/postFeedLike",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestFields(
@@ -99,7 +99,7 @@ public class FeedLikeControllerTest {
                 .content(objectMApper.writeValueAsString(dummyFeedLikeDto()))
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("deleteFeedLike",
+                .andDo(document("feedLike/deleteFeedLike",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestFields(
@@ -121,7 +121,7 @@ public class FeedLikeControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/feed/{feedId}/liked",1L)
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("getFeedLike",
+                .andDo(document("feedLike/getFeedLike",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(

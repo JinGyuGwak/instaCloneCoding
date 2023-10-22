@@ -113,7 +113,7 @@ public class UserControllerTest {
                                 .with(csrf())
                 )
                 .andExpect(status().isOk())
-                .andDo(document("createUser",
+                .andDo(document("user/createUser",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestFields(
@@ -142,7 +142,7 @@ public class UserControllerTest {
         //when & then
         mockMvc.perform(get("/app/users"))
                 .andExpect(status().isOk())
-                .andDo(document("getUsersWithOutEmail",
+                .andDo(document("user/getUsersWithOutEmail",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedResponseFields(
@@ -164,7 +164,7 @@ public class UserControllerTest {
         mockMvc.perform(get("/app/users")
                         .param("email","test1@naver.com"))
                 .andExpect(status().isOk())
-                .andDo(document("getUserByEmail",
+                .andDo(document("user/getUserByEmail",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestParameters(parameterWithName("email").description("조회할 이메일")),
@@ -186,7 +186,7 @@ public class UserControllerTest {
                         .content(objectMApper.writeValueAsString(dummyPatchUserDto()))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("modifyUserName",
+                .andDo(document("user/modifyUserName",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -206,7 +206,7 @@ public class UserControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/app/users/{userId}",1)
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("deleteUser",
+                .andDo(document("user/deleteUser",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -225,7 +225,7 @@ public class UserControllerTest {
                     .content(objectMApper.writeValueAsString(dummyLoginUserRequestDto()))
                     .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("loginUser",
+                .andDo(document("user/loginUser",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestFields(

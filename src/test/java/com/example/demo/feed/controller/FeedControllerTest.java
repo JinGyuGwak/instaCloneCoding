@@ -112,7 +112,7 @@ public class FeedControllerTest {
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("createFeed",
+                .andDo(document("feed/createFeed",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestParameters(
@@ -136,7 +136,7 @@ public class FeedControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/feed/{feedId}",1L)
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("deleteFeed",
+                .andDo(document("feed/deleteFeed",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -155,7 +155,7 @@ public class FeedControllerTest {
                         .content(objectMApper.writeValueAsString(dummyUpdateFeedDto()))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("updateFeedText",
+                .andDo(document("feed/updateFeedText",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestFields(
@@ -180,7 +180,7 @@ public class FeedControllerTest {
                 .param("page","0")
                 .param("size","20"))
                 .andExpect(status().isOk())
-                .andDo(document("getAllFeed",
+                .andDo(document("feed/getAllFeed",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestParameters(
@@ -205,7 +205,7 @@ public class FeedControllerTest {
         //when & then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/feed/{userId}",1L))
                 .andExpect(status().isOk())
-                .andDo(document("getUserFeed",
+                .andDo(document("feed/getUserFeed",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(

@@ -1,0 +1,49 @@
+= Chatting-Room 관련 Docs
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+채팅방 관련 Docs
+
+[[create_Chatting]]
+== postChatting
+채팅방 생성 하는 API입니다.
+
+operation::chatting/createChatting[snippets='http-request,request-body,request-fields,response-body,response-fields']
+
+[[get_Chatting]]
+== getChatting
+채팅방 조회 하는 API입니다.
+
+sendUserId, receiveUserId 둘 중 하나라도 값이 맞으면 해당 유저는 채팅방에 있는거임
+
+operation::chatting/getChattingRoom[snippets='http-request,path-parameters,response-body,response-fields']
+
+[[delete_Chatting]]
+== deleteChatting
+채팅방 나가는 API입니다.
+
+operation::chatting/deleteChattingRoom[snippets='http-request,path-parameters,response-body']
+
+= Chatting-Message 관련 Docs
+
+[[send_Message]]
+== postMessage
+메시지 보내는 API입니다.
+
+operation::chatting/sendMessage[snippets='http-request,path-parameters,request-body,request-fields,response-body,response-fields']
+
+[[get_Message]]
+== getMessage
+메시지 조회 API입니다.
+
+operation::chatting/getMessage[snippets='http-request,path-parameters,response-body,response-fields']
+
+[[delete_Message]]
+== deleteMessage
+메시지 삭제 API입니다.
+
+operation::chatting/deleteMessage[snippets='http-request,path-parameters,response-body']

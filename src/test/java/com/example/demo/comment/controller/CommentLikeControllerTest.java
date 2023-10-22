@@ -65,7 +65,7 @@ public class CommentLikeControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("postCommentLike",
+                .andDo(document("commentLike/postCommentLike",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -88,7 +88,7 @@ public class CommentLikeControllerTest {
         //when & then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/feed/comment/commentLiked/{commentId}",1L))
                 .andExpect(status().isOk())
-                .andDo(document("getCommentLike",
+                .andDo(document("commentLike/getCommentLike",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -108,10 +108,10 @@ public class CommentLikeControllerTest {
         //given
         doNothing().when(commentLikeService).commentLikeDelete(anyLong());
         //when & then
-        mockMvc.perform(RestDocumentationRequestBuilders.delete("/feed/comment/{commentId}",1L)
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/feed/commentlike/{commentId}",1L)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("deleteCommentLike",
+                .andDo(document("commentLike/deleteCommentLike",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(

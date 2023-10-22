@@ -44,6 +44,13 @@ public class ChattingControllerTest {
     @MockBean
     private ChattingService chattingService;
 
+
+    ChattingDto.ChattingRoomDto dummyChattingRoomDto(){
+        return ChattingDto.ChattingRoomDto.builder()
+                .receiveUserId(1L)
+                .sendUserId(2L)
+                .build();
+    }
     ChattingDto.ChattingRoomDto dummyChattingRoomDto1(){
         return ChattingDto.ChattingRoomDto.builder()
                 .chattingRoomId(1L)
@@ -90,7 +97,7 @@ public class ChattingControllerTest {
         //when then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/chatting/{userId}",1L))
                 .andExpect(status().isOk())
-                .andDo(document("getChattingRoom",
+                .andDo(document("chatting/getChattingRoom",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -110,10 +117,10 @@ public class ChattingControllerTest {
         //when then
         mockMvc.perform(post("/chatting")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(dummyChattingRoomDto1()))
+                .content(objectMapper.writeValueAsString(dummyChattingRoomDto()))
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("createChatting",
+                .andDo(document("chatting/createChatting",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         relaxedRequestFields(
@@ -135,7 +142,7 @@ public class ChattingControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/chatting/{chattingRoomId}",1L)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("deleteChattingRoom",
+                .andDo(document("chatting/deleteChattingRoom",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -154,7 +161,7 @@ public class ChattingControllerTest {
                 .content(objectMapper.writeValueAsString(dummyMessageDto()))
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("sendMessage",
+                .andDo(document("chatting/sendMessage",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -182,7 +189,7 @@ public class ChattingControllerTest {
         //when then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/chatting/message/{chattingRoomId}",1L))
                 .andExpect(status().isOk())
-                .andDo(document("getMessage",
+                .andDo(document("chatting/getMessage",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -205,7 +212,7 @@ public class ChattingControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/chatting/message/{chattingRoomId}/{chatTextId}",1L,1L)
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andDo(document("deleteMessage",
+                .andDo(document("chatting/deleteMessage",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
