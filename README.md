@@ -69,6 +69,9 @@ https://singsinggyu.tistory.com/2#comment13423223
 
 반면, Service 계층은 실제 비지니스 로직을 처리하기 위해 DB와의 상호작용이 필수적입니다. 이 때문에 Service 계층은 단위테스트가 아닌 DB와의 연동을 포함한 통합 테스트를 진행하여 실제 비지니스 로직과 데이터베이스간의 상호작용을 검증하였습니다.
 
+코드 링크 :
+https://github.com/JinGyuGwak/instaCloneCoding/blob/master/src/test/java/com/example/demo/user/controller/UserControllerTest.java
+
 <br>
 
 ## 3.DTO가 많아지는 문제
@@ -79,7 +82,7 @@ https://singsinggyu.tistory.com/2#comment13423223
 
 이러한 문제를 해결하기 위해 각각의 주요 기능별로 DTO 클래스를 만들고 static 클래스를 사용하여 관련 DTO들을 그룹화 했습니다. 이렇게 함으로써 기존에 30개가 넘었던 DTO의 class파일을 6개로 줄여 관리를 더 효율적으로 할 수 있게 만들었습니다.
 
-코드 예시 :
+코드 링크 :
 https://github.com/JinGyuGwak/instaCloneCoding/blob/master/src/main/java/com/example/demo/src/feed/dto/FeedDto.java
 
 <br>
