@@ -12,6 +12,7 @@ import com.example.demo.src.feed.entitiy.FeedLike;
 import com.example.demo.src.followMapping.entitiy.FollowMapping;
 import com.example.demo.src.user.enumeration.Role;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

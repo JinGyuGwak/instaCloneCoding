@@ -20,33 +20,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmailAndState(String email, State state);
     Optional<User> findByEmail(String email);
 
-
     List<User> findAllByEmailAndState(String email, State state);
-
 
     List<User> findAllByState(State state);
 
-    @Query("select u from User u where (:email is null or u.email = :email) and " +
-            "(:name is null or u.name = :name) and " +
-            "(:fromDate is null or u.createdAt >= :fromDate) and " +
-            "(:toDate is null or u.createdAt <= :toDate) and " +
-            "(:state is null or u.state = :state)")
-    List<User> findByCriteria(
-            @Param("email") String email,
-            @Param("name") String name,
-            @Param("fromDate") LocalDateTime fromDate,
-            @Param("toDate") LocalDateTime toDate,
-            @Param("state") State state,
-            Pageable pageable);
-
-
-
-    //어드민 페이지
-    Page<User> findByState(State state, Pageable pageable);
-    Page<User> findAllByName(String name, Pageable pageable);
-    Page<User> findAllByEmail(String email, Pageable pageable);
-    Page<User> findAllByEmailAndName(String email,String name,Pageable pageable);
-    Page<User> findAllByCreatedAt(LocalDateTime created, Pageable pageable);
 
 
 }

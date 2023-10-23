@@ -77,6 +77,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
 
+    runtimeOnly 'com.h2database:h2'
+    testImplementation 'com.h2database:h2'
+
     implementation 'org.slf4j:slf4j-api:1.7.32' // SLF4J API
     implementation 'ch.qos.logback:logback-classic:1.2.3' // Logback 구현체
 
