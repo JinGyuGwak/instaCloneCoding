@@ -139,3 +139,31 @@ http://43.201.123.163:8080/docs/index.html
 이 때문에 서비스 계층에서 DB와의 연동을 검증하는 테스트 코드, 예를 들어 사용자 회원 가입 기능을 테스트하는 경우, 로컬 개발 환경에서 매번 Docker 컨테이너를 실행시켜야 합니다. 하지만 테스트 코드는 어떠한 환경에서도 일관되게 동작하며 올바른 로직을 검증할 수 있어야 합니다.
 
 이러한 문제를 해결하기 위해 'application-test.yml' 설정 파일을 별도로 생성하여 테스트 실행 시 H2 인메모리 DB를 사용하도록 설정함으로써, DB를 따로 실행하지 않아도 해당 테스트를 수행할 수 있게 되었습니다.
+
+
+    server:
+        port: 8080
+
+    spring:
+        datasource:
+            url: jdbc:h2:mem:Hub;MODE=MYSQL;NON_KEYWORDS=USER
+            username: sa
+            password:
+            driver-class-name: org.h2.Driver
+        jpa:
+            hibernate:
+                ddl-auto: create
+            properties:
+                hibernate:
+                    format_sql: true
+            generate-ddl: true
+            show-sql: true
+            defer-datasource-initialization: true
+        h2:
+            console:
+                enabled: true
+            path: /h2-console
+            settings:
+                trace: false
+                web-allow-others: false
+        
