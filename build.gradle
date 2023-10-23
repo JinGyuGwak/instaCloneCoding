@@ -47,9 +47,6 @@ dependencies {
 
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
-    // 마이바티스
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
-
     // Web
     implementation ('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter')

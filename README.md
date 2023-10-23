@@ -29,6 +29,9 @@
 - JWT
 - Lombok
 - MariaDB
+- Validation
+- AsciiDocs
+- H2
 
 <br>
 
@@ -56,24 +59,33 @@ https://singsinggyu.tistory.com/2#comment13423223
 
 <br>
 
-## 2.DTO가 많아지는 문제
+## 2. 단위테스트와 통합테스트
+처음 테스트 코드를 작성할 때에는 @SpringBootTest 어노테이션을 이용한 통합테스트 코드를 작성하였습니다.이 방식은 프로젝트의 모든 Bean을 스캔하며, 모든 계층간의 상호작용을 포함합니다. 하지만 Controller 계층에 대한 테스트는 올바른 형식의 요청을 받고, 올바른 형식의 응답을 반환하는 것을 테스트 하는것이라고 생각하여 @WebMvcTest를 이용하여 테스트 하려는 Controller의 Bean만 Scan 하는 것이 효율적이라 판단하였습니다. 이를 위해 컨트롤러가 의존하고 있는 Service 계층을 Mocking 처리 하여 단위 테스트를 수행하였습니다.
 
-클라이언트에게 응답을 내려줄 때 필요한 정보만 줄 수 있도록 구현했습니다.
-
-하지만 그 과정에서 엔드포인트가 늘어날수록 DTO 클래스가 많아져 관리하기 힘들다는 문제가 생겼습니다.
-
-이를 해결하기 위해 각각의 주요 기능별로 DTO 클래스를 하나씩 만들어서 extends 와 static 클래스를 이용하여 기존에 30개가 넘는 클래스를 6개로 줄였습니다.
-
+Service 계층은 실제 비지니스 로직을 처리하기 위해 DB와의 상호작용이 필수적입니다. 이 때문에 Service 계층은 단위테스트가 아닌 DB와의 연동을 포함한 통합 테스트를 진행하여 실제 비지니스 로직과 데이터베이스간의 상호작용을 검증하였습니다.
 
 
 <br>
 
-## 3.코드의 중복 제거와 스트림 사용
+## 3.DTO가 많아지는 문제
+
+공부한 내용을 프로젝트에 적용 시키면서 처음 프로젝트를 개발 하였을 당시와는 다르게 Controller 코드와 Service 코드가 방대해져 이에 따른 DTO 클래스의 수도 많아지게 되었습니다.
+
+필드값이 서로 같은 DTO 클래스들은 하나로 묶으려 했지만 추후 새로운 필드를 추가하게 될 경우 다시 클래스를 분리해야 하는 번거로움이 있을 뿐 아니라 하나로 묶는 과정에서 네이밍으로 인한 문제가 발생할 것이라 생각했습니다.
+
+이러한 문제를 해결하기 위해 각각의 주요 기능별로 DTO 클래스를 만들고 static 클래스를 사용하여 관련 DTO들을 그룹화 했습니다. 이렇게 함으로써 기존에 30개가 넘었던 DTO의 class파일을 6개로 줄여 관리를 더 효율적으로 할 수 있게 만들었습니다.
+
+코드 예시 :
+https://github.com/JinGyuGwak/instaCloneCoding/blob/master/src/main/java/com/example/demo/src/feed/dto/FeedDto.java
+
+<br>
+
+## 4.코드의 중복 제거와 스트림 사용
 
 처음 계획했던 대로 구현을 한 후 코드를 살펴보니 신경쓰이는 부분이 있었습니다.
 
     User user = userRepository.findByIdAndState(userId,ACTIVE)
-                .orElseThrow(()->new BaseException(NOT_FIND_USER));
+                .orElseThrow(()->new IllegalException(NOT_FIND_USER));
 
 위의 코드는 userId를 통해 user를 조회하고 만약 DB에 값이 없는 경우 예외처리를 하는 메서드입니다.
 서비스 특성상 User를 조회해야 하는 경우가 많은데 이 때마다 같은 코드를 계속 쓰는 건 비효율적이라고 생각하게 되었고 아래 처럼 FuncUser라는 클래스를 만들었습니다.
@@ -83,7 +95,7 @@ https://singsinggyu.tistory.com/2#comment13423223
 
         public User findUserByIdAndState(Long userId){
             return userRepository.findByIdAndState(userId,ACTIVE)
-                    .orElseThrow(()->new BaseException(NOT_FIND_USER));
+                    .orElseThrow(()->new IllegalException(NOT_FIND_USER));
         }
     }
 
@@ -93,7 +105,7 @@ https://singsinggyu.tistory.com/2#comment13423223
 
 <br>
 
-## 4.프로젝트 아키텍처 수정
+## 5.프로젝트 아키텍처 수정
 
 기존 아키텍처 구조는 Controller, Service, Entity 등 하나의 패키지에서 관리하였지만 기능을 추가 할수록 오히려 관리하기 힘들다는 느낌을 받았습니다.
 
@@ -102,18 +114,24 @@ https://singsinggyu.tistory.com/2#comment13423223
 <img width="100%" src="https://github.com/JinGyuGwak/instaCloneCoding/assets/134255553/480b4ff3-10a5-4c91-aad5-72fc2f7901a6">
 
 <br>
-<br>
 
-# 현재 진행 및 예정 작업
-
-## 5. Spring Rest Docs 와 Swagger
+## 6. Spring Rest Docs 와 Swagger
 
 백엔드 개발자가 다른 사람들과 협업할 때 가장 중요한 문서 중 하나가 API 문서라고 생각합니다.
 
-하지만 많은 사람들이 사용하고 있는 Swagger 은 실제 동작하는 코드에 추가로 코드를 작성하는 방식으로 비지니스 코드의 가독성을 떨어트린다고 생각하였습니다.
+많은 사람들이 사용하고 있는 Swagger는 사용하기 쉽고 시각적으로 이해하기 쉽다는 장점이 있지만, 실제 동작하는 코드에 어노테이션을 추가해야 하는 작업이 필요 합니다. 이러한 작업은 비지니스 코드의 가독성을 해친다고 판단하여 Spring Rest Docs를 적용하였습니다.
 
-Spring Rest Docs는 Swagger 와는 다르게 API문서를 Controller 테스트 코드에 작성함으로 Swagger의 단점을 보완함과 동시에 강제적으로 Test 코드를 작성해야 한다는 단점처럼 보이는 장점을 가지고 있습니다. 
+Spring Rest Docs는 테스트 코드를 바탕으로 API 문서를 생성합니다. Swagger에 비해 사용하기 어렵다는 단점이 있지만 강제적으로 테스트 코드를 작성하게 함으로써 API 문서의 정확성을 보장하는 장점을 가지고 있습니다.
 
-## 6. Service 코드 단위테스트 작성
+API 문서 링크 : 
+http://43.201.123.163:8080/docs/index.html
 
-## 7. Jenkins를 이용한 CI/CD 구축
+<br>
+
+## 7. Test를 위한 yml 설정
+
+현재 배포 중인 프로젝트의 DB는 AWS RDS를 이용하고 있지만 개발환경의 DB는 Docker 를 이용하여 MariaDB 컨테이너를 사용하고 있습니다.
+
+이 때문에 서비스 계층에서 DB와의 연동을 검증하는 테스트 코드, 예를 들어 사용자 회원 가입 기능을 테스트하는 경우, 로컬 개발 환경에서 매번 Docker 컨테이너를 실행시켜야 합니다. 하지만 테스트 코드는 어떠한 환경에서도 일관되게 동작하며 올바른 로직을 검증할 수 있어야 합니다.
+
+이러한 문제를 해결하기 위해 'application-test.yml' 설정 파일을 별도로 생성하여 테스트 실행 시 H2 인메모리 DB를 사용하도록 설정함으로써, DB를 따로 실행하지 않아도 해당 테스트를 수행할 수 있게 되었습니다.
