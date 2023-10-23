@@ -26,6 +26,7 @@
 
 - Spring Web
 - Spring Data JPA
+- Spring Security
 - JWT
 - Lombok
 - MariaDB
