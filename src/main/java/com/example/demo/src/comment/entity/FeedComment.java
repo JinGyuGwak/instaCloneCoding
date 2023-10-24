@@ -38,6 +38,7 @@ public class FeedComment extends BaseEntity {
     @OneToMany(mappedBy = "feedComment", cascade = CascadeType.REMOVE)
     List<ReComment> reCommentList = new ArrayList<>();
 
+    @Builder
     public FeedComment(Feed feed, User user, String commentText){
         this.feed=feed;
         this.user=user;

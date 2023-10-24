@@ -3,6 +3,7 @@ package com.example.demo.src.chatting.entitiy;
 import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.user.entitiy.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,6 +29,7 @@ public class ChattingText extends BaseEntity {
 
     private String chatText; //보낸 내역
 
+    @Builder
     public ChattingText(User user, ChattingRoom chattingRoom, String chatText){
         this.user=user;
         this.chattingRoom=chattingRoom;

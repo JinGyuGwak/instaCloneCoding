@@ -4,6 +4,7 @@ package com.example.demo.src.feed.entitiy;
 import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.user.entitiy.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,6 +30,7 @@ public class FeedReport extends BaseEntity {
 
     private String reason;
 
+    @Builder
     public FeedReport(Feed feed, User user,String reason){
         this.feed=feed;
         this.user=user;

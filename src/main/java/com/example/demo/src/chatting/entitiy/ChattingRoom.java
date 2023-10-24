@@ -3,6 +3,7 @@ package com.example.demo.src.chatting.entitiy;
 import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.user.entitiy.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -33,6 +34,7 @@ public class ChattingRoom extends BaseEntity {
     @OneToMany(mappedBy = "chattingRoom")
     List<ChattingText> chattingTextList = new ArrayList<>();
 
+    @Builder
     public ChattingRoom(User sendUser, User receiveUser){
         this.sendUser=sendUser;
         this.receiveUser=receiveUser;

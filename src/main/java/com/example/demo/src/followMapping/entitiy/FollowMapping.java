@@ -25,6 +25,7 @@ public class FollowMapping extends BaseEntity {
     @JoinColumn(name = "followerUserId")
     private User followerUser; //팔로우 하는 유저 (팔로워가 됨)
 
+    @Builder
     public FollowMapping(User followUser, User followerUser){
         this.followUser=followUser;
         this.followerUser=followerUser;

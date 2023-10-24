@@ -3,6 +3,7 @@ package com.example.demo.src.comment.entity;
 import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.user.entitiy.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,6 +33,7 @@ public class ReComment extends BaseEntity {
     @Column(nullable = false, length = 2000)
     private String reCommentText;
 
+    @Builder
     public ReComment(FeedComment feedComment, User user, String reCommentText){
         this.feedComment=feedComment;
         this.user=user;

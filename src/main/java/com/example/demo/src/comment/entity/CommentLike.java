@@ -3,6 +3,7 @@ package com.example.demo.src.comment.entity;
 import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.user.entitiy.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,7 @@ public class CommentLike extends BaseEntity {
     @JoinColumn(name = "userId")
     private User user;
 
+    @Builder
     public CommentLike(User user, FeedComment feedComment){
         this.user=user;
         this.feedComment=feedComment;

@@ -27,6 +27,7 @@ public class FeedContent extends BaseEntity {
     private Long fileSize;
 
 
+    @Builder
     public FeedContent(String postName, String postURL, Long fileSize){
         this.postName=postName;
         this.postURL=postURL;

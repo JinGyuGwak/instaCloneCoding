@@ -3,6 +3,7 @@ package com.example.demo.src.feed.entitiy;
 import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.user.entitiy.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,7 @@ public class FeedLike extends BaseEntity {
     @JoinColumn(name = "userId")
     private User user;
 
+    @Builder
     public FeedLike(Feed feed, User user){
         this.feed=feed;
         this.user=user;

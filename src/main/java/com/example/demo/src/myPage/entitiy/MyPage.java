@@ -4,6 +4,7 @@ import com.example.demo.src.common.entity.BaseEntity;
 import com.example.demo.src.myPage.dto.MyPageDto;
 import com.example.demo.src.user.entitiy.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,6 +32,7 @@ public class MyPage extends BaseEntity {
     @JoinColumn(name = "userId", unique=true)
     private User user;
 
+    @Builder
     public MyPage(User user, MyPageDto myPageDto){
         this.user=user;
         this.name= myPageDto.getName();
