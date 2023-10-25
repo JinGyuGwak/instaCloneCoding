@@ -102,7 +102,7 @@ public class UserServiceTest {
         assertThat(getUserRes.getName()).isEqualTo("카리나");
     }
     @Test
-    public void logIn_tesT(){
+    public void logIn_test(){
         //given
         UserDto.LoginUserDto loginUserDto = userService.logIn("test2695@naver.com", "269599zz");
 
