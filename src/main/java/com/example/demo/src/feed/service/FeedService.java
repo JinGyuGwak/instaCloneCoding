@@ -1,11 +1,10 @@
 package com.example.demo.src.feed.service;
 
-import com.example.demo.src.feed.dto.FeedDto;
 import com.example.demo.src.feed.dto.FeedDto.*;
 import com.example.demo.src.feed.entitiy.Feed;
 import com.example.demo.src.feed.entitiy.FeedContent;
 import com.example.demo.src.feed.entitiy.FeedReport;
-import com.example.demo.src.common.config.S3Uploader;
+import com.example.demo.src.util.S3Uploader;
 import com.example.demo.src.user.service.UserService;
 import com.example.demo.src.util.FuncFeed;
 import com.example.demo.src.util.FuncUser;

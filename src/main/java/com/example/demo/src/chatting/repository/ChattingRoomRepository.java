@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ChattingRoomRepository extends JpaRepository<ChattingRoom,Long> {
+
+
+    ChattingRoom findBySendUserId(Long id);
+
     Optional<ChattingRoom> findByIdAndState(Long id, State state);
     List<ChattingRoom> findBySendUserIdOrReceiveUserId(Long sendUserid,Long receiveUserid);
 

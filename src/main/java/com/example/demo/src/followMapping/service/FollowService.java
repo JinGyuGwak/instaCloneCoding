@@ -5,6 +5,7 @@ import com.example.demo.src.followMapping.repository.FollowMappingRepository;
 import com.example.demo.src.followMapping.entitiy.FollowMapping;
 import com.example.demo.src.util.FuncUser;
 import com.example.demo.src.user.entitiy.User;
+import com.example.demo.src.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,6 @@ import static com.example.demo.src.common.entity.BaseEntity.State.ACTIVE;
 public class FollowService {
     private final FuncUser funcUser;
     private final FollowMappingRepository followMappingRepository;
-
     //{id}가 팔로우 하는 사람 조회
     @Transactional(readOnly = true)
     public List<FollowDto> followSearch(Long userId){

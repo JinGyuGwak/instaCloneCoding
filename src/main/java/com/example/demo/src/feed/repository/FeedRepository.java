@@ -18,6 +18,7 @@ import java.util.Optional;
 public interface FeedRepository extends JpaRepository<Feed, Long> {
 
 
+    Feed findByPostText(String text); //테스트용
     Optional<Feed> findByIdAndState(Long id, State state);
 
     @EntityGraph(attributePaths = {"feedContentList","user"})

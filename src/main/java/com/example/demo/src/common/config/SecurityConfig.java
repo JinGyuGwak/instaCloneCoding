@@ -24,8 +24,6 @@ public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

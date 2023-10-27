@@ -26,10 +26,14 @@ public class FeedDto {
         private Long feedId; //피드Id
         private String username;
         private String feedText;
+
         @Builder.Default
         private List<String> feedContentListURL = new ArrayList<>();
 
         public GetFeedRes(Feed feed){
+            if(this.feedContentListURL == null){
+                this.feedContentListURL=new ArrayList<>();
+            }
             this.feedId=feed.getId();
             this.feedText=feed.getPostText();
             this.username=feed.getUser().getName();

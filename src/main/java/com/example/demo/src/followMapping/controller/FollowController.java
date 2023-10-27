@@ -25,8 +25,7 @@ public class FollowController {
      */
     @GetMapping("{userId}")
     public ResponseEntity<List<FollowDto>> followMappingSearch(@PathVariable Long userId) {
-        List<FollowDto> getFollowList = followService.followSearch(userId);
-        return new ResponseEntity<>(getFollowList, HttpStatus.OK);
+        return new ResponseEntity<>(followService.followSearch(userId), HttpStatus.OK);
     }
 
     /**
@@ -35,8 +34,7 @@ public class FollowController {
      */
     @GetMapping("/follower/{userId}")
     public ResponseEntity<List<FollowerDto>> followerSearch(@PathVariable Long userId) {
-        List<FollowerDto> getFollowerList = followService.followerSearch(userId);
-        return new ResponseEntity<>(getFollowerList,HttpStatus.OK);
+        return new ResponseEntity<>(followService.followerSearch(userId),HttpStatus.OK);
     }
 
     /**

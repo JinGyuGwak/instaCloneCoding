@@ -16,6 +16,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -66,9 +68,12 @@ public class MyPageServiceTest {
         //when
         MyPage myPage = myPageRepository.findByName("고마츠 나나")
                 .orElseThrow(() -> new IllegalArgumentException("DB 연결에 실패한 테스트입니다."));
+        User user1 = userRepository.findByEmail("test2695@naver.com")
+                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+
         myPageService.updateMyPage(
                 MyPageDto.builder()
-                        .userId(myPage.getId())
+                        .userId(user1.getId())
                         .name("카리나")
                         .nickname("카리나는 신이야")
                         .introduction("고마츠 나나!")
@@ -83,13 +88,12 @@ public class MyPageServiceTest {
     @Test
     public void getMyPage_test(){
         //when
-        MyPage myPage = myPageRepository.findByName("고마츠 나나")
-                .orElseThrow(() -> new IllegalArgumentException("DB 연결에 실패한 테스트입니다."));
-        MyPageDto myPageDto = myPageService.getMyPage(myPage.getId());
+        User user1 = userRepository.findByEmail("test2695@naver.com")
+                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+        MyPageDto myPageDto = myPageService.getMyPage(user1.getId());
         assertThat(myPageDto.getName()).isEqualTo("고마츠 나나");
         assertThat(myPageDto.getNickname()).isEqualTo("나나는 신이야");
         assertThat(myPageDto.getIntroduction()).isEqualTo("카리나!카리나!");
-
     }
 
 

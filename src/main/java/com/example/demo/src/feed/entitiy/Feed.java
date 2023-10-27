@@ -29,7 +29,8 @@ public class Feed extends BaseEntity {
     @Column(nullable = false, length = 2200)
     private String postText;
 
-    private int reportCount;
+    @Builder.Default
+    private int reportCount = 0;
 
 
     @Builder.Default
