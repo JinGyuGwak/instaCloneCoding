@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 public class DemoApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(DemoApplication.class, args);
     }
 
