@@ -10,8 +10,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 public class DemoApplication {
 
     public static void main(String[] args) {
-
-
+        //아 왜 안 돼!!!!
         SpringApplication.run(DemoApplication.class, args);
     }
 
