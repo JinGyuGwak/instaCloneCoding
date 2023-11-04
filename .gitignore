@@ -136,7 +136,6 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -173,7 +172,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-*.properties
 *.yml
 aws.yml
 logback-spring.xml
