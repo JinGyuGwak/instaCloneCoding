@@ -100,6 +100,14 @@ asciidoctor { // (7)
     configurations 'asciidoctorExt' // (9)
     dependsOn test // (10)
 }
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static/docs")
+}
+build {
+    dependsOn copyDocument
+}
 bootJar {
     duplicatesStrategy = 'exclude'
     dependsOn asciidoctor // (1)
