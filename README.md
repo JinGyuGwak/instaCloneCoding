@@ -45,7 +45,7 @@
 
 # 시스템 아키텍쳐
 
-<img width="100%" src="https://github.com/JinGyuGwak/instaCloneCoding/assets/104514223/f6b6ec3e-e71f-4401-8a19-f1be0b6bd9f3">
+<img width="100%" src="https://github.com/JinGyuGwak/instaCloneCoding/assets/104514223/2b48aaae-d9aa-4be5-82df-c38d2ba8c5a7">
 
 <br>
 <br>
