@@ -50,9 +50,14 @@
 <br>
 <br>
 
-# 기능 명세서
+# 기능 명세서 및 API 문서
 
+기능명세서 :
 https://github.com/JinGyuGwak/instaCloneCoding/wiki/%EC%97%94%EB%93%9C%ED%8F%AC%EC%9D%B8%ED%8A%B8
+
+API 문서 :
+http://43.201.123.163:8080/docs/index.html
+
 
 <br>
 <br>
