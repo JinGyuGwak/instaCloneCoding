@@ -1,13 +1,11 @@
 # Instagram Clone
 
 ## 🚀프로젝트 목적
+최소한의 구현능력을 학습한 이후 개발 능력을 향상시키기 위한 최고의 방법은 직접 무언가를 만드는 것이라고 생각하였습니다.
 
-새로운 기술을 배울 때 저에게 가장 효과적인 방법은 직접 그 기술을 사용하는 것이라고 느꼈습니다.
+처음 이 프로젝트를 시작했을 때에는 JPA를 이용하여로 단순한 CRUD 만을 구현하였지만 이후에 지속적으로 학습을 하며 Security적용, AWS와 Dokcer를 이용한 배포, 단위테스트와 통합테스트 코드를 작성하여 지금의 모습으로 발젼시켰으며, Jenkins를 이용한 CI/CD 파이프라인도 구축하였습니다.
 
-처음 이 프로젝트를 시작했을 때에는 게시판 만들기로 단순한 CRUD 만을 구현하였지만 이후에 지속적으로 학습을 하며 Security적용, AWS를 이용한 배포, 단위테스트와 통합테스트 코드를 작성하여 지금의 
-모양으로 발젼시켰으며 현재는 CI/CD 구축을 시도하고 있습니다.
-
-새로운 기술을 학습할 뿐 아니라 지속적으로 리팩토링을 하며 과거에 작성한 제 코드들을 보며 과거보다 성장했음을 느낍니다.
+여기서 끝내지 않고 이후에도 학습한 내용들을 프로젝트에 적용시키며 발전시킬 예정입니다.
 
 <br>
 
@@ -17,23 +15,24 @@
 
 - IDE : intelliJ IDEA
 - JDK : java 8
-- Project : Gradle
+- Build tool : Gradle
 - SpringBoot 2.7.5
+- MariaDB (AWS RDS)
+
+### Infra
 - AWS EC2
 - AWS S3
-- MariaDB (RDS)
+- Github WebHook
+- Docker
+- Jenkins
 
-### Dependency
+### 주요 라이브러리
 
-- Spring Web
 - Spring Data JPA
 - Spring Security
 - JWT
-- Lombok
-- MariaDB
-- Validation
-- AsciiDocs
-- H2
+- Spring Rest Docs
+- H2 (테스트 용도)
 
 <br>
 
@@ -44,9 +43,26 @@
 <br>
 <br>
 
-# 서비스 기능
+# 시스템 아키텍쳐
+
+<img width="100%" src="https://github.com/JinGyuGwak/instaCloneCoding/assets/104514223/f6b6ec3e-e71f-4401-8a19-f1be0b6bd9f3">
+
+<br>
+<br>
+
+# 기능 명세서
 
 https://github.com/JinGyuGwak/instaCloneCoding/wiki/%EC%97%94%EB%93%9C%ED%8F%AC%EC%9D%B8%ED%8A%B8
+
+<br>
+<br>
+
+# 주요 구현 내용
+- JPA를 이용한 CRUD
+- Spring Security 와 JWT를 이용한 인증, 인가
+- Junit과 Mockito를 이용한 단위테스트, 통합테스트
+- Spring Rest Docs를 이용한 API 문서
+- Jenkins를 이용한 CI/CD 파이프라인 구축
 
 <br>
 <br>

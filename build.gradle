@@ -87,18 +87,18 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-ext { // (5)
+ext {
     snippetsDir = file('build/generated-snippets')
 }
 
-test { // (6)
+test {
     outputs.dir snippetsDir
 }
 
-asciidoctor { // (7)
-    inputs.dir snippetsDir // (8)
-    configurations 'asciidoctorExt' // (9)
-    dependsOn test // (10)
+asciidoctor {
+    inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
+    dependsOn test
 }
 task copyDocument(type: Copy) {
     dependsOn asciidoctor
@@ -110,8 +110,8 @@ build {
 }
 bootJar {
     duplicatesStrategy = 'exclude'
-    dependsOn asciidoctor // (1)
-    from("${asciidoctor.outputDir}") { // (2)
+    dependsOn asciidoctor
+    from("${asciidoctor.outputDir}") {
         into 'static/docs'
     }
 }
