@@ -63,11 +63,12 @@ http://43.201.123.163:8080/docs/index.html
 <br>
 
 # 주요 구현 내용
-- JPA를 이용한 CRUD
-- Spring Security 와 JWT를 이용한 인증, 인가
-- Junit과 Mockito를 이용한 단위테스트, 통합테스트
-- Spring Rest Docs를 이용한 API 문서
-- Jenkins를 이용한 CI/CD 파이프라인 구축
+- **38개의 API Endpoint** 구현 및, JPA를 이용한 CRUD 구현
+- 이미지 업로드를 위한 **AWS S3 연동**
+- **Spring Security 와 JWT**를 이용한 인증, 인가 구현
+- Junit과 Mockito를 이용한 **총 78개의 단위테스트 & 통합테스트 작성**
+- **Spring Rest Docs를** 이용한 API 문서 작성
+- Jenkins & Docker를 이용한 **CI/CD 파이프라인 구축**
 
 <br>
 <br>
