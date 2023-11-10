@@ -184,7 +184,6 @@ http://43.201.123.163:8080/docs/index.html
                     format_sql: true
             generate-ddl: true
             show-sql: true
-            defer-datasource-initialization: true
         h2:
             console:
                 enabled: true
