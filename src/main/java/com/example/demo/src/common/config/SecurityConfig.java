@@ -50,7 +50,6 @@ public class SecurityConfig {
                 .anyRequest().permitAll()
                 .and()
 
-//                .apply(new JwtSecurityConfig(jwtTokenProvider)); //생성자 주입을 통해 JwtFilter 를 SecurityConfig 에 적용
                 .addFilterBefore(new JwtFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
 

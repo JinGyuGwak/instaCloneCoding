@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-//UserDetailsService는 스프링 시큐리티에서 사용자 정보를 로드하기 위한 인터페이스
+//UserDetailsService 는 스프링 시큐리티에서 사용자 정보를 로드하기 위한 인터페이스
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
